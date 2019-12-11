@@ -3,7 +3,8 @@ pipeline {
   stages {
     stage('clean') {
       steps {
-        sh 'mvn clean package'
+        sh 'mvn -B clean package'
+        archiveArtifacts(allowEmptyArchive: true, artifacts: '**/*.war')
       }
     }
 
