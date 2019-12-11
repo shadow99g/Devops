@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>EXTERNAS</title>
+    </h:head>
+    <h:body>
+        <!-- ESTUDIO -->
+
+        <ui:composition template="../Template/Template.xhtml">
+            <ui:define name="content">
+                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                    <div class="card">
+
+                        <h:form id="FORMEXT">
+                            <h2 align="center"> CAPACITACIONES EXTERNAS </h2>   
+                            <p:panelGrid columns="4" styleClass="ui-panelgrid-blank" >
+                                <p:outputLabel value="EMPLEADO:" />
+                                <p:autoComplete value="#{estudioC.estudio.CODEMP}" required="true" 
+                                                requiredMessage="AÑADIR EMPLEADO" completeMethod="#{autoCompletar.completeEmpleado}"/>
+
+                                <p:outputLabel value="CENTRO DE ESTUDIO:" />
+                                <p:autoComplete value="#{estudioC.estudio.CODCEN}" required="true" 
+                                                requiredMessage="AÑADIR CENTRO DE ESTUDIO" completeMethod="#{autoCompletar.completeCentro}"/>
+                                <p:outputLabel value="DESDE:" />
+                                <p:calendar value="#{estudioC.estudio.DESEST}"  required="true"
+                                            pattern="dd/MM/yyyy" mask="true" navigator="true"/>
+
+                                <p:outputLabel value="HASTA:" />
+                                <p:calendar value="#{estudioC.estudio.HASEST}"  required="true"
+                                            pattern="dd/MM/yyyy" mask="true" navigator="true"/>
+                                
+                                <p:outputLabel value="CURSO:" />
+                                <p:inputText value="#{estudioC.estudio.NOMCUR}" maxlength="50" />
+
+                                <p:outputLabel value="FINANCIAMIENTO" />
+                                <p:inputText value="#{estudioC.estudio.FINEST}" maxlength="50"/>
+                                <p:outputLabel value="HORAS:" />
+                                <p:inputText value="#{estudioC.estudio.HORCAP}" maxlength="2"/>
+
+                            </p:panelGrid>
+                            <br/>
+                            <center>
+                                <p:commandButton value="REGISTRAR" actionListener="#{estudioC.agregarExterno()}" update="FORMEXT FormListarEstudio"/>
+                                <p:commandButton value="LISTAR" actionListener="#{estudioC.listarExterno()}" update="FormListarEstudio"/>
+                            </center>
+                            <br/>
+                        </h:form>
+                        <h:form id="FormListarEstudio">
+                            <p:dataTable id="TBLExterno" value="#{estudioC.lstExterno}" var="listExter"
+                                         selection="#{estudioC.estudio}"
+                                         selectionMode="single" filteredValue="#{estudioC.filter}"
+                                         rowKey="#{listExter.CODCAP}"
+                                         paginator="true" rows="10"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                                <p:column headerText="EMPLEADO" groupRow="true"
+                                          filterBy="#{listExter.NOMEMP}" filterMatchMode="contains">
+                                    <p:outputLabel value="#{listExter.NOMEMP}"/>
+                                </p:column>
+                                <p:column headerText="CENTRO DE ESTUDIO">
+                                    <p:outputLabel value="#{listExter.CODCEN}"/>
+                                </p:column>
+                                <p:column headerText="DESDE">
+                                    <p:outputLabel value="#{listExter.DESEST1}"/>
+                                </p:column>
+                                <p:column headerText="HASTA">
+                                    <p:outputLabel value="#{listExter.HASEST1}"/>
+                                </p:column>
+                                <p:column headerText="CURSO">
+                                    <p:outputLabel value="#{listExter.NOMCUR}"/>
+                                </p:column>
+                                <p:column headerText="HORAS">
+                                    <p:outputLabel value="#{listExter.HORCAP}"/>
+                                </p:column>
+                                <p:column headerText="FINANCIAMIENTO">
+                                    <p:outputLabel value="#{listExter.FINEST}"/>
+                                </p:column>
+                            </p:dataTable>
+                            <p:contextMenu for="TBLExterno">
+                                <p:menuitem value="MODIFICAR" onclick="PF('EditExterno').show()" update="FORMDialogEx"/>
+                                <p:menuitem value="ELIMINAR" actionListener="#{estudioC.eliminarExterno()}" 
+                                            update="TBLExterno">
+                                    <p:confirm header="CONFIRMACIÓN" message="¿ESTÁS SEGURO DE ELIMINAR?" icon="ui-icon-alert"/>
+                                </p:menuitem>
+                            </p:contextMenu>
+                        </h:form>
+                        <p:dialog  id="DialogExterno" widgetVar="EditExterno" modal="true" showEffect="explode">
+                            <h:form id="FORMDialogEx">
+                                <p:panelGrid columns="4">
+                                    <p:outputLabel value="EMPLEADO:" />
+                                    <p:autoComplete value="#{estudioC.estudio.NOMEMP}" required="true" 
+                                                    requiredMessage="AÑADIR EMPLEADO" completeMethod="#{autoCompletar.completeEmpleado}"/>
+
+                                    <p:outputLabel value="CENTRO DE ESTUDIO:" />
+                                    <p:autoComplete value="#{estudioC.estudio.CODCEN}" required="true" 
+                                                    requiredMessage="AÑADIR CENTRO DE ESTUDIO" completeMethod="#{autoCompletar.completeCentro}"/>
+                                    <p:outputLabel value="DESDE:" />
+                                    <p:calendar  value="#{estudioC.estudio.DESEST}"  required="true"
+                                                 pattern="dd/MM/yyyy" mask="true" navigator="true"/>
+
+                                    <p:outputLabel value="HASTA:" />
+                                    <p:calendar  value="#{estudioC.estudio.HASEST}"  required="true"
+                                                 pattern="dd/MM/yyyy" mask="true" navigator="true"/>
+                                    
+                                    <p:outputLabel value="CURSO:" />
+                                    <p:inputText value="#{estudioC.estudio.NOMCUR}" maxlength="50" />
+
+                                    <p:outputLabel value="FINANCIAMIENTO:" />
+                                    <p:inputText value="#{estudioC.estudio.FINEST}" maxlength="50"/>
+                                    <p:outputLabel value="HORAS:" />
+                                    <p:inputText value="#{estudioC.estudio.HORCAP}" maxlength="2"/>
+                                </p:panelGrid>
+                                <p:commandButton value="MODIFICAR" 
+                                                 onclick="PF('EditExterno').hide()" 
+                                                 actionListener="#{estudioC.modificarExterno()}" 
+                                                 update="FORMEXT FormListarEstudio FORMDialogEx"/>
+                                <p:commandButton value="CANCELAR" onclick="PF('EditExterno').hide()"/>
+                            </h:form>
+                        </p:dialog>
+                        <h:form>
+                            <p:confirmDialog global="true">
+                                <p:commandButton value="SI" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                <p:commandButton value="NO" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                            </p:confirmDialog>
+                        </h:form>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <title>Detalle Dialecto</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../Template/Template.xhtml">
+            <ui:define name="content">
+                <h:form id="FrmAgregar">
+                    <p:growl life="1500">
+                        <p:autoUpdate/>
+                    </p:growl>
+
+
+                    <p:commandButton value="NUEVO" type="button" onclick="PF('dlgDialectoDetalle').show();" />
+
+                    <p:dialog header="Dialecto Detalle" widgetVar="dlgDialectoDetalle" modal="true" height="350" >
+
+                        <p:panel id="panelIdioma">
+                            <p:panelGrid columns="2" style="width: 100%">
+                                <p:outputLabel value="EMPLEADO"/>
+                                <p:autoComplete value="#{dialectoDetalleC.dialectoDetalle.CODEMP}"
+                                                completeMethod="#{autoCompletar.completeEmpleado}"
+                                                maxResults="6"
+                                                emptyMessage="Sin resultados"
+                                                dropdown="true"/>
+                                <p:outputLabel value="DIALECTO"/>
+                                <p:autoComplete value="#{dialectoDetalleC.dialectoDetalle.CODDIA}"
+                                                completeMethod="#{autoCompletar.completeDialecto}"
+                                                maxResults="6"
+                                                emptyMessage="Sin resultados"
+                                                dropdown="true"/>
+
+                                <p:outputLabel value="LEE"/>
+                                <p:inputText id="txtLee" value="#{dialectoDetalleC.dialectoDetalle.LEEDIADET}" placeholder="Ingrese si Lee"/>
+                                <p:outputLabel value="HABLA"/>
+                                <p:inputText id="txtHabla" value="#{dialectoDetalleC.dialectoDetalle.HABDIADET}" placeholder="Ingrese si Habla"/>
+                                <p:outputLabel value="ESCRIBE"/>
+                                <p:inputText id="txtEscribe" value="#{dialectoDetalleC.dialectoDetalle.ESCDIADET}" placeholder="Ingrese si Escribe"/>
+
+                            </p:panelGrid>
+                            <br/>
+                            <center>
+                                <p:commandButton value="AGREGAR" actionListener="#{dialectoDetalleC.agregarDialectoDetalle()}"
+                                                 update="FrmAgregar FrmListar"  style="width: 150px" >
+                                    <!--<p:ajax update="panelIdioma" resetValues="true" />-->
+                                    <p:confirm header="CONFIRMACIÓN" message="¿Habla otro idioma?" icon="pi pi-exclamation-triangle" />
+                                </p:commandButton>
+
+                                <p:commandButton value="CANCELAR" process="@this" onclick="PF('dlgDialectoDetalle').hide();"  style="width: 150px" update="FrmListar"/>
+                            </center>
+                            <p:confirmDialog global="true">
+                                <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="No" styleClass="ui-confirmdialog-yes" icon="ui-icon-close" onclick="PF('dlgDialectoDetalle').hide();"/>
+                            </p:confirmDialog>
+                        </p:panel>
+                    </p:dialog>
+
+                </h:form>
+
+
+
+                <h:form id="FrmListar">
+                    <p:dataTable id="ListarDialecto"
+                                 value="#{dialectoDetalleC.lstDialectoDetalle}"
+                                 var="dialectoDetalle"
+                                 sortBy="#{dialectoDetalle.CODEMP}"
+                                 expandableRowGroups="true" 
+                                 emptyMessage="No hay datos" 
+                                 selectionMode="single"
+                                 selection="#{dialectoDetalleC.dialectoDetalle}"
+                                 rowKey="#{dialectoDetalle.CODDIADET}">
+
+                        <f:facet name="header">
+                            <h3>DATOS</h3>
+                        </f:facet>
+                        <p:headerRow>
+                            <p:column colspan="4">
+                                <h:outputText value="#{dialectoDetalle.CODEMP}" />
+                            </p:column>
+                        </p:headerRow>
+                        <p:column headerText="IDIOMA">
+                            <p:outputLabel value="#{dialectoDetalle.CODDIA}"/>
+                        </p:column>
+                        <p:column headerText="LEE">
+                            <p:outputLabel value="#{dialectoDetalle.LEEDIADET}"/>
+                        </p:column>
+                        <p:column headerText="HABLA">
+                            <p:outputLabel value="#{dialectoDetalle.HABDIADET}"/>
+                        </p:column>
+                        <p:column headerText="ESCRIBE">
+                            <p:outputLabel value="#{dialectoDetalle.ESCDIADET}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                    <p:contextMenu for="ListarDialecto">
+                        <p:menuitem value="Editar" onclick="PF('dlgModDialectoDetalle').show()" update="FormModificar"/>
+                        <p:menuitem value="Eliminar" actionListener="#{dialectoDetalleC.eliminarDialectoDetalle()}" update="ListarDialecto">
+                            <p:confirm header="Confirmación" message="¿Estás seguro de Eliminar?" icon="ui-icon-alert"/>
+                        </p:menuitem>
+                    </p:contextMenu>
+                </h:form>
+                <p:dialog header="Modificar Datos" widgetVar="dlgModDialectoDetalle">
+                    <h:form id="FormModificar">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="EMPLEADO"/>
+                            <p:autoComplete value="#{dialectoDetalleC.dialectoDetalle.CODEMP}"
+                                            completeMethod="#{autoCompletar.completeEmpleado}"
+                                            maxResults="6"
+                                            emptyMessage="Sin resultados"
+                                            dropdown="true"/>
+                            <p:outputLabel value="DIALECTO"/>
+                            <p:autoComplete value="#{dialectoDetalleC.dialectoDetalle.CODDIA}"
+                                            completeMethod="#{autoCompletar.completeDialecto}"
+                                            maxResults="6"
+                                            emptyMessage="Sin resultados"
+                                            dropdown="true"/>
+                            <p:outputLabel value="LEE"/>
+                            <p:inputText value="#{dialectoDetalleC.dialectoDetalle.LEEDIADET}"/>
+                            <p:outputLabel value="HABLA"/>
+                            <p:inputText value="#{dialectoDetalleC.dialectoDetalle.HABDIADET}"/>
+                            <p:outputLabel value="ESCRIBE"/>
+                            <p:inputText value="#{dialectoDetalleC.dialectoDetalle.ESCDIADET}"/>
+                        </p:panelGrid>
+                        <br/>
+                        <center>
+                            <p:commandButton value="Modificar" actionListener="#{dialectoDetalleC.modificarDialectoDetalle()}" 
+                                             style="width: 150px" onclick="PF('dlgModDialectoDetalle').hide()" 
+                                             update="FrmListar FrmAgregar"/>
+
+                            <p:commandButton value="Cancelar" onclick="PF('dlgModDialectoDetalle').hide()"  style="width: 150px"/>
+                        </center>
+                    </h:form>
+                </p:dialog>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

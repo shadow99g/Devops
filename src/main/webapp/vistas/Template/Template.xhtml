@@ -1,0 +1,1328 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head >
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <link href="../../resources/css/theme.css" rel="stylesheet" type="text/css"/>
+        <link href="../../resources/css/fa/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link href="../../resources/css/componentss.css" rel="stylesheet" type="text/css"/>
+        <script src="../../resources/js/jquery.js" type="text/javascript"></script>
+        <script src="../../resources/js/core.js" type="text/javascript"></script>
+        <script src="../../resources/js/components.js" type="text/javascript"></script>
+        <script src="../../resources/js/jquery-plugins.js" type="text/javascript"></script>
+        <link href="../../resources/css/charts.css" rel="stylesheet" type="text/css"/>
+        <script src="../../resources/js/charts.js" type="text/javascript"></script>
+        <link href="../../resources/css/schedule.css" rel="stylesheet" type="text/css"/>
+        <script src="../../resources/js/moment.js" type="text/javascript"></script>
+        <script src="../../resources/js/schedule.js" type="text/javascript"></script>
+        <link href="../../resources/css/nanoscroller.css" rel="stylesheet" type="text/css"/>
+        <link href="../../resources/css/ripple.css" rel="stylesheet" type="text/css"/>
+        <link href="../../resources/css/layout-moody.css" rel="stylesheet" type="text/css"/>
+        <link href="../../resources/css/layout-moody-min.css" rel="stylesheet" type="text/css"/>
+
+
+
+        <script type="text/javascript">if (window.PrimeFaces) {
+                PrimeFaces.settings.locale = 'en_US';
+                PrimeFaces.settings.projectStage = 'Development';
+            }
+        </script>
+        <title>Dashboard</title>
+        <script src="../../resources/js/nanoscroller.js" type="text/javascript"></script>
+        <script src="../../resources/js/layout.js" type="text/javascript"></script>
+        <script src="../../resources/js/ripple.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            //<![CDATA[
+            function skinBar() {
+                this.cfg.shadow = false;
+                this.cfg.title = '';
+                this.cfg.seriesColors = ['#00bcd4', '#cddc39'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#EEEEEE',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    borderWidth: 0.1,
+                    borderColor: 'dce2e7',
+                    rendererOptions: {
+                        textColor: '#212121'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    lineWidth: 1,
+                    renderer: $.jqplot.BarRenderer,
+                    markerOptions: {
+                        shadow: false,
+                        size: 7,
+                        style: 'circle'
+                    }
+                }
+            }
+            //]]>
+        </script>
+        <style type="text/css">
+            .main-content {
+                padding: 0;
+            }
+        </style>
+
+    </h:head>
+    <h:body>
+        <div class="layout-wrapper  ">
+
+            <div class="layout-sidebar ">
+                <div class="sidebar-logo">
+                    <a href="../../index.xhtml">
+                        <img id="j_idt14" src="../../resources/images/logo-slim.png" alt="" />
+                        <span class="app-name"><img src="../../resources/images/gobierno.png" alt="" style="margin-left: 60px"/></span>
+                    </a>
+
+                    <a href="#" class="sidebar-anchor" title="Toggle Menu"></a>
+                </div>
+
+                <div class="nano">
+                    <div class="nano-content sidebar-scroll-content">
+                        <div class="layout-menu-container">
+                            <form id="menuform" name="menuform" method="post" action="https://www.primefaces.org/serenity/dashboard.xhtml;jsessionid=node0u139f8lytglh7t3993crklk0117247.node0" enctype="application/x-www-form-urlencoded">
+                                <input type="hidden" name="menuform" value="menuform" />
+                                <ul id="menuform:j_idt1" class="layout-menu">
+                                    <li id="menuform:sr_dashboard" role="menuitem">
+                                        <a class="ripplelink" href="#">
+                                            <i class="material-icons">
+                                                view_quilt
+                                            </i>
+                                            <span class="menuitem-text">Dashboard</span>
+                                        </a>
+                                    </li>
+
+
+
+
+                                    <!--                                    <li id="menuform:sr_customization1" role="menuitem">
+                                                                            <a href="#" class="ripplelink">
+                                                                                <i class="material-icons">
+                                                                                    language
+                                                                                </i>
+                                                                                <span class="menuitem-text">Menu Modes</span>
+                                                                                <i class="material-icons layout-submenu-toggler">&#xE313;</i>
+                                    
+                                                                            </a>
+                                                                            <ul role="menu">
+                                                                                <li id="menuform:menu1" role="menuitem">
+                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:menu1': 'menuform:menu1'}).submit('menuform');
+                                                                                            return false;">
+                                                                                        <i class="material-icons"></i>
+                                                                                        <span class="menuitem-text">Vertical Menu</span>
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li id="menuform:menu2" role="menuitem">
+                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:menu2': 'menuform:menu2'}).submit('menuform');return false;">
+                                                                                        <i class="material-icons"></i>
+                                                                                        <span class="menuitem-text">Horizontal Menu</span>
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li id="menuform:menu3" role="menuitem">
+                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:menu3': 'menuform:menu3'}).submit('menuform');return false;">
+                                                                                        <i class="material-icons"></i>
+                                                                                        <span class="menuitem-text">Light Menu</span>
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li id="menuform:menu4" role="menuitem">
+                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:menu4': 'menuform:menu4'}).submit('menuform');return false;"><i class="material-icons"></i><span class="menuitem-text">Dark Menu</span>
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li id="menuform:sr_orientation" role="menuitem">
+                                                                                    <a href="#" class="ripplelink">
+                                                                                        <i class="material-icons"></i>
+                                                                                        <span class="menuitem-text">Orientation</span>
+                                                                                        <i class="material-icons layout-submenu-toggler">&#xE313;</i>
+                                                                                    </a>
+                                                                                    <ul role="menu">
+                                                                                        <li id="menuform:sr_ltr" role="menuitem">
+                                                                                            <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:sr_ltr': 'menuform:sr_ltr'}).submit('menuform');return false;">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">LTR</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li id="menuform:sr_rtl" role="menuitem">
+                                                                                            <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:sr_rtl': 'menuform:sr_rtl'}).submit('menuform');return false;">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">RTL</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </li>-->
+
+
+                                    <!--                                    
+                                                                        <li id="menuform:sr_colors" role="menuitem">
+                                                                            <a href="#" class="ripplelink">
+                                                                                <i class="material-icons"></i>
+                                                                                <span class="menuitem-text">Colors</span>
+                                                                                <i class="material-icons layout-submenu-toggler">&#xE313;</i>
+                                                                            </a>
+                                                                            <ul role="menu">
+                                                                                <li id="menuform:sr_layouts" role="menuitem">
+                                                                                    <a href="#" class="ripplelink">
+                                                                                        <i class="material-icons"></i>
+                                                                                        <span class="menuitem-text">Layout Palette</span>
+                                                                                        <i class="material-icons layout-submenu-toggler">&#xE313;</i>
+                                                                                    </a>
+                                                                                    <ul role="menu">
+                                                                                        <li id="menuform:j_idt17" role="menuitem">
+                                                                                            <a href="#" class="ripplelink">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">Flat</span>
+                                                                                                <i class="material-icons layout-submenu-toggler">&#xE313;</i>
+                                                                                            </a><ul role="menu">
+                                                                                                <li id="menuform:layout1" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout1': 'menuform:layout1'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Indigo - Pink</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout2" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout2': 'menuform:layout2'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Pink - Amber</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout3" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout3': 'menuform:layout3'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Purple - Pink</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout4" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout4': 'menuform:layout4'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Deep Purple - Orange</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout5" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout5': 'menuform:layout5'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Blue - Amber</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout6" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout6': 'menuform:layout6'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Light Blue - Blue Grey</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout7" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout7': 'menuform:layout7'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Cyan - Amber</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout8" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout8': 'menuform:layout8'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Teal - Red</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout9" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout9': 'menuform:layout9'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Green - Brown</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout10" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout10': 'menuform:layout10'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Light Green - Purple</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout11" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout11': 'menuform:layout11'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Lime - Blue Grey</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout12" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout12': 'menuform:layout12'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Yellow - Teal</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout13" role="menuitem"><a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout13': 'menuform:layout13'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Amber - Pink</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout14" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout14': 'menuform:layout14'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Orange - Indigo</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout15" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout15': 'menuform:layout15'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Deep Orange - Cyan</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout16" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout16': 'menuform:layout16'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Brown - Cyan</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout17" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout17': 'menuform:layout17'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Grey - Indigo</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout18" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout18': 'menuform:layout18'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Blue Grey - Green</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </li>
+                                                                                        <li id="menuform:sr_special" role="menuitem">
+                                                                                            <a href="#" class="ripplelink">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">Special</span>
+                                                                                                <i class="material-icons layout-submenu-toggler">&#xE313;</i>
+                                                                                            </a>
+                                                                                            <ul role="menu">
+                                                                                                <li id="menuform:layout19" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout19': 'menuform:layout19'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Reflection</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout20" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout20': 'menuform:layout20'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Moody</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout21" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout21': 'menuform:layout21'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Cityscape</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout22" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout22': 'menuform:layout22'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Cloudy</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout23" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout23': 'menuform:layout23'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Storm</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout24" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout24': 'menuform:layout24'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Palm</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout25" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout25': 'menuform:layout25'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Flatiron</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout26" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout26': 'menuform:layout26'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Panaroma</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                                <li id="menuform:layout27" role="menuitem">
+                                                                                                    <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:layout27': 'menuform:layout27'}).submit('menuform');return false;">
+                                                                                                        <i class="material-icons"></i>
+                                                                                                        <span class="menuitem-text">Horizon</span>
+                                                                                                    </a>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </li>
+                                                                                <li id="menuform:sr_themes" role="menuitem">
+                                                                                    <a href="#" class="ripplelink">
+                                                                                        <i class="material-icons"></i>
+                                                                                        <span class="menuitem-text">Themes</span>
+                                                                                        <i class="material-icons layout-submenu-toggler">&#xE313;</i>
+                                                                                        <span class="menuitem-badge">8</span>
+                                                                                    </a>
+                                                                                    <ul role="menu">
+                                                                                        <li id="menuform:theme1" role="menuitem">
+                                                                                            <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:theme1': 'menuform:theme1'}).submit('menuform');return false;">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">Indigo - Pink</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li id="menuform:theme2" role="menuitem">
+                                                                                            <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:theme2': 'menuform:theme2'}).submit('menuform');return false;">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">Pink - Amber</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li id="menuform:theme3" role="menuitem">
+                                                                                            <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:theme3': 'menuform:theme3'}).submit('menuform');return false;">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">Purple - Pink</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li id="menuform:theme4" role="menuitem">
+                                                                                            <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:theme4': 'menuform:theme4'}).submit('menuform');return false;">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">Deep Purple - Orange</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li id="menuform:theme5" role="menuitem">
+                                                                                            <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:theme5': 'menuform:theme5'}).submit('menuform');return false;">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">Blue - Amber</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li id="menuform:theme6" role="menuitem">
+                                                                                            <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:theme6': 'menuform:theme6'}).submit('menuform');return false;">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">Light Blue - Blue Grey</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li id="menuform:theme7" role="menuitem">
+                                                                                            <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:theme7': 'menuform:theme7'}).submit('menuform');return false;">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">Cyan - Amber</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li id="menuform:theme8" role="menuitem">
+                                                                                            <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:theme8': 'menuform:theme8'}).submit('menuform');return false;">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">Teal - Red</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li id="menuform:theme9" role="menuitem">
+                                                                                            <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:theme9': 'menuform:theme9'}).submit('menuform');return false;">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">Green - Brown</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li id="menuform:theme10" role="menuitem">
+                                                                                            <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:theme10': 'menuform:theme10'}).submit('menuform');return false;">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">Light Green - Purple</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li id="menuform:theme11" role="menuitem">
+                                                                                            <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:theme11': 'menuform:theme11'}).submit('menuform');return false;">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">Lime - Blue Grey</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li id="menuform:theme12" role="menuitem">
+                                                                                            <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:theme12': 'menuform:theme12'}).submit('menuform');return false;">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">Yellow - Teal</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li id="menuform:theme13" role="menuitem">
+                                                                                            <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:theme13': 'menuform:theme13'}).submit('menuform');return false;">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">Amber - Pink</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li id="menuform:theme14" role="menuitem">
+                                                                                            <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:theme14': 'menuform:theme14'}).submit('menuform');return false;">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">Orange - Indigo</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li id="menuform:theme15" role="menuitem">
+                                                                                            <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:theme15': 'menuform:theme15'}).submit('menuform');return false;">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">Deep Orange - Cyan</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li id="menuform:theme16" role="menuitem">
+                                                                                            <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:theme16': 'menuform:theme16'}).submit('menuform');return false;">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">Brown - Cyan</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li id="menuform:theme17" role="menuitem">
+                                                                                            <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:theme17': 'menuform:theme17'}).submit('menuform');return false;">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">Grey - Indigo</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li id="menuform:theme18" role="menuitem">
+                                                                                            <a class="ripplelink" href="#" onclick="PrimeFaces.addSubmitParam('menuform', {'menuform:theme18': 'menuform:theme18'}).submit('menuform');return false;">
+                                                                                                <i class="material-icons"></i>
+                                                                                                <span class="menuitem-text">Blue Grey - Green</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </li>
+                                    -->
+
+
+
+
+
+                                    <!--                                    
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                    -->  
+                                    <li id="menuform:sr_components" role="menuitem">
+                                        <a href="#" class="ripplelink">
+                                            <i class="material-icons"></i>
+                                            <span class="menuitem-text">Experiencia Laboral</span>
+                                            <i class="material-icons layout-submenu-toggler">&#xE313;</i>
+                                            <!--                                            <span class="menuitem-badge">2</span>-->
+                                        </a>
+                                        <ul role="menu">
+                                            <li id="menuform:sr_sample" role="menuitem">
+                                                <a class="ripplelink" href="../desplazamiento/desplazamiento.xhtml">
+                                                    <i class="material-icons">
+                                                        repeat
+                                                    </i>
+                                                    <span class="menuitem-text">Desplazamiento</span>
+                                                </a>
+                                            </li>
+                                            <li id="menuform:sr_forms" role="menuitem">
+                                                <a class="ripplelink" href="../experienciaLaboral/experienciaLaboral.xhtml">
+                                                    <i class="material-icons">
+                                                        local_convenience_store
+                                                    </i>
+                                                    <span class="menuitem-text">Experiencia</span>
+                                                </a>
+                                            </li>
+                                            <!--                                            <li id="menuform:sr_data" role="menuitem">
+                                                                                            <a class="ripplelink" href="data.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247.html">
+                                                                                                <i class="material-icons">
+                                                                                                    local_library
+                                                                                                </i>
+                                                                                                <span class="menuitem-text">Admin. Publica</span>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li id="menuform:sr_panels" role="menuitem">
+                                                                                            <a class="ripplelink" href="panel.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247.html">
+                                                                                                <i class="material-icons">
+                                                                                                    business
+                                                                                                </i>
+                                                                                                <span class="menuitem-text">Institucion</span>
+                                                                                            </a>
+                                                                                        </li>-->
+
+                                        </ul>
+                                    </li>
+
+
+
+                                    <!--                                                <li id="menuform:sr_default" role="menuitem"><a href="#" class="ripplelink"><i class="material-icons"></i><span class="menuitem-text">Template Pages</span><i class="material-icons layout-submenu-toggler">&#xE313;</i></a><ul role="menu"><li id="menuform:sr_db_landing" role="menuitem"><a class="ripplelink" href="landing.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247.html"><i class="material-icons"></i><span class="menuitem-text">Landing</span></a></li><li id="menuform:sr_empty" role="menuitem"><a class="ripplelink" href="empty.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247.html"><i class="material-icons"></i><span class="menuitem-text">Empty Page</span></a></li><li id="menuform:sr_login" role="menuitem"><a class="ripplelink" href="login.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247.html"><i class="material-icons"></i><span class="menuitem-text">Login Page</span></a></li><li id="menuform:sr_error" role="menuitem"><a class="ripplelink" href="error.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247.html"><i class="material-icons"></i><span class="menuitem-text">Error Page</span></a></li><li id="menuform:sr_404" role="menuitem"><a class="ripplelink" href="notfound.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247.html"><i class="material-icons"></i><span class="menuitem-text">404 Page</span></a></li><li id="menuform:sr_access" role="menuitem"><a class="ripplelink" href="access.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247.html"><i class="material-icons"></i><span class="menuitem-text">Access Denied Page</span></a></li></ul></li>
+                                                                                    
+                                    -->
+                                    <!--                                                <li id="menuform:sr_hierarchy" role="menuitem"><a href="#" class="ripplelink"><i class="material-icons"></i><span class="menuitem-text">Hierarchy</span><i class="material-icons layout-submenu-toggler">&#xE313;</i></a><ul role="menu"><li id="menuform:sr_sm1" role="menuitem"><a href="#" class="ripplelink"><i class="material-icons"></i><span class="menuitem-text">Submenu 1</span><i class="material-icons layout-submenu-toggler">&#xE313;</i></a><ul role="menu"><li id="menuform:sr_sm11" role="menuitem"><a href="#" class="ripplelink"><i class="material-icons"></i><span class="menuitem-text">Submenu 1.1</span><i class="material-icons layout-submenu-toggler">&#xE313;</i></a><ul role="menu"><li id="menuform:sr_lnk111" role="menuitem"><a class="ripplelink" href="#"><i class="material-icons"></i><span class="menuitem-text">Link 1.1.1</span></a></li><li id="menuform:sr_lnk112" role="menuitem"><a class="ripplelink" href="#"><i class="material-icons"></i><span class="menuitem-text">Link 1.1.2</span></a></li><li id="menuform:sr_lnk113" role="menuitem"><a class="ripplelink" href="#"><i class="material-icons"></i><span class="menuitem-text">Link 1.1.3</span></a></li></ul></li><li id="menuform:sr_sm12" role="menuitem"><a href="#" class="ripplelink"><i class="material-icons"></i><span class="menuitem-text">Submenu 1.2</span><i class="material-icons layout-submenu-toggler">&#xE313;</i></a><ul role="menu"><li id="menuform:sr_lnk121" role="menuitem"><a class="ripplelink" href="#"><i class="material-icons"></i><span class="menuitem-text">Link 1.2.1</span></a></li></ul></li></ul></li><li id="menuform:sr_sm2" role="menuitem"><a href="#" class="ripplelink"><i class="material-icons"></i><span class="menuitem-text">Submenu 2</span><i class="material-icons layout-submenu-toggler">&#xE313;</i></a><ul role="menu"><li id="menuform:sr_sm21" role="menuitem"><a href="#" class="ripplelink"><i class="material-icons"></i><span class="menuitem-text">Submenu 2.1</span><i class="material-icons layout-submenu-toggler">&#xE313;</i></a><ul role="menu"><li id="menuform:sr_lnk211" role="menuitem"><a class="ripplelink" href="#"><i class="material-icons"></i><span class="menuitem-text">Link 2.1.1</span></a></li><li id="menuform:sr_lnk212" role="menuitem"><a class="ripplelink" href="#"><i class="material-icons"></i><span class="menuitem-text">Link 2.1.2</span></a></li></ul></li><li id="menuform:sr_sm22" role="menuitem"><a href="#" class="ripplelink"><i class="material-icons"></i><span class="menuitem-text">Submenu 2.2</span><i class="material-icons layout-submenu-toggler">&#xE313;</i></a><ul role="menu"><li id="menuform:sr_lnk221" role="menuitem"><a class="ripplelink" href="#"><i class="material-icons"></i><span class="menuitem-text">Link 2.2.1</span></a></li></ul></li></ul></li></ul></li>
+                                    -->
+
+                                    <li id="menuform:sr_utils2" role="menuitem">
+                                        <a class="ripplelink" href="../empleado/empleado.xhtml">
+                                            <i class="material-icons">
+                                                face
+                                            </i>
+                                            <span class="menuitem-text">Empleado</span>
+                                        </a>
+                                    </li>
+
+                                    <li id="menuform:listEstudio" role="menuitem">
+                                        <a class="ripplelink">
+                                            <i class="material-icons"></i>
+                                            <span class="menuitem-text">Estudio</span>
+                                            <i class="material-icons layout-submenu-toggler">&#xE313;</i>
+                                            <!--                                            <span class="menuitem-badge">2</span>-->
+                                        </a>
+                                        <ul role="menu">
+                                            <li id="menuform:listB-S" role="menuitem">
+                                                <a class="ripplelink" href="../estudio/estudioBasico.xhtml">
+                                                    <i class="material-icons">
+                                                        local_library
+                                                    </i>
+                                                    <span class="menuitem-text">Básico - Superior</span>
+                                                </a>
+                                            </li>
+                                            <li id="menuform:listSS" role="menuitem">
+                                                <a class="ripplelink" href="../estudio/practica.xhtml">
+                                                    <i class="material-icons">
+                                                        description
+                                                    </i>
+                                                    <span class="menuitem-text">Secigra - Serums</span>
+                                                </a>
+                                            </li>
+                                            <li id="menuform:listE" role="menuitem">
+                                                <a class="ripplelink" href="../estudio/externas.xhtml">
+                                                    <i class="material-icons">
+                                                        local_convenience_store
+                                                    </i>
+                                                    <span class="menuitem-text">Externos</span>
+                                                </a>
+                                            </li>
+                                            <li id="menuform:listC" role="menuitem">
+                                                <a class="ripplelink" href="../capacitacion/capacitacion.xhtml">
+                                                    <i class="material-icons">
+                                                        wc
+                                                    </i>
+                                                    <span class="menuitem-text">Capacitación</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+
+                                    <li id="menuform:listDialecto" role="menuitem">
+                                        <a class="ripplelink">
+                                            <i class="material-icons"></i>
+                                            <span class="menuitem-text">Dialecto</span>
+                                            <i class="material-icons layout-submenu-toggler">&#xE313;</i>
+                                            <!--                                            <span class="menuitem-badge">2</span>-->
+                                        </a>
+                                        <ul role="menu">
+                                            <li id="menuform:listB-S" role="menuitem">
+                                                <a class="ripplelink" href="../dialectoDetalle/dialectoDetalle.xhtml">
+                                                    <i class="material-icons">
+                                                        description
+                                                    </i>
+                                                    <span class="menuitem-text">Dialecto Detalle</span>
+                                                </a>
+                                            </li>
+<!--                                            <li id="menuform:listSS" role="menuitem">
+                                                <a class="ripplelink" href="../dialectoDetalle/dialectoDetalleWi.xhtml">
+                                                    <i class="material-icons">
+                                                        description
+                                                    </i>
+                                                    <span class="menuitem-text">Dialecto Detalle Wizard</span>
+                                                </a>
+                                            </li>-->
+
+
+                                        </ul>
+                                    </li>
+
+                                    <li id="menuform:sr_utils3" role="menuitem">
+                                        <a class="ripplelink" href="../familia/familia.xhtml">
+                                            <i class="material-icons">
+                                                wc
+                                            </i>
+                                            <span class="menuitem-text">Familia</span>
+                                        </a>
+                                    </li>
+
+                                    <li id="menuform:sr_doc4" role="menuitem">
+                                        <a class="ripplelink" href="../formularioCompleto/formularioCompleto.xhtml">
+                                            <i class="material-icons">
+                                                description
+                                            </i>
+                                            <span class="menuitem-text">Formulario Completo</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <script id="menuform:j_idt16_s" type="text/javascript">$(function () {
+                                        PrimeFaces.cw("Serenity", "widget_menuform_j_idt16", {id: "menuform:j_idt16", closeDelay: 250});
+                                    });</script>
+                                <input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:0" value="-1367074102081456264:3990418000300919807" autocomplete="off" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layout-main">
+
+                <div class="layout-topbar">
+                    <a href="dashboard.html" class="topbar-logo">
+                        <img id="j_idt21" src="../../resources/images/logo-slim.png" alt="" />
+                        <span class="app-name">SERENITY</span>
+                    </a>
+                    <img id="j_idt23" src="../../resources/images/logo-slim.png" alt="" class="mobile-logo" />
+
+                    <a href="#" class="menu-btn">
+                        <i class="material-icons"></i>
+                    </a>
+
+                    <a href="#" class="topbar-menu-btn">
+                        <i class="material-icons"></i>
+                    </a>
+
+                    <div class="layout-topbar-menu-wrapper">
+                        <div class="sidebar-logo">
+                            <a href="dashboard.html">
+                                <img id="j_idt25" src="../../resources/images/logo-slim.png" alt="" />
+                                <span class="app-name">SERENITY</span>
+                            </a>
+                            <a href="#" class="sidebar-anchor" title="Toggle Menu"></a>
+                        </div>            
+                        <ul class="topbar-menu animated">
+                            <li class="profile-item">
+                                <a href="#">       
+                                    <span class="profile-image-wrapper">
+                                        <img id="j_idt27" src="../../resources/images/avatar.png.png" alt="" />
+                                    </span>                     
+                                    <span class="topbar-item-name profile-name">Wendy Lorina</span>
+                                </a>
+
+                                <ul class="animated">
+                                    <li role="menuitem">
+                                        <a href="#">
+                                            <i class="material-icons"></i>
+                                            <span>Profile</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#">
+                                            <i class="material-icons"></i>
+                                            <span>Privacy</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#">
+                                            <i class="material-icons"></i>
+                                            <span>Settings</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#">
+                                            <i class="material-icons"></i>
+                                            <span>Logout</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="topbar-icon material-icons"></i>
+                                    <span class="topbar-item-name">Settings</span>
+                                </a>
+                                <ul class="animated">
+                                    <li role="menuitem">
+                                        <a href="#">
+                                            <i class="material-icons"></i>
+                                            <span>Change Theme</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#">
+                                            <i class="material-icons"></i>
+                                            <span>Favorites</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#">
+                                            <i class="material-icons"></i>
+                                            <span>Lock Screen</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#">
+                                            <i class="material-icons"></i>
+                                            <span>Wallpaper</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="topbar-icon material-icons animated swing"></i>
+                                    <span class="topbar-badge animated rubberBand">5</span>
+                                    <span class="topbar-item-name">Messages</span>
+                                </a>
+                                <ul class="animated">
+                                    <li role="menuitem">
+                                        <a href="#" class="topbar-message"><img id="j_idt29" src="javax.faces.resource/images/avatar1.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" width="35" />
+                                            <span>Give me a call</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#" class="topbar-message"><img id="j_idt31" src="javax.faces.resource/images/avatar2.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" width="35" />
+                                            <span>Sales reports attached</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#" class="topbar-message"><img id="j_idt33" src="javax.faces.resource/images/avatar3.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" width="35" />
+                                            <span>About your invoice</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#" class="topbar-message"><img id="j_idt35" src="javax.faces.resource/images/avatar2.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" width="35" />
+                                            <span>Meeting today at 10pm</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#" class="topbar-message"><img id="j_idt37" src="javax.faces.resource/images/avatar4.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" width="35" />
+                                            <span>Out of office</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="topbar-icon material-icons"></i>
+                                    <span class="topbar-badge animated rubberBand">4</span>
+                                    <span class="topbar-item-name">Notifications</span>
+                                </a>
+                                <ul class="animated">
+                                    <li role="menuitem">
+                                        <a href="#">
+                                            <i class="material-icons"></i>
+                                            <span>Pending tasks</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#">
+                                            <i class="material-icons"></i>
+                                            <span>Meeting today at 3pm</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#">
+                                            <i class="material-icons"></i>
+                                            <span>Download documents</span>
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="#">
+                                            <i class="material-icons"></i>
+                                            <span>Book flight</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="search-item">
+                                <form id="j_idt39" name="j_idt39" method="post" action="https://www.primefaces.org/serenity/dashboard.xhtml;jsessionid=node0u139f8lytglh7t3993crklk0117247.node0" enctype="application/x-www-form-urlencoded">
+                                    <input type="hidden" name="j_idt39" value="j_idt39" />
+                                    <span class="md-inputfield">
+                                        <input id="j_idt39:j_idt41" name="j_idt39:j_idt41" type="text" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" /><script id="j_idt39:j_idt41_s" type="text/javascript">$(function () {
+                                                PrimeFaces.cw("InputText", "widget_j_idt39_j_idt41", {id: "j_idt39:j_idt41", maxlength: -2147483648});
+                                            });</script>
+                                        <label>Search</label>
+                                        <i class="topbar-icon material-icons"></i></span><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:9" value="-1367074102081456264:3990418000300919807" autocomplete="off" />
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="layout-breadcrumb">
+                    <ul>
+                        <li>
+                            <a href="dashboard.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247.html" class="ui-link ui-widget">
+                                <i class="material-icons"></i></a>
+                        </li>
+                        <li>/</li>
+                    </ul>
+
+                    <div class="layout-breadcrumb-options">
+                        <a href="#" title="Backup">
+                            <i class="material-icons"></i>
+                        </a>
+                        <a href="#" title="Bookmark">
+                            <i class="material-icons"></i>
+                        </a>
+                        <a href="#" title="Logout">
+                            <i class="material-icons"></i>
+                        </a>
+                    </div>
+                </div>
+
+
+
+                <div class="layout-content">
+                    <div class="ui-g dashboard">
+                        <ui:insert name="content">
+                            
+
+                            <div class="ui-g-12 ui-lg-4">
+                                <div class="task-box task-box-1">
+                                    <div class="task-box-header">
+                                        <i class="material-icons"></i>
+                                    </div>
+                                    <div class="task-box-content">
+                                        <h3>Client Meeting</h3>
+                                        <p>Waiting brief from the client</p>
+                                    </div>
+                                    <div class="task-box-footer">
+                                        <span class="task-status">WAITING</span><img id="j_idt50" src="javax.faces.resource/images/avatar1.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" />
+                                        <img id="j_idt51" src="javax.faces.resource/images/avatar2.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" />
+                                        <img id="j_idt52" src="javax.faces.resource/images/avatar3.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-lg-4">
+                                <div class="task-box task-box-2">
+                                    <div class="task-box-header">
+                                        <i class="material-icons"></i>
+                                    </div>
+                                    <div class="task-box-content">
+                                        <h3>Sale Reports</h3>
+                                        <p>Annual reports per branch</p>
+                                    </div>
+                                    <div class="task-box-footer">
+                                        <span class="task-status">IN PROGRESS</span><img id="j_idt54" src="javax.faces.resource/images/avatar2.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" /><img id="j_idt55" src="javax.faces.resource/images/avatar3.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" /><img id="j_idt56" src="javax.faces.resource/images/avatar4.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-lg-4">
+                                <div class="task-box task-box-3">
+                                    <div class="task-box-header">
+                                        <i class="material-icons"></i>
+                                    </div>
+                                    <div class="task-box-content">
+                                        <h3>Marketing Meeting</h3>
+                                        <p>Marketing meeting to review sales.</p>
+                                    </div>
+                                    <div class="task-box-footer">
+                                        <span class="task-status">ON HOLD</span><img id="j_idt58" src="javax.faces.resource/images/avatar1.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" /><img id="j_idt59" src="javax.faces.resource/images/avatar2.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" /><img id="j_idt60" src="javax.faces.resource/images/avatar3.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ui-g-12 ui-md-3">
+                                <div class="overview-box overview-box-1">
+                                    <div class="overview-box-header"></div>
+                                    <div class="overview-box-content">
+                                        <div class="overview-box-icon"><i class="material-icons"></i></div>
+                                        <div class="overview-box-title">Messages</div>
+                                        <div class="overview-box-count">152</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-3">
+                                <div class="overview-box overview-box-2">
+                                    <div class="overview-box-header"></div>
+                                    <div class="overview-box-content">
+                                        <div class="overview-box-icon"><i class="material-icons"></i></div>
+                                        <div class="overview-box-title">Check-Ins</div>
+                                        <div class="overview-box-count">532</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-3">
+                                <div class="overview-box overview-box-3">
+                                    <div class="overview-box-header"></div>
+                                    <div class="overview-box-content">
+                                        <div class="overview-box-icon"><i class="material-icons"></i></div>
+                                        <div class="overview-box-title">Files Sycned</div>
+                                        <div class="overview-box-count">28</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui-g-12 ui-md-3">
+                                <div class="overview-box overview-box-4">
+                                    <div class="overview-box-header"></div>
+                                    <div class="overview-box-content">
+                                        <div class="overview-box-icon"><i class="material-icons"></i></div>
+                                        <div class="overview-box-title">Users Online</div>
+                                        <div class="overview-box-count">256</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--task-->
+                          
+
+                            <div class="ui-g-12 ui-lg-6 ui-g-nopad">
+                                <div class="ui-g-12 chat"><div id="j_idt126" class="ui-panel ui-widget ui-widget-content ui-corner-all" data-widget="widget_j_idt126"><div id="j_idt126_header" class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"><span class="ui-panel-title">Chat</span></div><div id="j_idt126_content" class="ui-panel-content ui-widget-content"><div id="j_idt127" class="ui-tabs ui-widget ui-widget-content ui-corner-all ui-hidden-container ui-tabs-top" data-widget="widget_j_idt127"><ul class="ui-tabs-nav ui-helper-reset ui-widget-header ui-corner-all" role="tablist"><li class="ui-tabs-header ui-state-default ui-tabs-selected ui-state-active ui-corner-top" role="tab" aria-expanded="true" aria-selected="true" data-index="0"><a href="#j_idt127:j_idt128" tabindex="-1">Sales Team</a></li><li class="ui-tabs-header ui-state-default ui-corner-top" role="tab" aria-expanded="false" aria-selected="false" data-index="1"><a href="#j_idt127:j_idt142" tabindex="-1">Design Team</a></li></ul><div class="ui-tabs-panels"><div id="j_idt127:j_idt128" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-hidden="false" data-index="0">
+                                                        <ul>
+                                                            <li class="message-from"><img id="j_idt127:j_idt130" src="javax.faces.resource/images/avatar2.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" />
+                                                                <span>Retro occupy organic, stumptown shabby chic pour-over roof party DIY normcore.</span>
+                                                            </li>
+                                                            <li class="message-own"><img id="j_idt127:j_idt132" src="javax.faces.resource/images/avatar.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" />
+                                                                <span>Actually artisan organic occupy, Wes Anderson ugh whatever pour-over gastropub selvage.</span>
+                                                            </li>
+                                                            <li class="message-from"><img id="j_idt127:j_idt134" src="javax.faces.resource/images/avatar2.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" />
+                                                                <span>Chillwave craft beer tote bag stumptown quinoa hashtag.</span>
+                                                            </li>
+                                                            <li class="message-own"><img id="j_idt127:j_idt136" src="javax.faces.resource/images/avatar.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" />
+                                                                <span>Dreamcatcher locavore iPhone chillwave, occupy trust fund slow-carb distillery art party narwhal.</span>
+                                                            </li>
+                                                            <li class="message-own">
+                                                                <span>Sed ut perspiciatis unde omnis iste natus.</span>
+                                                            </li>
+                                                            <li class="message-from"><img id="j_idt127:j_idt138" src="javax.faces.resource/images/avatar2.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" />
+                                                                <span>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse.</span>
+                                                            </li>
+                                                            <li class="message-own"><img id="j_idt127:j_idt140" src="javax.faces.resource/images/avatar.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" />
+                                                                <span>At vero eos et accusamus.</span>
+                                                            </li>
+                                                        </ul></div><div id="j_idt127:j_idt142" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-helper-hidden" role="tabpanel" aria-hidden="true" data-index="1">
+                                                        <ul>
+                                                            <li class="message-from"><img id="j_idt127:j_idt144" src="javax.faces.resource/images/avatar3.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" />
+                                                                <span>Cliche flannel fam mixtape.</span>
+                                                            </li>
+                                                            <li class="message-own"><img id="j_idt127:j_idt146" src="javax.faces.resource/images/avatar.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" />
+                                                                <span>Tofu glossier bicycle rights banh mi direct trade austin salvia slow-carb occupy.</span>
+                                                            </li>
+                                                            <li class="message-from"><img id="j_idt127:j_idt148" src="javax.faces.resource/images/avatar3.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" />
+                                                                <span>Crucifix tote bag pork belly distillery church-key jianbing jean shorts taxidermy.</span>
+                                                            </li>
+                                                            <li class="message-own"><img id="j_idt127:j_idt150" src="javax.faces.resource/images/avatar.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" />
+                                                                <span>Deep v hexagon street art migas butcher, keytar biodiesel bicycle rights typewriter cornhole actually next.</span>
+                                                            </li>
+                                                            <li class="message-own">
+                                                                <span>Oh. You need a little dummy text for your mockup? How quaint.</span>
+                                                            </li>
+                                                            <li class="message-from"><img id="j_idt127:j_idt152" src="javax.faces.resource/images/avatar3.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" />
+                                                                <span>Salvia woke bushwick leggings mumblecore poke tumblr master cleanse.</span>
+                                                            </li>
+                                                            <li class="message-own"><img id="j_idt127:j_idt154" src="javax.faces.resource/images/avatar.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" />
+                                                                <span>Skateboard ethical adaptogen, quinoa wolf poutine echo park.</span>
+                                                            </li>
+                                                        </ul></div></div><input type="hidden" id="j_idt127_activeIndex" name="j_idt127_activeIndex" value="0" autocomplete="off" /></div><script id="j_idt127_s" type="text/javascript">$(function () {
+                                                                PrimeFaces.cw("TabView", "widget_j_idt127", {id: "j_idt127", effectDuration: "normal", scrollable: false});
+                                                            });</script>
+
+                                            <div class="new-message">
+                                                <div class="message-attachment">
+                                                    <i class="material-icons"></i>
+                                                </div>
+                                                <div class="message-input">
+                                                    <input type="text" placeholder="Write a message" />
+                                                </div>
+                                            </div></div></div><script id="j_idt126_s" type="text/javascript">$(function () {
+                                                    PrimeFaces.cw("Panel", "widget_j_idt126", {id: "j_idt126"});
+                                                });</script>
+                                </div>
+
+                                <div class="ui-g-12 status-bars">
+                                    <div class="card">
+                                        <ul>
+                                            <li>
+                                                <div class="status-bar status-bar-1">
+                                                    <div class="status-bar-value" style="width:22%">22%</div>
+                                                </div>
+                                                <span>Users</span>
+                                                <i class="material-icons"></i>
+                                            </li>
+                                            <li>
+                                                <div class="status-bar status-bar-2">
+                                                    <div class="status-bar-value" style="width:78%">78%</div>
+                                                </div>
+                                                <span>Confirmed</span>
+                                                <i class="material-icons"></i>
+                                            </li>
+                                            <li>
+                                                <div class="status-bar status-bar-3">
+                                                    <div class="status-bar-value" style="width:51%">51%</div>
+                                                </div>
+                                                <span>Defects</span>
+                                                <i class="material-icons"></i>
+                                            </li>
+                                            <li>
+                                                <div class="status-bar status-bar-4">
+                                                    <div class="status-bar-value" style="width:68%">68%</div>
+                                                </div>
+                                                <span>Issues</span>
+                                                <i class="material-icons"></i>
+                                            </li>
+                                            <li>
+                                                <div class="status-bar status-bar-5">
+                                                    <div class="status-bar-value" style="width:80%">80%</div>
+                                                </div>
+                                                <span>Searches</span>
+                                                <i class="material-icons"></i>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ui-g-12 ui-lg-6 ui-g-nopad">
+                                <div class="ui-g-12 global-sales"><div id="j_idt158" class="ui-panel ui-widget ui-widget-content ui-corner-all" data-widget="widget_j_idt158"><div id="j_idt158_header" class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"><span class="ui-panel-title">
+                                                Global Sales by Region
+                                                <span class="header-helper">Last Update: 21m</span></span></div><div id="j_idt158_content" class="ui-panel-content ui-widget-content">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th>Total Sales</th>
+                                                        <th>Change</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td><img id="j_idt161" src="javax.faces.resource/images/dashboard/flag-brazil.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" width="45" /></td>
+                                                        <td>BRAZIL</td>
+                                                        <td>4234</td>
+                                                        <td>35%</td>
+                                                        <td><i class="material-icons up-arrow"></i></td>
+                                                        <td><button id="j_idt163" name="j_idt163" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only remove-btn" title="Reply" type="button"><span class="ui-button-icon-left ui-icon ui-c ui-icon-close"></span><span class="ui-button-text ui-c">Reply</span></button><script id="j_idt163_s" type="text/javascript">$(function () {
+                                                                PrimeFaces.cw("CommandButton", "widget_j_idt163", {id: "j_idt163"});
+                                                            });</script><button id="j_idt164" name="j_idt164" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only message-btn secondary-btn" title="Reply" type="button"><span class="ui-button-icon-left ui-icon ui-c ui-icon-message"></span><span class="ui-button-text ui-c">Reply</span></button><script id="j_idt164_s" type="text/javascript">$(function () {
+                                                                    PrimeFaces.cw("CommandButton", "widget_j_idt164", {id: "j_idt164"});
+                                                                });</script>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td><img id="j_idt166" src="javax.faces.resource/images/dashboard/flag-china.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" width="45" /></td>
+                                                        <td>CHINA</td>
+                                                        <td>3214</td>
+                                                        <td>25%</td>
+                                                        <td><i class="material-icons up-arrow"></i></td>
+                                                        <td><button id="j_idt168" name="j_idt168" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only remove-btn" title="Reply" type="button"><span class="ui-button-icon-left ui-icon ui-c ui-icon-close"></span><span class="ui-button-text ui-c">Reply</span></button><script id="j_idt168_s" type="text/javascript">$(function () {
+                                                                PrimeFaces.cw("CommandButton", "widget_j_idt168", {id: "j_idt168"});
+                                                            });</script><button id="j_idt169" name="j_idt169" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only message-btn secondary-btn" title="Reply" type="button"><span class="ui-button-icon-left ui-icon ui-c ui-icon-message"></span><span class="ui-button-text ui-c">Reply</span></button><script id="j_idt169_s" type="text/javascript">$(function () {
+                                                                    PrimeFaces.cw("CommandButton", "widget_j_idt169", {id: "j_idt169"});
+                                                                });</script>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td><img id="j_idt171" src="javax.faces.resource/images/dashboard/flag-belgium.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" width="45" /></td>
+                                                        <td>BELGIUM</td>
+                                                        <td>2842</td>
+                                                        <td>28%</td>
+                                                        <td><i class="material-icons down-arrow"></i></td>
+                                                        <td><button id="j_idt173" name="j_idt173" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only remove-btn" title="Reply" type="button"><span class="ui-button-icon-left ui-icon ui-c ui-icon-close"></span><span class="ui-button-text ui-c">Reply</span></button><script id="j_idt173_s" type="text/javascript">$(function () {
+                                                                PrimeFaces.cw("CommandButton", "widget_j_idt173", {id: "j_idt173"});
+                                                            });</script><button id="j_idt174" name="j_idt174" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only message-btn secondary-btn" title="Reply" type="button"><span class="ui-button-icon-left ui-icon ui-c ui-icon-message"></span><span class="ui-button-text ui-c">Reply</span></button><script id="j_idt174_s" type="text/javascript">$(function () {
+                                                                    PrimeFaces.cw("CommandButton", "widget_j_idt174", {id: "j_idt174"});
+                                                                });</script>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>4</td>
+                                                        <td><img id="j_idt176" src="javax.faces.resource/images/dashboard/flag-france.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" width="45" /></td>
+                                                        <td>FRANCE</td>
+                                                        <td>1942</td>
+                                                        <td>15%</td>
+                                                        <td><i class="material-icons down-arrow"></i></td>
+                                                        <td><button id="j_idt178" name="j_idt178" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only remove-btn" title="Reply" type="button"><span class="ui-button-icon-left ui-icon ui-c ui-icon-close"></span><span class="ui-button-text ui-c">Reply</span></button><script id="j_idt178_s" type="text/javascript">$(function () {
+                                                                PrimeFaces.cw("CommandButton", "widget_j_idt178", {id: "j_idt178"});
+                                                            });</script><button id="j_idt179" name="j_idt179" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only message-btn secondary-btn" title="Reply" type="button"><span class="ui-button-icon-left ui-icon ui-c ui-icon-message"></span><span class="ui-button-text ui-c">Reply</span></button><script id="j_idt179_s" type="text/javascript">$(function () {
+                                                                    PrimeFaces.cw("CommandButton", "widget_j_idt179", {id: "j_idt179"});
+                                                                });</script>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>5</td>
+                                                        <td><img id="j_idt181" src="javax.faces.resource/images/dashboard/flag-uk.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" width="45" /></td>
+                                                        <td>UK</td>
+                                                        <td>1956</td>
+                                                        <td>25%</td>
+                                                        <td><i class="material-icons up-arrow"></i></td>
+                                                        <td><button id="j_idt183" name="j_idt183" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only remove-btn" title="Reply" type="button"><span class="ui-button-icon-left ui-icon ui-c ui-icon-close"></span><span class="ui-button-text ui-c">Reply</span></button><script id="j_idt183_s" type="text/javascript">$(function () {
+                                                                PrimeFaces.cw("CommandButton", "widget_j_idt183", {id: "j_idt183"});
+                                                            });</script><button id="j_idt184" name="j_idt184" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only message-btn secondary-btn" title="Reply" type="button"><span class="ui-button-icon-left ui-icon ui-c ui-icon-message"></span><span class="ui-button-text ui-c">Reply</span></button><script id="j_idt184_s" type="text/javascript">$(function () {
+                                                                    PrimeFaces.cw("CommandButton", "widget_j_idt184", {id: "j_idt184"});
+                                                                });</script>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table></div></div><script id="j_idt158_s" type="text/javascript">$(function () {
+                                                    PrimeFaces.cw("Panel", "widget_j_idt158", {id: "j_idt158"});
+                                                });</script>
+                                </div>
+
+                                <div class="ui-g-12 image-box">
+                                    <div class="card"><img id="j_idt187" src="javax.faces.resource/images/dashboard/gradient-waters.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" />
+
+                                        <div class="image-box-content">
+                                            <h3>Gradient Waters</h3>
+                                            <span class="image-box-tag">article</span>
+                                            <p>
+                                                Derive inexpedient reason law virtues superiority victorious. Overcome pious horror suicide revaluation. Holiest ocean society disgust passion value love.
+                                                Faithful mountains morality hope disgust merciful moral will revaluation society fearful love.
+                                            </p>
+                                            <div class="image-box-footer"><button id="j_idt189" name="j_idt189" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left remove-btn orange-btn" style="margin-right:4px;" title="Close" type="button"><span class="ui-button-icon-left ui-icon ui-c ui-icon-close"></span><span class="ui-button-text ui-c">Close</span></button><script id="j_idt189_s" type="text/javascript">$(function () {
+                                                    PrimeFaces.cw("CommandButton", "widget_j_idt189", {id: "j_idt189"});
+                                                });</script><button id="j_idt190" name="j_idt190" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left message-btn secondary-btn" title="New" type="button"><span class="ui-button-icon-left ui-icon ui-c ui-icon-plus"></span><span class="ui-button-text ui-c">New</span></button><script id="j_idt190_s" type="text/javascript">$(function () {
+                                                        PrimeFaces.cw("CommandButton", "widget_j_idt190", {id: "j_idt190"});
+                                                    });</script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="ui-g-12 ui-lg-8">
+                                <div class="card">
+                                    <form id="j_idt192" name="j_idt192" method="post" action="https://www.primefaces.org/serenity/dashboard.xhtml;jsessionid=node0u139f8lytglh7t3993crklk0117247.node0" enctype="application/x-www-form-urlencoded">
+                                        <input type="hidden" name="j_idt192" value="j_idt192" />
+                                        <div id="j_idt192:j_idt193" class="ui-datatable ui-widget ui-datatable-reflow" style="margin-bottom:20px"><label id="j_idt192:j_idt193_reflowDD_label" for="j_idt192:j_idt193_reflowDD" class="ui-reflow-label">Sort</label><select id="j_idt192:j_idt193_reflowDD" name="j_idt192:j_idt193_reflowDD" class="ui-reflow-dropdown ui-state-default" autocomplete="off"><option value="0_0">Id Ascending</option><option value="0_1">Id Descending</option><option value="1_0">Year Ascending</option><option value="1_1">Year Descending</option><option value="2_0">Brand Ascending</option><option value="2_1">Brand Descending</option><option value="3_0">Color Ascending</option><option value="3_1">Color Descending</option></select><div class="ui-datatable-header ui-widget-header ui-corner-top">RECENT SALES</div><div class="ui-datatable-tablewrapper"><table role="grid"><thead id="j_idt192:j_idt193_head"><tr role="row"><th id="j_idt192:j_idt193:j_idt195" class="ui-state-default ui-sortable-column" role="columnheader" aria-label="Id" scope="col"><span class="ui-column-title">Id</span><span class="ui-sortable-column-icon ui-icon ui-icon-carat-2-n-s"></span></th><th id="j_idt192:j_idt193:j_idt197" class="ui-state-default ui-sortable-column" role="columnheader" aria-label="Year" scope="col"><span class="ui-column-title">Year</span><span class="ui-sortable-column-icon ui-icon ui-icon-carat-2-n-s"></span></th><th id="j_idt192:j_idt193:j_idt199" class="ui-state-default ui-sortable-column" role="columnheader" aria-label="Brand" scope="col"><span class="ui-column-title">Brand</span><span class="ui-sortable-column-icon ui-icon ui-icon-carat-2-n-s"></span></th><th id="j_idt192:j_idt193:j_idt201" class="ui-state-default ui-sortable-column" role="columnheader" aria-label="Color" scope="col"><span class="ui-column-title">Color</span><span class="ui-sortable-column-icon ui-icon ui-icon-carat-2-n-s"></span></th></tr></thead><tbody id="j_idt192:j_idt193_data" class="ui-datatable-data ui-widget-content" tabindex="0"><tr data-ri="0" data-rk="63457b65" class="ui-widget-content ui-datatable-even ui-datatable-selectable" role="row" aria-selected="false"><td role="gridcell">63457b65</td><td role="gridcell">1999</td><td role="gridcell">Ford</td><td role="gridcell">Orange</td></tr><tr data-ri="1" data-rk="8d2df868" class="ui-widget-content ui-datatable-odd ui-datatable-selectable" role="row" aria-selected="false"><td role="gridcell">8d2df868</td><td role="gridcell">2000</td><td role="gridcell">Mercedes</td><td role="gridcell">Maroon</td></tr><tr data-ri="2" data-rk="df3a45b9" class="ui-widget-content ui-datatable-even ui-datatable-selectable" role="row" aria-selected="false"><td role="gridcell">df3a45b9</td><td role="gridcell">1970</td><td role="gridcell">Audi</td><td role="gridcell">Yellow</td></tr><tr data-ri="3" data-rk="274290f4" class="ui-widget-content ui-datatable-odd ui-datatable-selectable" role="row" aria-selected="false"><td role="gridcell">274290f4</td><td role="gridcell">2001</td><td role="gridcell">Renault</td><td role="gridcell">White</td></tr><tr data-ri="4" data-rk="5e7b0731" class="ui-widget-content ui-datatable-even ui-datatable-selectable" role="row" aria-selected="false"><td role="gridcell">5e7b0731</td><td role="gridcell">1962</td><td role="gridcell">Mercedes</td><td role="gridcell">Red</td></tr><tr data-ri="5" data-rk="71532474" class="ui-widget-content ui-datatable-odd ui-datatable-selectable" role="row" aria-selected="false"><td role="gridcell">71532474</td><td role="gridcell">1990</td><td role="gridcell">Renault</td><td role="gridcell">Blue</td></tr><tr data-ri="6" data-rk="a9e7a79a" class="ui-widget-content ui-datatable-even ui-datatable-selectable" role="row" aria-selected="false"><td role="gridcell">a9e7a79a</td><td role="gridcell">1991</td><td role="gridcell">Audi</td><td role="gridcell">Orange</td></tr><tr data-ri="7" data-rk="2973b9c6" class="ui-widget-content ui-datatable-odd ui-datatable-selectable" role="row" aria-selected="false"><td role="gridcell">2973b9c6</td><td role="gridcell">1975</td><td role="gridcell">BMW</td><td role="gridcell">Green</td></tr><tr data-ri="8" data-rk="b66c2c08" class="ui-widget-content ui-datatable-even ui-datatable-selectable" role="row" aria-selected="false"><td role="gridcell">b66c2c08</td><td role="gridcell">1976</td><td role="gridcell">Volkswagen</td><td role="gridcell">Orange</td></tr><tr data-ri="9" data-rk="eec5b69d" class="ui-widget-content ui-datatable-odd ui-datatable-selectable" role="row" aria-selected="false"><td role="gridcell">eec5b69d</td><td role="gridcell">1984</td><td role="gridcell">Volvo</td><td role="gridcell">Green</td></tr></tbody></table></div><input type="hidden" id="j_idt192:j_idt193_selection" name="j_idt192:j_idt193_selection" autocomplete="off" value="" /></div><script id="j_idt192:j_idt193_s" type="text/javascript">$(function () {
+                                                PrimeFaces.cw("DataTable", "widget_j_idt192_j_idt193", {id: "j_idt192:j_idt193", selectionMode: "single", reflow: true, groupColumnIndexes: [], disableContextMenuIfEmpty: false});
+                                            });</script><div id="j_idt192:j_idt203" class="ui-panel ui-widget ui-widget-content ui-corner-all chart-panel" data-widget="widget_j_idt192_j_idt203"><div id="j_idt192:j_idt203_header" class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"><span class="ui-panel-title">SALES GRAPH</span></div><div id="j_idt192:j_idt203_content" class="ui-panel-content ui-widget-content"><div id="j_idt192:j_idt204"></div><script id="j_idt192:j_idt204_s" type="text/javascript">$(function () {
+                                                    PrimeFaces.cw("Chart", "widget_j_idt192_j_idt204", {id: "j_idt192:j_idt204", type: "bar", responsive: true, data: [[120, 100, 44, 150, 25], [52, 60, 110, 135, 120]], title: "Bar Chart", legendPosition: "ne", extender: skinBar, dataRenderMode: "value", axes: {yaxis: {label: "Births", min: 0, max: 200, renderer: $.jqplot.LinearAxisRenderer, tickOptions: {angle: 0}}, xaxis: {label: "Gender", renderer: $.jqplot.CategoryAxisRenderer, tickOptions: {angle: 0}}}, datatip: true, series: [{label: "Boys"}, {label: "Girls"}], ticks: ["2004", "2005", "2006", "2007", "2008"], orientation: "vertical", datatip: true});
+                                                });</script></div></div><script id="j_idt192:j_idt203_s" type="text/javascript">$(function () {
+                                                        PrimeFaces.cw("Panel", "widget_j_idt192_j_idt203", {id: "j_idt192:j_idt203"});
+                                                    });</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:59" value="-1367074102081456264:3990418000300919807" autocomplete="off" />
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="ui-g-12 ui-lg-4">
+                                <div class="ui-g-12">
+                                    <div class="user-card card">
+                                        <div class="user-card-header"><img id="j_idt206" src="javax.faces.resource/images/dashboard/usercard.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" width="100" />
+                                        </div>
+                                        <div class="user-card-content"><img id="j_idt208" src="javax.faces.resource/images/avatar.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" /><button id="user-button" name="user-button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only secondary-btn" type="button"><span class="ui-button-icon-left ui-icon ui-c ui-icon-plus"></span><span class="ui-button-text ui-c">ui-button</span></button><script id="user-button_s" type="text/javascript">$(function () {
+                                                PrimeFaces.cw("CommandButton", "widget_user_button", {id: "user-button"});
+                                            });</script><div id="j_idt209" class="ui-menu ui-menu-dynamic ui-widget ui-widget-content ui-corner-all ui-helper-clearfix ui-shadow" role="menu"><div tabindex="0" class="ui-helper-hidden-accessible"></div><ul class="ui-menu-list ui-helper-reset"><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" class="ui-menuitem-link ui-corner-all" href="#"><span class="ui-menuitem-icon ui-icon ui-icon-check"></span><span class="ui-menuitem-text">Save</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" class="ui-menuitem-link ui-corner-all" href="#"><span class="ui-menuitem-icon ui-icon ui-icon-refresh"></span><span class="ui-menuitem-text">Update</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" class="ui-menuitem-link ui-corner-all" href="#"><span class="ui-menuitem-icon ui-icon ui-icon-close"></span><span class="ui-menuitem-text">Delete</span></a></li></ul></div><script id="j_idt209_s" type="text/javascript">$(function () {
+                                                    PrimeFaces.cw("PlainMenu", "widget_j_idt209", {id: "j_idt209", overlay: true, my: "left top", at: "left bottom", trigger: "user\-button", triggerEvent: "click"});
+                                                });</script>
+
+                                            <div class="user-card-name">
+                                                <span>Wendy Lorina</span>
+                                            </div>
+
+                                            <div class="user-detail">
+                                                <ul>
+                                                    <li class="clearfix">
+                                                        <i class="fa fa-tasks fa-fw"></i>
+                                                        <span class="project-title">Tasks</span>
+                                                        <span class="project-detail">3 open</span>
+                                                        <div class="project-progressbar">
+                                                            <div class="project-progressbar-value" style="width: 50%"></div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="clearfix">
+                                                        <i class="fa fa-usd fa-fw"></i>
+                                                        <span class="project-title">Revenue</span>
+                                                        <span class="project-detail">+20%</span>
+                                                        <div class="project-progressbar">
+                                                            <div class="project-progressbar-value" style="width: 20%"></div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="clearfix">
+                                                        <i class="fa fa-credit-card fa-fw"></i>
+                                                        <span class="project-title">Payments</span>
+                                                        <span class="project-detail">24 new</span>
+                                                        <div class="project-progressbar">
+                                                            <div class="project-progressbar-value" style="width: 65%"></div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="clearfix">
+                                                        <i class="fa fa-users fa-fw"></i>
+                                                        <span class="project-title">Clients</span>
+                                                        <span class="project-detail">+80%</span>
+                                                        <div class="project-progressbar">
+                                                            <div class="project-progressbar-value" style="width: 80%"></div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="clearfix">
+                                                        <i class="fa fa-users fa-fw"></i>
+                                                        <span class="project-title">Turnover</span>
+                                                        <span class="project-detail">+40%</span>
+                                                        <div class="project-progressbar">
+                                                            <div class="project-progressbar-value" style="width: 40%"></div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="ui-g-12 map">
+                                    <div id="j_idt214" class="ui-panel ui-widget ui-widget-content ui-corner-all" data-widget="widget_j_idt214">
+                                        <div id="j_idt214_header" class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
+                                            <span class="ui-panel-title">Map</span>
+                                        </div>
+                                        <div id="j_idt214_content" class="ui-panel-content ui-widget-content">
+                                            <img id="j_idt215" src="javax.faces.resource/images/dashboard/map.jpg.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.jpg?ln=serenity-layout" alt="" /></div></div><script id="j_idt214_s" type="text/javascript">$(function () {
+                                                    PrimeFaces.cw("Panel", "widget_j_idt214", {id: "j_idt214"});
+                                                });</script>
+                                </div>
+                            </div>
+
+                            <div class="ui-g-12 schedule">
+                                <div id="j_idt217" class="ui-panel ui-widget ui-widget-content ui-corner-all" style="height:100%" data-widget="widget_j_idt217">
+                                    <div id="j_idt217_header" class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all">
+                                        <span class="ui-panel-title">Calendar</span>
+                                    </div>
+                                    <div id="j_idt217_content" class="ui-panel-content ui-widget-content">
+                                        <div id="j_idt218">
+                                            <div id="j_idt218_container">
+
+                                            </div>
+                                            <input type="hidden" id="j_idt218_view" name="j_idt218_view" autocomplete="off" value="month" />
+                                        </div>
+                                        <script id="j_idt218_s" type="text/javascript">$(function () {
+                                                PrimeFaces.cw("Schedule", "widget_j_idt218", {id: "j_idt218", defaultView: "month", locale: "en_US", lazyFetching: false, header: {left: 'prev,next today', center: "title", right: "month,agendaWeek,agendaDay"}});
+                                            });</script>
+                                    </div>
+                                </div>
+                                <script id="j_idt217_s" type="text/javascript">$(function () {
+                                        PrimeFaces.cw("Panel", "widget_j_idt217", {id: "j_idt217"});
+                                    });</script>
+                            </div>
+
+                        </ui:insert>
+                    </div>
+
+                </div>
+
+
+
+                <div class="layout-footer clearfix">
+                    <a href="dashboard.html"><img id="j_idt222" src="javax.faces.resource/images/logo-colored.png.xhtml%3bjsessionid%3dnode0u139f8lytglh7t3993crklk0117247049b.png?ln=serenity-layout" alt="" />
+                    </a>
+                    <span class="footer-text-right">
+                        <span class="ui-icon">
+                            <i class="material-icons">
+                                copyright
+                            </i>
+                        </span> 
+                        <span>All Rights Reserved</span>
+                    </span>
+                </div>
+
+                <div class="layout-main-mask"></div>
+            </div>
+        </div>
+        <div id="j_idt225" style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
+            <div id="j_idt225_start" style="display:none">
+                <i class="fa fa-circle-o-notch fa-spin ajax-loader" aria-hidden="true">
+
+                </i>
+            </div><div id="j_idt225_complete" style="display:none">
+
+            </div>
+
+        </div>
+        <script id="j_idt225_s" type="text/javascript">$(function () {
+                PrimeFaces.cw("AjaxStatus", "widget_j_idt225", {id: "j_idt225"});
+            });
+        </script>
+
+    </h:body>
+</html>

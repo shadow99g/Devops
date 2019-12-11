@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Experiencia Laboral</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../Template/Template.xhtml">
+            <ui:define name="content">
+
+
+                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                    <div class="card">
+                        <h:form id="FormTabView">
+                            <p:growl life="1500">
+                                <p:autoUpdate/>
+                            </p:growl>
+                            <h1>EXPERIENCIAS LABORALES</h1>
+                            <p:tabView>
+                                <p:tab title="Instituciones">
+                                    <p:panelGrid styleClass="ui-panelgrid-blank">
+                                        <p:selectOneRadio value="#{institucionC.institucion.SITLABINS}">
+                                            <f:selectItem itemLabel="Institución" itemValue="1" />
+                                            <f:selectItem itemLabel="Otras" itemValue="0"/>
+                                            <p:ajax event="change" update="institucion"/>
+                                        </p:selectOneRadio>
+                                    </p:panelGrid>
+                                    <h:panelGroup id="institucion">
+                                        <p:panelGrid columns="4" styleClass="ui-panelgrid-blank" rendered="#{institucionC.institucion.SITLABINS == '1' ? false:true}">
+                                            <p:outputLabel value="Empleado:"/>
+                                            <p:autoComplete value="#{institucionC.institucion.CODEMP}"
+                                                            completeMethod="#{autoCompletar.completeEmpleado}"
+                                                            maxResults="6"
+                                                            emptyMessage="Sin resultados"/>
+                                            <p:outputLabel value="Institución:"/>
+                                            <p:inputText value="#{institucionC.institucion.NOMINS}"/>
+                                            <p:outputLabel value="Cargo:"/>
+                                            <p:inputText value="#{institucionC.institucion.CARINS}"/>
+                                            <p:outputLabel value="Sector:"/>
+                                            <p:inputText value="#{institucionC.institucion.SECINS}"/>
+                                            <p:outputLabel value="Fecha de Inicio:"/>
+                                            <p:inputMask value="#{institucionC.institucion.FEIINS}" mask="99/99/9999"/>
+                                            <p:outputLabel value="Fecha de Término:"/>
+                                            <p:inputMask value="#{institucionC.institucion.FETINS}" mask="99/99/9999"/>
+                                        <p:commandButton value="Registrar" actionListener="#{institucionC.agregarInstitucion()}" update="FormTabView"/>
+                                        </p:panelGrid>
+                                    </h:panelGroup>
+                                    <p:dataTable id="ListarInstitución"
+                                                 value="#{institucionC.lstInstitucion}"
+                                                 var="institucion"
+                                                 selection="#{institucionC.selectedInstitucion}"
+                                                 selectionMode="single"
+                                                 rowKey="#{institucion.CODINS}"
+                                                 rows="10"
+                                                 paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15" reflow="true">
+                                        <p:column headerText="Institución">
+                                            <p:outputLabel value="#{institucion.NOMINS}"/>
+                                        </p:column>
+                                        <p:column headerText="Empleado">
+                                            <p:outputLabel value="#{institucion.EMPLEADO}"/>
+                                        </p:column>
+                                        <p:column headerText="Cargo">
+                                            <p:outputLabel value="#{institucion.CARINS}"/>
+                                        </p:column>
+                                        <p:column headerText="Sector">
+                                            <p:outputLabel value="#{institucion.SECINS}"/>
+                                        </p:column>
+                                        <p:column headerText="Fecha de Inicio">
+                                            <p:outputLabel value="#{institucion.FEIINS}"/>
+                                        </p:column>
+                                        <p:column headerText="Fecha de Término">
+                                            <p:outputLabel value="#{institucion.FETINS}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                    <p:contextMenu for="ListarInstitución">
+                                        <p:menuitem value="Editar" onclick="PF('dlgModInstitucion').show()" update="FormModifcarInstitucion"/>
+                                        <p:menuitem value="Eliminar" actionListener="#{institucionC.eliminarInstitucion()}" update="ListarInstitución"/>
+                                    </p:contextMenu>
+                                </p:tab>
+                                <p:tab title="MINSA">
+                                    <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">
+                                        <p:outputLabel value="Empleado:"/>
+                                        <p:autoComplete value="#{minsaC.minsa.CODEMP}"
+                                                        completeMethod="#{autoCompletar.completeEmpleado}"
+                                                        maxResults="6"
+                                                        emptyMessage="Sin resultados"/>
+                                        <p:outputLabel value="Resolución:"/>
+                                        <p:inputText value="#{minsaC.minsa.RESMIN}"/>
+                                        <p:outputLabel value="Fecha de Ingreso:"/>
+                                        <p:inputMask value="#{minsaC.minsa.FEIMIN}" mask="99/99/9999"/>
+                                    </p:panelGrid>
+                                    <p:commandButton value="Registrar" actionListener="#{minsaC.agregarMinsa()}" update="FormTabView"/>
+
+                                    <p:dataTable id="ListarMinsa"
+                                                 value="#{minsaC.lstMinsa}"
+                                                 var="minsa"
+                                                 selection="#{minsaC.selectedMinsa}"
+                                                 selectionMode="single"
+                                                 rowKey="#{minsa.CODMIN}"
+                                                 rows="10"
+                                                 paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15" reflow="true">
+                                        <p:column headerText="Empleado">
+                                            <p:outputLabel value="#{minsa.EMPLEADO}"/>
+                                        </p:column>
+                                        <p:column headerText="Resolución">
+                                            <p:outputLabel value="#{minsa.RESMIN}"/>
+                                        </p:column>
+                                        <p:column headerText="Fecha de Ingreso">
+                                            <p:outputLabel value="#{minsa.FEIMIN}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                    <p:contextMenu for="ListarMinsa">
+                                        <p:menuitem value="Editar" onclick="PF('dlgModMinsa').show()" update="FormModificarMinsa"/>
+                                        <p:menuitem value="Eliminar" actionListener="#{minsaC.eliminarMinsa()}" update="ListarMinsa"/>
+                                    </p:contextMenu>
+
+                                </p:tab>
+                                <p:tab title="Administración Pública">
+                                    <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">
+                                        <p:outputLabel value="Empleado:"/>
+                                        <p:autoComplete value="#{administracionPublicaC.adminPublica.CODEMP}"
+                                                        completeMethod="#{autoCompletar.completeEmpleado}"
+                                                        maxResults="6"
+                                                        emptyMessage="Sin resultados"/>
+                                        <p:outputLabel value="Resolución:"/>
+                                        <p:inputText value="#{administracionPublicaC.adminPublica.RESADMPUB}"/>
+                                        <p:outputLabel value="Fecha de Ingreso:"/>
+                                        <p:inputMask value="#{administracionPublicaC.adminPublica.FECADMPUB}" mask="99/99/9999"/>
+                                    </p:panelGrid>
+                                    <p:commandButton value="Registrar" actionListener="#{administracionPublicaC.agregarAdminPublica()}" update="FormTabView"/>
+                                    <p:dataTable id="ListarAdminPublica"
+                                                 value="#{administracionPublicaC.lstAdminPublica}"
+                                                 var="adminPublica"
+                                                 selection="#{administracionPublicaC.selectedAdminPublica}"
+                                                 selectionMode="single"
+                                                 rowKey="#{adminPublica.CODADMPUB}"
+                                                 rows="10"
+                                                 paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15" reflow="true">
+                                        <p:column headerText="Empleado">
+                                            <p:outputLabel value="#{adminPublica.EMPLEADO}"/>
+                                        </p:column>
+                                        <p:column headerText="Resolución">
+                                            <p:outputLabel value="#{adminPublica.RESADMPUB}"/>
+                                        </p:column>
+                                        <p:column headerText="Fecha de Ingreso">
+                                            <p:outputLabel value="#{adminPublica.FECADMPUB}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                    <p:contextMenu for="ListarAdminPublica">
+                                        <p:menuitem value="Editar" onclick="PF('dlgModAdminPublica').show()" update="FormModificarAdminPublica"/>
+                                        <p:menuitem value="Eliminar" actionListener="#{administracionPublicaC.eliminarAdminPublica()}" update="ListarAdminPublica"/>
+                                    </p:contextMenu>
+                                </p:tab>
+                            </p:tabView>
+                        </h:form>
+                        <p:dialog header="Modificar Datos" widgetVar="dlgModInstitucion">
+                            <h:form id="FormModifcarInstitucion">
+                                <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">
+                                    <p:outputLabel value="Empleado:"/>
+                                    <p:autoComplete value="#{institucionC.selectedInstitucion.EMPLEADO}"
+                                                    completeMethod="#{autoCompletar.completeEmpleado}"
+                                                    maxResults="6"
+                                                    emptyMessage="Sin resultados"/>
+                                    <p:outputLabel value="Institución:"/>
+                                    <p:inputText value="#{institucionC.selectedInstitucion.NOMINS}"/>
+                                    <p:outputLabel value="Cargo:"/>
+                                    <p:inputText value="#{institucionC.selectedInstitucion.CARINS}"/>
+                                    <p:outputLabel value="Sector:"/>
+                                    <p:inputText value="#{institucionC.selectedInstitucion.SECINS}"/>
+                                    <p:outputLabel value="Fecha de Inicio:"/>
+                                    <p:inputMask value="#{institucionC.selectedInstitucion.FEIINS}" mask="99/99/9999"/>
+                                    <p:outputLabel value="Fecha de Término:"/>
+                                    <p:inputMask value="#{institucionC.selectedInstitucion.FETINS}" mask="99/99/9999"/>
+                                </p:panelGrid>
+                                <p:commandButton value="Modificar" actionListener="#{institucionC.modificarInstitucion()}" onclick="PF('dlgModInstitucion').hide()" update="FormTabView"/>
+                            </h:form>
+                        </p:dialog>
+                        <p:dialog header="Modificar Datos" widgetVar="dlgModMinsa">
+                            <h:form id="FormModificarMinsa">
+                                <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">
+                                    <p:outputLabel value="Empleado:"/>
+                                    <p:autoComplete value="#{minsaC.selectedMinsa.EMPLEADO}"
+                                                    completeMethod="#{autoCompletar.completeEmpleado}"
+                                                    maxResults="6"
+                                                    emptyMessage="Sin resultados"/>
+                                    <p:outputLabel value="Resolución:"/>
+                                    <p:inputText value="#{minsaC.selectedMinsa.RESMIN}"/>
+                                    <p:outputLabel value="Fecha de Ingreso:"/>
+                                    <p:inputMask value="#{minsaC.selectedMinsa.FEIMIN}" mask="99/99/9999"/>
+                                </p:panelGrid>
+                                <p:commandButton value="Modificar" actionListener="#{minsaC.modificarMinsa()}" onclick="PF('dlgModMinsa').hide()" update="FormTabView"/>
+                            </h:form>
+                        </p:dialog>
+                        <p:dialog header="Modificar Datos" widgetVar="dlgModAdminPublica">
+                            <h:form id="FormModificarAdminPublica">
+                                <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">
+                                    <p:outputLabel value="Empleado:"/>
+                                    <p:autoComplete value="#{administracionPublicaC.selectedAdminPublica.EMPLEADO}"
+                                                    completeMethod="#{autoCompletar.completeEmpleado}"
+                                                    maxResults="6"
+                                                    emptyMessage="Sin resultados"/>
+                                    <p:outputLabel value="Resolución:"/>
+                                    <p:inputText value="#{administracionPublicaC.selectedAdminPublica.RESADMPUB}"/>
+                                    <p:outputLabel value="Fecha de Ingreso:"/>
+                                    <p:inputMask value="#{administracionPublicaC.selectedAdminPublica.FECADMPUB}" mask="99/99/9999"/>
+                                </p:panelGrid>
+                                <p:commandButton value="Modificar" actionListener="#{administracionPublicaC.modificarAdminPublica()}" onclick="PF('dlgModAdminPublica').hide()" update="FormTabView"/>
+                            </h:form>
+                        </p:dialog>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

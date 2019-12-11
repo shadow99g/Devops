@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Estudio</title>
+        <style>
+            #tamaño{
+                width: 33%;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <ui:composition template="../Template/Template.xhtml">
+            <ui:define name="content">
+                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                    <div class="card">
+
+                        <p:growl id="msg" life="1500" >
+                            <p:autoUpdate/>
+                        </p:growl>
+
+                        <h:form id="FormAgregarEstudio">
+                            <h2 align="center">ESTUDIO BÁSICO - SUPERIOR</h2>
+                            <div align="right">
+                                <h:panelGrid columns="4" styleClass="ui-panelgrid-blank" >
+                                    <!-- ESPECIALIDAD -->
+                                    <p:commandButton  class="text-white" value="Registrar especialidad" 
+                                                      actionListener="#{estudioC.limpiar()}"
+                                                      update="FormAgregarEspecialidad" oncomplete="PF('IngresarEsp').show();"/>
+                                    <!-- CENTRO -->
+                                    <p:commandButton class="text-white" value="Registrar centro de estudio" actionListener="#{estudioC.limpiar()}"
+                                                     update="FormAgregarCentro" oncomplete="PF('IngresarCen').show();"/>
+                                </h:panelGrid>
+                            </div>
+                            <!-- ESTUDIO -->
+
+
+                            <p:panelGrid columns="4" >
+                                <p:outputLabel value="EMPLEADO:" />
+                                <p:autoComplete value="#{estudioC.estudio.CODEMP}" required="true" 
+                                                requiredMessage="AÑADIR EMPLEADO" completeMethod="#{autoCompletar.completeEmpleado}"
+                                                maxResults="6"
+                                                emptyMessage="No hay Resultados"/>
+
+                                <p:outputLabel value="CENTRO DE ESTUDIO:" />
+                                <p:autoComplete value="#{estudioC.estudio.CODCEN}"
+                                                completeMethod="#{autoCompletar.completeCentro}"
+                                                maxResults="10"
+                                                emptyMessage="No se encontro resultados"/>
+
+                               
+                              
+                                            
+                                <p:outputLabel value="DESDE:" />
+                                <p:inputMask value="#{estudioC.estudio.DESEST}" mask="99/99/9999" required="true"/>
+
+                                <p:outputLabel value="HASTA:" />
+                                <p:inputMask value="#{estudioC.estudio.HASEST}" mask="99/99/9999" required="true"/>
+                                
+                            </p:panelGrid>
+                            <br/>
+                            <div align="center">
+                                <p:commandButton value="REGISTRAR ESTUDIO" actionListener="#{estudioC.agregarEstudio()}" 
+                                                 update="FormAgregarEstudio FormListarEstudioB FormListarEstudioS"/>
+                            </div>
+                        </h:form>
+
+                        <br/><br/>
+
+                        <h:form id="FormListarEstudioB">
+                            <p:dataTable id="TBLEstudioB" 
+                                         value="#{estudioBasicoC.lstEstudioBasico}" 
+                                         var="listEstudioB" 
+                                         selection="#{estudioC.estudio}"
+                                         selectionMode="single"
+                                         paginator="true" 
+                                         rows="10" rowsPerPageTemplate="5,10,15"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowKey="#{listEstudioB.CODESTBAS}" >
+
+                                <p:column style="width: 50px">
+                                    <p:rowToggler/>
+                                </p:column>
+                                <p:column filterBy="#{listEstudioB.NOMEMP}" headerText="Nombre de empleado">
+                                    <p:outputLabel value="#{listEstudioB.NOMEMP}"/>
+                                </p:column>
+                                <p:column headerText="Educacion" >
+                                    <p:outputLabel value="#{listEstudioB.EDUESTCASE}"/>
+                                </p:column>
+                                <p:column headerText="Centro de Estudio">
+                                    <p:outputLabel value="#{listEstudioB.NOMCEN}"/>
+                                </p:column>
+                                <p:column headerText="Año Cursado">
+                                    <p:outputLabel value="#{listEstudioB.ACTEST}"/>
+                                </p:column>
+                                <p:column headerText="Desde">
+                                    <p:outputLabel value="#{listEstudioB.DESEST}"/>
+                                </p:column>
+                                <p:column headerText="Hasta">
+                                    <p:outputLabel value="#{listEstudioB.HASEST}"/>
+                                </p:column>
+                            </p:dataTable>
+                            <p:contextMenu for="TBLEstudioB">
+                                <p:menuitem value="Modificar" onclick="PF('dlgModEstudioB').show()" update="FormModificarEstudioB"/>
+                                <p:menuitem value="Eliminar" actionListener="#{estudioC.eliminarEstudio()}" update="FormListarEstudioB">
+                                    <p:confirm header="Confirmación" message="¿Estás seguro de Eliminar?" icon="ui-icon-alert"/>
+                                </p:menuitem>
+                            </p:contextMenu>
+                        </h:form>
+
+
+                        <h:form id="FormListarEstudioS">
+                            <p:dataTable id="TBLEstudioS" value="#{estudioC.lstEstudioS}" 
+                                         var="listEstudioS" 
+                                         selection="#{estudioC.estudio}"
+                                         selectionMode="single"
+                                         paginator="true" rowsPerPageTemplate="5,10,15"
+                                         paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowKey="#{listEstudioS.CODEST}" sortBy="#{listEstudioS.NOMEMP}" expandableRowGroups="true" 
+                                         rendered="#{estudioC.estudio.TIPEST == 'S' ? true:false}">
+
+                                <p:headerRow>
+                                    <p:column colspan="8"> 
+                                        <p:outputLabel value="#{listEstudioS.NOMEMP}"/>
+                                    </p:column>
+                                </p:headerRow>
+                                <p:column headerText="Educacion" >
+                                    <p:outputLabel value="#{listEstudioS.EDUESTCASE}"/>
+                                </p:column>
+                                <p:column headerText="Centro de Estudio">
+                                    <p:outputLabel value="#{listEstudioS.NOMCEN}"/>
+                                </p:column>
+                                <p:column headerText="Profesión">
+                                    <p:outputLabel value="#{listEstudioS.CODESP}"/>
+                                </p:column>
+                                <p:column headerText="Grado Académico">
+                                    <p:outputLabel value="#{listEstudioS.GRAACAEST}"/>
+                                </p:column>
+                                <p:column headerText="Nº Colegiatura">
+                                    <p:outputLabel value="#{listEstudioS.NCOLEST}"/>
+                                </p:column>
+                                <p:column headerText="Año Cursado/Título">
+                                    <p:outputLabel value="#{listEstudioS.ACTEST}"/>
+                                </p:column>
+                                <p:column headerText="Desde">
+                                    <p:outputLabel value="#{listEstudioS.DESEST}"/>
+                                </p:column>
+                                <p:column headerText="Hasta">
+                                    <p:outputLabel value="#{listEstudioS.HASEST}"/>
+                                </p:column>
+                            </p:dataTable>
+                            <p:contextMenu for="TBLEstudioS">
+                                <p:menuitem value="Modificar" />
+                                <p:menuitem value="Eliminar" actionListener="#{estudioC.eliminarEstudio()}" update="FormListarEstudioB">
+                                    <p:confirm header="Confirmación" message="¿Estás seguro de Eliminar?" icon="ui-icon-alert"/>
+                                </p:menuitem>
+                            </p:contextMenu>
+                        </h:form>
+
+
+
+                        <p:dialog header="Modificar Datos" widgetVar="dlgModEstudioB">
+                            <h:form id="FormModificarEstudioB">
+                                <p:panelGrid columns="4"> 
+                                    <p:outputLabel value="EMPLEADO:" />
+                                    <p:autoComplete value="#{estudioC.estudio.NOMEMP}" required="true"  
+                                                    requiredMessage="AÑADIR EMPLEADO" completeMethod="#{autoCompletar.completeEmpleado}"/>
+
+                                    <p:outputLabel value="TIPO DE EDUCACIÓN:" />
+                                    <p:selectOneRadio value="#{estudioC.estudio.EDUEST}" >
+                                        <f:selectItem itemLabel="Primaria" itemValue="P" />
+                                        <f:selectItem itemLabel="Secundaria" itemValue="S"/>
+                                    </p:selectOneRadio>
+
+                                    <p:outputLabel value="CENTRO DE ESTUDIO:" />
+                                    <p:autoComplete value="#{estudioC.estudio.NOMCEN}"
+                                                    completeMethod="#{autoCompletar.completeCentro}"
+                                                    maxResults="10"
+                                                    emptyMessage="No se encontro resultados"/>
+
+
+                                    <p:outputLabel value="DESDE:" />
+                                    <p:inputMask value="#{estudioC.estudio.DESEST}" mask="99/99/9999" required="true"/>
+
+                                    <p:outputLabel value="HASTA:" />
+                                    <p:inputMask value="#{estudioC.estudio.HASEST}" mask="99/99/9999" required="true"/>
+
+                                    <p:outputLabel value="AÑO CURSADO:" />
+                                    <p:inputText value="#{estudioC.estudio.ACTEST}"  maxlength="30" >
+                                        <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                    </p:inputText>
+
+                                </p:panelGrid>
+                                <p:commandButton value="AGREGAR" actionListener="#{estudioC.modificarEstudioB()}" update="FormListarEstudioB FormModificarEstudioB"/>
+                                <p:commandButton value="CANCELAR" onclick="PF('dlgModEstudioB').hide()"/>
+                            </h:form>
+                        </p:dialog>
+
+                        <h:form>
+                            <p:confirmDialog global="true">
+                                <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                <p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                            </p:confirmDialog>
+                        </h:form>
+
+
+                    </div>
+                </div>
+                <ui:include src="centro.xhtml"/>
+                <ui:include src="especialidad.xhtml"/>
+            </ui:define>     
+        </ui:composition>  
+    </h:body>
+</html>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Especialidad</title>
+    </h:head>
+    <h:body>
+        <p:dialog id="IdIngresarEsp"
+                  widgetVar="IngresarEsp"
+                  modal="true" draggable="false" resizable="false"
+                  width="550" height="450" position="center center">
+            
+            <h2 align="center"> ESPECIALIDAD </h2>   
+            
+            <h:form id="FormAgregarEspecialidad" >
+                <h:panelGrid columns="3" cellpadding="5">
+
+                    <h:outputLabel value="ESPECIALIDAD:" style="font-weight:bold"/>
+                    <p:inputText value="#{especialidadC.especialidad.NOMESP}" size="33"
+                                 required="true" requiredMessage="Se requiere datos para registrar!">
+                        <p:keyFilter regEx="/[a-z_]/i"/>
+                    </p:inputText>
+
+
+                    <p:commandButton value="REGISTRAR"
+                                     actionListener="#{especialidadC.agregarEspecialidad()}"
+                                     oncomplete="growlColour(); handleLoginRequest(xhr, status, args,'IngresarEsp')"
+                                     update="FormAgregarEspecialidad FormListarEspecialidad :FormAgregarEstudio" >
+                        <p:confirm header="Confirmar" message="¿Estás seguro?" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                </h:panelGrid>
+                <br/>
+            </h:form>
+
+
+            <h:form id="FormListarEspecialidad">
+                <p:dataTable id="TBLEspecialidad" value="#{especialidadC.lstEspecialidad}" 
+                             var="listEspecialidad" 
+                             selection="#{especialidadC.especialidad}"
+                             selectionMode="single"
+                             paginator="true" 
+                             reflow="true" rows="5"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowKey="#{listEspecialidad.CODESP}" sortBy="#{listEspecialidad.NOMESP}" expandableRowGroups="true">
+
+                    <p:column headerText="Nº" >
+                        <p:outputLabel value="#{listEspecialidad.CODESP}"/>
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <p:outputLabel value="#{listEspecialidad.NOMESP}"/>
+                    </p:column>
+                </p:dataTable>
+                <p:contextMenu for="TBLEspecialidad">
+                    <p:menuitem value="Modificar" onclick="PF('dlgModEspecialidad').show()" update="FormModificarEspecialidad"/>
+                    <p:menuitem value="Eliminar" actionListener="#{especialidadC.eliminarEspecialidad()}" update="FormListarEspecialidad">
+                        <p:confirm header="Confirmación" message="¿Estás seguro de Eliminar?" icon="ui-icon-alert"/>
+                    </p:menuitem>
+                </p:contextMenu>
+            </h:form>
+
+            <p:dialog header="Modificar Datos" widgetVar="dlgModEspecialidad" position="center center" resizable="false">
+                <h:form id="FormModificarEspecialidad">
+                    <h:panelGrid columns="3" cellpadding="5" >
+                        <h:outputLabel value="ESPECIALIDAD:" style="font-weight:bold"/>
+                        <p:inputText value="#{especialidadC.especialidad.NOMESP}"
+                                     required="true" requiredMessage="Se requiere datos para registrar!">
+                            <p:keyFilter regEx="/[a-z_]/i"/>
+                        </p:inputText>                                    
+
+                        <p:commandButton value="Actualizar" actionListener="#{especialidadC.modificarEspecialidad()}" 
+                                         update="FormListarCentro FormModificarCentro" onclick="PF('dlgModEspecialidad').hide()"/>
+                    </h:panelGrid>
+                </h:form>
+            </p:dialog>
+
+            <h:form>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Si  " type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" oncomplete="growlColour();" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                </p:confirmDialog>
+            </h:form>
+
+        </p:dialog>
+    </h:body>
+</html>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Centro de Estudio</title>
+    </h:head>
+    <h:body>
+        <p:dialog id="IdIngresarCen"
+                  widgetVar="IngresarCen"
+                  modal="true" draggable="false" resizable="false"
+                  width="550" height="450" position="center center">
+
+            <h2 align="center"> CENTRO </h2>   
+
+            <h:form id="FormAgregarCentro" >
+                <h:panelGrid columns="3" cellpadding="5" >
+
+                    <h:outputLabel value="CENTRO:" style="font-weight:bold"/>
+                    <p:inputText value="#{centroC.centro.NOMCEN}" size="34"
+                                 required="true" requiredMessage="Se requiere datos para registrar!">
+                        <p:keyFilter regEx="/[a-z_]/i"/>
+                    </p:inputText>
+
+                    <p:commandButton value="REGISTRAR" 
+                                     actionListener="#{centroC.agregarCentro()}"
+                                     oncomplete="growlColour(); handleLoginRequest(xhr, status, args,'IngresarCen')"
+                                     update="FormAgregarCentro FormListarCentro :FormAgregarEstudio FORMEXT" >
+                        <p:confirm header="Confirmar" message="¿Estás seguro?" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                </h:panelGrid>
+                <br/>
+            </h:form>
+
+            <h:form id="FormListarCentro">
+                <p:dataTable id="TBLCentro" value="#{centroC.lstCentro}" 
+                             var="listCentro" 
+                             selection="#{centroC.centro}"
+                             selectionMode="single"
+                             paginator="true" 
+                             reflow="true" rows="5"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowKey="#{listCentro.CODCEN}" sortBy="#{listCentro.NOMCEN}" expandableRowGroups="true">
+
+                    <p:column headerText="Nº" >
+                        <p:outputLabel value="#{listCentro.CODCEN}"/>
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <p:outputLabel value="#{listCentro.NOMCEN}"/>
+                    </p:column>
+                </p:dataTable>
+                <p:contextMenu for="TBLCentro">
+                    <p:menuitem value="Modificar" onclick="PF('dlgModCentro').show()" update="FormModificarCentro"/>
+                    <p:menuitem value="Eliminar" actionListener="#{centroC.eliminarCentro()}" update="FormListarCentro">
+                        <p:confirm header="Confirmación" message="¿Estás seguro de Eliminar?" icon="ui-icon-alert"/>
+                    </p:menuitem>
+                </p:contextMenu>
+            </h:form>
+
+            <p:dialog header="Modificar Datos" widgetVar="dlgModCentro" position="center center" resizable="false">
+                <h:form id="FormModificarCentro">
+                    <h:panelGrid columns="3" cellpadding="5" >
+
+                        <h:outputLabel value="CENTRO:" style="font-weight:bold"/>
+                        <p:inputText value="#{centroC.centro.NOMCEN}"
+                                     required="true" requiredMessage="Se requiere datos para registrar!">
+                            <p:keyFilter regEx="/[a-z_]/i"/>
+                        </p:inputText>                                    
+
+                        <p:commandButton value="Actualizar" actionListener="#{centroC.modificarCentro()}" 
+                                         update="FormListarCentro FormModificarCentro"/>
+                    </h:panelGrid>
+                </h:form>
+            </p:dialog>
+
+            <h:form>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                    <p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                </p:confirmDialog>
+            </h:form>
+
+        </p:dialog>
+    </h:body>
+</html>

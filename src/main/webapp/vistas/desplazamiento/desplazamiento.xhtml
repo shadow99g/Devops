@@ -1,0 +1,500 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../Template/Template.xhtml">
+            <ui:define name="content">
+                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                    <div class="card">
+                        <h1 style="margin-left:500px">Registro de Desplazamiento</h1>
+                        <h:form id="FormDesplazamiento">
+                            <p:growl id="msg" life="1000">
+                                <p:autoUpdate/>
+                            </p:growl>
+                            <p:panelGrid styleClass="ui-panelgrid-blank" columns="4">
+                                <p:outputLabel value="EMPLEADO"/>
+                                <p:autoComplete value="#{desplazamientoC.desplazamiento.CODEMP}"
+                                                completeMethod="#{autoCompletar.completeEmpleado}"
+                                                maxResults="2"
+                                                emptyMessage="Sin Resultados">
+                                </p:autoComplete>
+                                <p:outputLabel value="DESPLAZAMIENTO"/>
+                                <p:selectOneMenu value="#{desplazamientoC.desplazamiento.TIPDES}"  required="true" requiredMessage="Seleccionar Desplazamiento">
+                                    <f:selectItem itemLabel="SELECCIONE" itemValue="#{null}"/>
+                                    <f:selectItem itemLabel="Designacón/Encargatura" itemValue="E"/>
+                                    <f:selectItem itemLabel="Rotacion" itemValue="R"/>
+                                    <f:selectItem itemLabel="Destaque" itemValue="D"/>
+                                    <f:selectItem itemLabel="Comision de Servicio" itemValue="C"/>
+                                    <f:selectItem itemLabel="Otro" itemValue="O"/>
+                                    <p:ajax  event="change" update="outFECRES intFECRES outRES intRES
+                                             outCAR intCAR outAREENC intAREENC outFECINI intFECINI outFECFIN intFECFIN"/> 
+                                    <p:ajax event="change" update="outFECROT intFECROT outNUMRES intNUMRES outRESCAR intRESCAR
+                                            outRESARETRA intRESARETRA outRESFECINI intRESFECFIN outRESFECFINAL intRESFECFINAL"/>
+                                    <p:ajax event="change" update="outDESFECRES intDESFECRES outDESNUMRES intDESNUMRES outDESCAR intDESCAR
+                                            outLUGPROREN intLUGPROREN  outLUGDESREN intLUGDESREN outFECINIDES intFECINIDES outFECFINDES intFECFINDES"/>
+                                    <p:ajax event="change" update="outCOMFEC intCOMFEC out int outCOMCAR intCOMCAR outCOMLUGPRO intCOMLUGPRO outCOMLUGDES intCOMLUGDES
+                                            outCOMFECINI intCOMFECINI  outCOMFECFIN intCOMFECFIN"/>
+                                    <p:ajax event="change" update="outOTROS intOTROS"/>
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                            <p:separator/>
+                            <p:panelGrid styleClass="ui-panelgrid-blank" columns="2">
+                                <h:panelGroup > 
+                                        <h:panelGroup id="outFECRES">
+                                            <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'E' ? true:false}">
+                                                <p:outputLabel value="Fecha de Resolución"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup> 
+                                        <h:panelGroup id="intFECRES">
+                                            <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'E' ? true:false}">
+                                                <p:inputMask value="#{desplazamientoC.desplazamiento.FECDES}" mask="99/99/9999"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup id="outRES">
+                                            <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'E' ? true:false}">
+                                                <p:outputLabel value="N° Resolucion"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                        <h:panelGroup id="intRES">
+                                            <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'E' ? true:false}">
+                                                <p:inputText value="#{desplazamientoC.desplazamiento.RESDES}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <!-- CARGO -->
+                                        <h:panelGroup id="outCAR">
+                                            <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'E' ? true:false}">
+                                                <p:outputLabel value="CARGO"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                        <h:panelGroup id="intCAR">
+                                            <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'E' ? true:false}">
+                                                <p:inputText value="#{desplazamientoC.desplazamiento.CARDES}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <!-- AREA ENCARGADA -->
+
+                                        <h:panelGroup id="outAREENC">
+                                            <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'E' ? true:false}">
+                                                <p:outputLabel value="AREA ENCARGADA"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                        <h:panelGroup id="intAREENC">
+                                            <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'E' ? true:false}">
+                                                <p:inputText value="#{desplazamientoC.desplazamiento.AREADES}"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <!-- VIGENCIA FECHA INICIAL-->
+
+                                        <h:panelGroup id="outFECINI">
+                                            <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'E' ? true:false}">
+                                                <p:outputLabel   value="FECHA INICIAL"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup id="intFECINI">
+                                            <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'E' ? true:false}">
+                                                <p:inputMask value="#{desplazamientoC.desplazamiento.FECINIDES}" mask="99/99/9999"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <!-- VIGENCIA FECHA FINAL-->
+
+                                        <h:panelGroup id="outFECFIN">
+                                            <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'E' ? true:false}">
+                                                <p:outputLabel   value="FECHA FINAL"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup id="intFECFIN">
+                                            <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'E' ? true:false}">
+                                                <p:inputMask value="#{desplazamientoC.desplazamiento.FECFINDES}" mask="99/99/9999"/>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                    <!-- RESOLUCIONES -->
+                                    <!-- FECHA -->
+
+                                    <h:panelGroup id="outFECROT">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'R' ? true:false}">
+                                            <p:outputLabel   value="FECHA DE RESOLUCIÓN"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup id="intFECROT">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'R' ? true:false}">
+                                            <p:inputMask value="#{desplazamientoC.desplazamiento.FECDES}" mask="99/99/9999"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <!-- N° RESOLUCION -->
+                                    <h:panelGroup id="outNUMRES">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'R' ? true:false}">
+                                            <p:outputLabel   value="N° de RESOLUCIÓN"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup id="intNUMRES">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'R' ? true:false}">
+                                            <p:inputText value="#{desplazamientoC.desplazamiento.RESDES}"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <!-- CARGO -->
+                                    <h:panelGroup id="outRESCAR">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'R' ? true:false}">
+                                            <p:outputLabel   value="CARGO"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup id="intRESCAR">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'R' ? true:false}">
+                                            <p:inputText value="#{desplazamientoC.desplazamiento.CARDES}"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <!-- AREA DE TRABAJO -->
+
+                                    <h:panelGroup id="outRESARETRA">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'R' ? true:false}">
+                                            <p:outputLabel   value="AREA DE TRABAJO"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup id="intRESARETRA">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'R' ? true:false}">
+                                            <p:inputText value="#{desplazamientoC.desplazamiento.AREADES}"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+
+                                    <!-- VIGENCIA  -->
+
+
+                                    <!-- FECHA INICIAL -->
+
+                                    <h:panelGroup id="outRESFECINI">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'R' ? true:false}">
+                                            <p:outputLabel   value="FECHA INICIAL"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup id="intRESFECFIN">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'R' ? true:false}">
+                                            <p:inputMask value="#{desplazamientoC.desplazamiento.FECINIDES}" mask="99/99/9999"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <!-- FECHA FINAL -->
+
+                                    <h:panelGroup id="outRESFECFINAL">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'R' ? true:false}">
+                                            <p:outputLabel   value="FECHA FINAL"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup id="intRESFECFINAL">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'R' ? true:false}">
+                                            <p:inputMask value="#{desplazamientoC.desplazamiento.FECFINDES}" mask="99/99/9999"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <!--DESTAQUES -->
+                                    <!-- FECHA -->
+
+                                    <h:panelGroup id="outDESFECRES">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'D' ? true:false}">
+                                            <p:outputLabel   value="FECHA DE RESOLUCIÓN"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup id="intDESFECRES">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'D' ? true:false}">
+                                            <p:inputMask value="#{desplazamientoC.desplazamiento.FECDES}" mask="99/99/9999"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+
+                                    <!-- N° RESOLUCION -->
+                                    <h:panelGroup id="outDESNUMRES">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'D' ? true:false}">
+                                            <p:outputLabel   value="N° de RESOLUCIÓN"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup id="intDESNUMRES">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'D' ? true:false}">
+                                            <p:inputText value="#{desplazamientoC.desplazamiento.RESDES}"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <!--CARGO -->
+                                    <h:panelGroup id="outDESCAR">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'D' ? true:false}">
+                                            <p:outputLabel   value="CARGO"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup id="intDESCAR">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'D' ? true:false}">
+                                            <p:inputText value="#{desplazamientoC.desplazamiento.CARDES}"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <!--LUGAR PROCEDENCIA RENAES-->
+                                    <h:panelGroup id="outLUGPROREN">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'D' ? true:false}">
+                                            <p:outputLabel   value="LUGAR DE PROCEDENCIA"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup id="intLUGPROREN">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'D' ? true:false}">
+                                            <p:autoComplete value="#{desplazamientoC.desplazamiento.LPRDES}"
+                                                            completeMethod="#{autoCompletar.completeRenaes}" maxResults="6"
+                                                            emptyMessage="Sin Resultados"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <!--LUGAR DESTINO RENAES-->
+
+                                    <h:panelGroup id="outLUGDESREN">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'D' ? true:false}">
+                                            <p:outputLabel   value="LUGAR DE DESTINO"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup id="intLUGDESREN">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'D' ? true:false}">
+                                            <p:autoComplete value="#{desplazamientoC.desplazamiento.LDRDES}"
+                                                            completeMethod="#{autoCompletar.completeRenaes}" maxResults="6"
+                                                            emptyMessage="Sin Resultados"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <!-- FECHA INICIAL -->
+
+                                    <h:panelGroup id="outFECINIDES">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'D' ? true:false}">
+                                            <p:outputLabel   value="FECHA INICIAL"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup id="intFECINIDES">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'D' ? true:false}">
+                                            <p:inputMask value="#{desplazamientoC.desplazamiento.FECINIDES}" mask="99/99/9999"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <!-- FECHA FINAL -->
+
+                                    <h:panelGroup id="outFECFINDES">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'D' ? true:false}">
+                                            <p:outputLabel   value="FECHA FINAL"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup id="intFECFINDES">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'D' ? true:false}">
+                                            <p:inputMask value="#{desplazamientoC.desplazamiento.FECINIDES}" mask="99/99/9999"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <!--COMISIONES -->
+                                    <h:panelGroup id="outCOMFEC">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'C' ? true:false}">
+                                            <p:outputLabel value="FECHA DE RESOLUCIÓN"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    <h:panelGroup id="intCOMFEC">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'C' ? true:false}">
+                                            <p:inputMask value="#{desplazamientoC.desplazamiento.FECDES}" mask="99/99/9999"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+
+                                    <!-- N° d Resolución -->
+                                    <h:panelGroup id="out">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'C' ? true:false}">
+                                            <p:outputLabel value="N° DE RESOLUCIÓN"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    <h:panelGroup id="int">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'C' ? true:false}">
+                                            <p:inputText value="#{desplazamientoC.desplazamiento.RESDES}"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <!--CARGO -->
+                                    <h:panelGroup id="outCOMCAR">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'C' ? true:false}">
+                                            <p:outputLabel   value="CARGO"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup id="intCOMCAR">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'C' ? true:false}">
+                                            <p:inputText value="#{desplazamientoC.desplazamiento.CARDES}"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+
+                                    <!--LUGAR PROCEDENCIA RENAES-->
+                                    <h:panelGroup id="outCOMLUGPRO">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'C' ? true:false}">
+                                            <p:outputLabel   value="LUGAR DE PROCEDENCIA"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup id="intCOMLUGPRO">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'C' ? true:false}">
+                                            <p:autoComplete value="#{desplazamientoC.desplazamiento.LPRDES}"
+                                                            completeMethod="#{autoCompletar.completeRenaes}" maxResults="6"
+                                                            emptyMessage="Sin Resultados"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <!--LUGAR DESTINO RENAES-->
+                                    <h:panelGroup id="outCOMLUGDES">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'C' ? true:false}">
+                                            <p:outputLabel   value="LUGAR DE DESTINO"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup id="intCOMLUGDES">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'C' ? true:false}">
+                                            <p:autoComplete value="#{desplazamientoC.desplazamiento.LDRDES}"
+                                                            completeMethod="#{autoCompletar.completeRenaes}" maxResults="6"
+                                                            emptyMessage="Sin Resultados"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+
+                                    <!-- FECHA INICIAL -->
+
+                                    <h:panelGroup id="outCOMFECINI">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'C' ? true:false}">
+                                            <p:outputLabel   value="FECHA INICIAL"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup id="intCOMFECINI">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'C' ? true:false}">
+                                            <p:inputMask value="#{desplazamientoC.desplazamiento.FECINIDES}" mask="99/99/9999"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup id="outCOMFECFIN">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'C' ? true:false}">
+                                            <p:outputLabel   value="FECHA FINAL"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup id="intCOMFECFIN">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'C' ? true:false}">
+                                            <p:inputMask value="#{desplazamientoC.desplazamiento.FECFINDES}" mask="99/99/9999"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+
+                                    <h:panelGroup id="outOTROS">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'O' ? true:false}">
+                                            <p:outputLabel   value="OTROS"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+
+                                    <h:panelGroup id="intOTROS">
+                                        <h:panelGrid rendered="#{desplazamientoC.desplazamiento.TIPDES == 'O' ? true:false}">
+                                            <p:inputText value="#{desplazamientoC.desplazamiento.OTRODES}"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                            </p:panelGrid>
+                            <p:commandButton value="Guardar" actionListener="#{desplazamientoC.agregarDesplazamiento()}" update="FormDesplazamiento :FrmListar:ListarDesplazamiento"/>
+                        </h:form>
+                        <h:form id="FrmListar" style="margin-top: 15px">
+                            <p:dataTable id="ListarDesplazamiento"
+                                         value="#{desplazamientoC.lstDesplazamiento}"
+                                         var="desplazamiento"
+                                         selection="#{desplazamientoC.selectedDesplazamiento}"
+                                         selectionMode="single"
+                                         rowKey="#{desplazamiento.CODDES}"
+                                         rows="10" paginator="true"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15">
+                                <p:column headerText="Nombres Y Apellidos" filterBy="#{desplazamiento.APEEMP}">
+                                    <p:outputLabel value="#{desplazamiento.NOMEMP} #{desplazamiento.APEEMP}"/>
+                                </p:column>
+
+                                <p:column headerText="N° y Fecha de Resolucion" filterBy="#{desplazamiento.RESDES}">
+
+                                    <h:outputLink id="fade" value="">
+                                        <h:outputText value="#{desplazamiento.RESDES}" />
+                                    </h:outputLink>
+                                    <p:tooltip id="toolTipFade" for="fade" value="#{desplazamiento.FECDES}" position="top">
+                                        <f:convertDateTime  pattern="dd/MMM/yyyy" />
+                                    </p:tooltip>
+                                </p:column>
+
+                                <p:column headerText="Desplazamiento">
+                                    <p:outputLabel value="#{desplazamiento.TIPDES}"/>
+                                </p:column>
+
+
+                                <p:column headerText="Fecha Inicio">
+                                    <p:outputLabel  value="#{desplazamiento.FECFINDES}">
+                                        <f:convertDateTime  pattern="dd/MMM/yyyy" />
+                                    </p:outputLabel>                                   
+                                </p:column>
+                                <p:column headerText="Fecha fin">
+                                    <p:outputLabel value="#{desplazamiento.FECFINDES}">
+                                        <f:convertDateTime pattern="dd/MMM/yyyy"/>
+                                    </p:outputLabel>   
+                                </p:column>
+
+                            </p:dataTable>
+                            <p:contextMenu for="ListarDesplazamiento">
+                                <p:menuitem  value="Modificar" onclick="PF('dlgDesplazamiento').show();" update="FormdlgDesplazamiento"/>
+                                <p:menuitem  value="Eliminar" actionListener="#{desplazamientoC.eliminarDesplazamiento()}" update="ListarDesplazamiento :FrmListar">
+                                    <p:confirm header="Confirmacion" message="¿Estás seguro de Eliminar?" icon="ui-icon-alert"/>
+                                </p:menuitem>
+                            </p:contextMenu>
+
+                        </h:form>
+
+                        <h:form>
+                            <p:confirmDialog global="true">
+                                <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                <p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="fa fa-close"/>
+                            </p:confirmDialog>
+                        </h:form>
+
+                        <p:dialog id="dialogo" header="Modificar Datos" widgetVar="dlgDesplazamiento" resizable="false"  modal="true">
+                            <h:form id="FormdlgDesplazamiento">
+                                <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">
+                                    <p:outputLabel value="Tipo de Desplazamiento:"/>
+                                    <p:inputText value="#{desplazamientoC.selectedDesplazamiento.TIPDES}"/>
+                                    <p:outputLabel value="Fecha Fin:"/>
+                                    <p:inputMask value="#{desplazamientoC.selectedDesplazamiento.FECFINDES}" mask="99/99/9999"/>
+                                    <p:commandButton   value="MODIFICAR" actionListener="#{desplazamientoC.modificarDesplazamiento()}" update="FrmListar:ListarDesplazamiento" onclick="PF('dlgDesplazamiento').hide();" />
+                                    <p:commandButton icon="fa fa-close" value="Cancelar" onclick="PF('dlgDesplazamiento').hide();"/>
+                                </p:panelGrid>
+                            </h:form>
+                        </p:dialog>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

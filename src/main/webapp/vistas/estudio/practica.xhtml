@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>SECIGRAS - SERUMS</title>
+    </h:head>
+    <h:body>
+        <!-- ESTUDIO -->
+        <ui:composition template="../Template/Template.xhtml">
+            <ui:define name="content">
+                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                    <div class="card">
+                        <h:form id="FORMPRAC">
+                            <h2 align="center">SECIGRAS - SERUMS</h2>   
+                            <p:panelGrid columns="4" styleClass="ui-panelgrid-blank" >
+                                <p:outputLabel value="EMPLEADO:" />
+                                <p:autoComplete value="#{estudioC.estudio.CODEMP}" required="true" 
+                                                requiredMessage="AÑADIR EMPLEADO" completeMethod="#{autoCompletar.completeEmpleado}" />
+
+                                <p:outputLabel value="TIPO:" />
+                                <p:selectOneMenu value="#{estudioC.estudio.TIPEST}">
+                                    <f:selectItem itemLabel="SECIGRA" itemValue="G" itemDescription="D.L Nº19646, D.S. Nº090-75-SA"/>
+                                    <f:selectItem itemLabel="SERUMS" itemValue="R" itemDescription="LEY Nº23330, D.S. Nº005-97-SA"/>
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="Nº DE RESOLUCIÓN" />
+                                <p:inputText value="#{estudioC.estudio.NCOLEST}" maxlength="6">
+                                    <p:keyFilter regEx="/[0-9]/"/>
+                                </p:inputText>
+
+                                <p:outputLabel value="ESTABLECIMIENTO DE SALUD:" />
+                                <p:autoComplete value="#{estudioC.estudio.CODCEN}" required="true" 
+                                                requiredMessage="AÑADIR ESTABLECIMIENTO" completeMethod="#{autoCompletar.completeCentro}"/>
+
+                                <p:outputLabel value="DESDE:" />
+                                <p:calendar value="#{estudioC.estudio.DESEST}"  required="true"
+                                             pattern="dd/MM/yyyy" mask="true" navigator="true"/>
+
+                                <p:outputLabel value="HASTA:" />
+                                <p:calendar value="#{estudioC.estudio.HASEST}"  required="true"
+                                             pattern="dd/MM/yyyy" mask="true" navigator="true"/>
+
+                            </p:panelGrid>
+                            <br/>
+                            <center>
+                                <p:commandButton value="REGISTRAR" actionListener="#{estudioC.agregarExperiencia()}"
+                                                 update="FORMPRAC FormListarEstudio"/>
+                            </center>
+                            <br/>
+                        </h:form>
+
+                        <h:form id="FormListarEstudio">
+                            <p:dataTable id="TBLEstudio" value="#{estudioC.lstExperiencia}" var="listprac"
+                                         selection="#{estudioC.estudio}"
+                                         selectionMode="single"
+                                         rowKey="#{listprac.NOMEMP}"
+                                         paginator="true" rows="10"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                                <p:column headerText="EMPLEADO" groupRow="true">
+                                    <p:outputLabel value="#{listprac.CODEMP}"/>
+                                </p:column>
+                                <p:column headerText="Nº DE RESOLUCIÓN">
+                                    <p:outputLabel value="#{listprac.NCOLEST}"/>
+                                </p:column>
+                                <p:column headerText="ESTABLECIMIENTO DE SALUD" style="width: 20%">
+                                    <p:outputLabel value="#{listprac.CODCEN}"/>
+                                </p:column>
+                                <p:column headerText="DESDE">
+                                    <p:outputLabel value="#{listprac.DESEST1}"/>
+                                </p:column>
+                                <p:column headerText="HASTA">
+                                    <p:outputLabel value="#{listprac.HASEST1}"/>
+                                </p:column>
+                                <p:column headerText="TIPO" >
+                                    <p:outputLabel value="#{listprac.TIPEST1}"/>
+                                </p:column>
+                                <!--                        <p:column headerText="Modificar">
+                                                            <p:commandButton value="Editar" onclick="PF('EditPracticas').show()" update=":FORMDialog">
+                                                                <f:setPropertyActionListener value="{listprac}" target="{estudioC.editExperiencia}"/>
+                                                            </p:commandButton>
+                                                        </p:column>-->
+
+
+                            </p:dataTable>
+                            <p:contextMenu for="TBLEstudio">
+                                <p:menuitem value="MODIFICAR" onclick="PF('EditPracticas').show()" update="FORMDialog"/>
+                                <p:menuitem value="ELIMINAR" actionListener="#{estudioC.eliminarExperiencia()}" 
+                                            update="TBLEstudio">
+                                    <p:confirm header="CONFIRMACIÓN" message="¿ESTÁS SEGURO DE ELIMINAR?" icon="ui-icon-alert"/>
+                                </p:menuitem>
+                            </p:contextMenu>
+                        </h:form>
+                        <p:dialog id="DialogPrac" widgetVar="EditPracticas" modal="true" showEffect="explode">
+                            <h:form id="FORMDialog">
+                                <p:panelGrid columns="4">
+                                    <p:outputLabel value="EMPLEADO" />
+                                    <p:autoComplete value="#{estudioC.estudio.CODEMP}" required="true" 
+                                                    requiredMessage="AÑADIR EMPLEADO" completeMethod="#{autoCompletar.completeEmpleado}" disabled="true"/>
+
+                                    <p:outputLabel value="TIPO:" />
+                                    <p:selectOneMenu value="#{estudioC.estudio.TIPEST}">
+                                        <f:selectItem itemLabel="SECIGRA" itemValue="G" itemDescription="D.L Nº19646, D.S. Nº090-75-SA"/>
+                                        <f:selectItem itemLabel="SERUMS" itemValue="R" itemDescription="LEY Nº23330, D.S. Nº005-97-SA"/>
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel value="Nº DE RESOLUCIÓN" />
+                                    <p:inputText value="#{estudioC.estudio.NCOLEST}" maxlength="6">
+                                        <p:keyFilter regEx="/[0-9]/"/>
+                                    </p:inputText>
+
+                                    <p:outputLabel value="ESTABLECIMIENTO DE SALUD:" />
+                                    <p:autoComplete value="#{estudioC.estudio.CODCEN}" required="true" 
+                                                    requiredMessage="AÑADIR ESTABLECIMIENTO" completeMethod="#{autoCompletar.completeCentro}"/>
+
+                                    <p:outputLabel value="DESDE:" />
+                                    <p:calendar value="#{estudioC.estudio.DESEST}"  required="true"
+                                                 pattern="dd/MM/yyyy" mask="true" navigator="true"/>
+
+                                    <p:outputLabel value="HASTA:"/>
+                                    <p:calendar value="#{estudioC.estudio.HASEST}"  required="true"
+                                                 pattern="dd/MM/yyyy" mask="true" navigator="true"/>
+                                </p:panelGrid>
+                                <p:commandButton value="MODIFICAR" 
+                                                 onclick="PF('EditPracticas').hide()" 
+                                                 actionListener="#{estudioC.modificarExperiencia()}" 
+                                                 update="FORMPRAC FormListarEstudio FORMDialog"/>
+                                <p:commandButton value="CANCELAR" onclick="PF('EditPracticas').hide()"/>
+                            </h:form>
+                        </p:dialog>
+                        <h:form>
+                            <p:confirmDialog global="true">
+                                <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                <p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                            </p:confirmDialog>
+                        </h:form>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

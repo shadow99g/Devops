@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <title>ESTUDIOS</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../Template/Template.xhtml">
+            <ui:define name="content">
+
+                <div class="card">
+                    <h:form id="FrmAgregar">
+                        <p:growl life="1500">
+                            <p:autoUpdate/>
+                        </p:growl>
+                        <div class="container" style="height: 38px">
+                            <h1><b>ESTUDIOS</b></h1>
+                        </div>
+                        <p:panel id="panelEstudio">
+                            <p:panelGrid columns="4" style="width: 100%" styleClass="ui-panelgrid-blank"> 
+
+                                <p:outputLabel value="EMPLEADO"/>
+                                <p:autoComplete id="txtEmpleado" value="#{estudioBasicoC.estudioBasico.CODEMP}"
+                                                completeMethod="#{autoCompletar.completeEmpleado}"
+                                                maxResults="6"
+                                                emptyMessage="Sin resultados"
+                                                dropdown="true"/>
+
+
+                                <p:outputLabel value="EDUCACIÓN"/>
+                                <p:selectOneRadio id="txtEducacion" value="#{estudioBasicoC.estudioBasico.EDUESTBAS}"
+                                                  unselectable="true"
+                                                  columns="2" layout="responsive" style="width: 270px">
+                                    <f:selectItem itemLabel="PRIMARIA" itemValue="P" />
+                                    <f:selectItem itemLabel="SECUNDARIA" itemValue="S" />
+                                </p:selectOneRadio>
+                                <p:outputLabel value="CENTRO DE ESTUDIOS"/>
+                                <p:autoComplete id="txtCentro" value="#{estudioBasicoC.estudioBasico.CODCEN}"
+                                                completeMethod="#{autoCompletar.completeCentro}"
+                                                maxResults="6"
+                                                emptyMessage="Sin resultados"
+                                                dropdown="true"/>
+                                <p:outputLabel value="FECHA DE INICIO"/>
+                                <p:inputMask value="#{estudioBasicoC.estudioBasico.DESESTBAS}" 
+                                             mask="99/99/9999" />                          
+
+                                <p:outputLabel value="FECHA DE FIN"/>
+                                <p:inputMask value="#{estudioBasicoC.estudioBasico.HASESTBAS}" 
+                                             mask="99/99/9999" />    
+
+                                <p:outputLabel value="CULMINACIÓN"/>
+                                <p:selectOneRadio id="txtCulminacion" value="#{estudioBasicoC.estudioBasico.CULESTBAS}"
+                                                  unselectable="true"
+                                                  columns="2" layout="responsive">
+                                    <f:selectItem itemLabel="SI" itemValue="S" />
+                                    <f:selectItem itemLabel="NO" itemValue="N" />
+                                    <p:ajax event="change" update="grado academico"/>
+                                </p:selectOneRadio>
+                                <h:panelGroup id="grado">
+                                    <h:panelGrid rendered="#{estudioBasicoC.estudioBasico.CULESTBAS == 'N' ? true:false}">
+                                        <p:outputLabel value="GRADO ACADEMICO   "/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+                                <h:panelGroup id="academico">
+                                    <h:panelGrid rendered="#{estudioBasicoC.estudioBasico.CULESTBAS == 'N' ? true:false}">
+                                        <p:inputText value="#{estudioBasicoC.estudioBasico.GRAESTBAS}" style="width: 195px"/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+                            </p:panelGrid>
+                            <br/>
+                            <center>
+                                <p:commandButton value="AGREGAR" actionListener="#{estudioBasicoC.agregarEstudioB()}"
+                                                 update="FrmAgregar FrmListar"  style="width: 150px" />
+                            </center>
+                        </p:panel>
+
+                    </h:form>
+
+                </div>
+                <div class="card">
+                    <h:form id="FrmListar">
+
+                        <p:dataTable id="listarEstudios"
+                                     value="#{estudioBasicoC.lstEstudioBasico}"
+                                     var="estudiosBasicos"                               
+                                     emptyMessage="No hay datos" 
+                                     widgetVar="dlgEstudios"
+                                     sortBy="#{estudiosBasicos.CODEMP}"
+                                     rowKey="#{estudiosBasicos.CODESTBAS}"
+                                     selection="#{estudioBasicoC.selectedEstudio}" selectionMode="single">
+
+                            <f:facet name="header">
+                                <h3>DATOS</h3>
+                            </f:facet>                        
+                            <p:column headerText="EMPLEADO" filterBy="#{estudiosBasicos.CODEMP}" filterMatchMode="contains" groupRow="true">
+                                <p:outputLabel value="#{estudiosBasicos.CODEMP}"/>
+                            </p:column>
+                            <p:column headerText="CENTRO DE ESTUDIOS">
+                                <p:outputLabel value="#{estudiosBasicos.CODCEN}"/>
+                            </p:column>
+                            <p:column headerText="FECHA DE INICIO">
+                                <p:outputLabel value="#{estudiosBasicos.DESESTBAS}">
+                                 
+                                </p:outputLabel>
+                            </p:column>
+                            <p:column headerText="FECHA DE FIN">
+                                <p:outputLabel value="#{estudiosBasicos.HASESTBAS}" >
+                              
+                                </p:outputLabel>
+                            </p:column>
+                            <p:column headerText="GRADO ACADEMICO" >
+                                <p:outputLabel value="#{estudiosBasicos.GRAESTBAS ==  'SI' ? 'PRIMARIA COMPLETA' : estudiosBasicos.GRAESTBAS}" />
+                            </p:column>
+
+                            <p:column filterBy="#{estudiosBasicos.EDUESTBAS}" headerText="EDUCACIÓN" filterMatchMode="exact"> 
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('dlgEstudios').filter()" styleClass="custom-filter">
+                                        <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true" />
+                                        <f:selectItem itemLabel="SECUNDARIA" itemValue="SECUNDARIA"/>
+                                        <f:selectItem itemLabel="PRIMARIA" itemValue="PRIMARIA"/>
+                                    </p:selectOneMenu>
+                                </f:facet>
+                                <h:outputText value="#{estudiosBasicos.EDUESTBAS}" />
+                            </p:column>
+
+
+
+                        </p:dataTable>
+                        <p:contextMenu for="listarEstudios">
+                            <p:menuitem value="Editar" onclick="PF('dlgModEstudiosBasicos').show()" update="FormModificar"/>
+                            <p:menuitem value="Eliminar" actionListener="#{estudioBasicoC.eliminarEstudioBasico()}" 
+                                        update="listarEstudios">
+                                <p:confirm header="Confirmación" message="¿Estás seguro de Eliminar?" icon="ui-icon-alert"/>
+                            </p:menuitem>
+                        </p:contextMenu>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                            <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                        </p:confirmDialog>      
+                    </h:form>
+                </div>
+                <p:dialog header="Modificar Datos" widgetVar="dlgModEstudiosBasicos">
+                    <h:form id="FormModificar">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="EMPLEADO"/>
+                            <p:autoComplete id="txtEmpleado" value="#{estudioBasicoC.selectedEstudio.CODEMP}"
+                                            completeMethod="#{autoCompletar.completeEmpleado}"
+                                            maxResults="6"
+                                            emptyMessage="Sin resultados"
+                                            dropdown="true"/>
+
+                            <p:outputLabel value="EDUCACIÓN"/>
+                            <p:selectOneRadio id="txtEducacion" value="#{estudioBasicoC.selectedEstudio.EDUESTBAS}"
+                                              unselectable="true"
+                                              columns="2" layout="responsive" style="width: 270px">
+                                <f:selectItem itemLabel="PRIMARIA" itemValue="P" />
+                                <f:selectItem itemLabel="SECUNDARIA" itemValue="S" />
+                            </p:selectOneRadio>
+                            <p:outputLabel value="CENTRO DE ESTUDIOS"/>
+                            <p:autoComplete id="txtCentro" value="#{estudioBasicoC.selectedEstudio.CODCEN}"
+                                            completeMethod="#{autoCompletar.completeCentro}"
+                                            maxResults="6"
+                                            emptyMessage="Sin resultados"
+                                            dropdown="true"/>
+                            <p:outputLabel value="FECHA DE INICIO"/>
+                            <p:inputMask value="#{estudioBasicoC.estudioBasico.DESESTBAS}" 
+                                         mask="99/99/9999" />                      
+
+                            <p:outputLabel value="FECHA DE FIN"/>
+                            <p:inputMask value="#{estudioBasicoC.estudioBasico.HASESTBAS}" 
+                                         mask="99/99/9999" />       
+
+                            <p:outputLabel value="CULMINACIÓN"/>
+                            <p:selectOneRadio id="txtCulminacion" value="#{estudioBasicoC.selectedEstudio.CULESTBAS}"
+                                              unselectable="true"
+                                              columns="2" layout="responsive">
+                                <f:selectItem itemLabel="SI" itemValue="S" />
+                                <f:selectItem itemLabel="NO" itemValue="N" />
+                                <p:ajax event="change" update="grado academico"/>
+                            </p:selectOneRadio>
+                            <h:panelGroup id="grado">
+                                <h:panelGrid rendered="#{estudioBasicoC.selectedEstudio.CULESTBAS == 'N' ? true:false}">
+                                    <p:outputLabel value="GRADO ACADEMICO   "/>
+                                </h:panelGrid>
+                            </h:panelGroup>
+                            <h:panelGroup id="academico">
+                                <h:panelGrid rendered="#{estudioBasicoC.selectedEstudio.CULESTBAS == 'N' ? true:false}">
+                                    <p:inputText value="#{estudioBasicoC.selectedEstudio.GRAESTBAS}" style="width: 195px"/>
+                                </h:panelGrid>
+                            </h:panelGroup>
+                        </p:panelGrid>
+                        <br/>
+                        <center>
+                            <p:commandButton value="Modificar" actionListener="#{estudioBasicoC.modificarEstudioB()}" 
+                                             style="width: 150px" onclick="PF('dlgModEstudiosBasicos').hide()" 
+                                             update="FrmListar FormModificar"/>
+
+                            <p:commandButton value="Cancelar" onclick="PF('dlgModEstudiosBasicos').hide()" 
+                                             style="width: 150px"/>
+                        </center>
+                    </h:form>
+
+                </p:dialog>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,294 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Empleado</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../Template/Template.xhtml">
+            <ui:define name="content">
+                <h:form id="FrmAgregar">
+                    <p:growl life="1500">
+                        <p:autoUpdate/>
+                    </p:growl>
+                    <div class="container" style="height: 30px">
+                        <h1><center><b>EMPLEADO</b></center></h1>
+                    </div>
+                    <br/>
+                    <p:panelGrid columns="4">
+                        <p:outputLabel value="Apellido Paterno:"/>
+                        <p:inputText value="#{empleadoC.empleado.APAEMP}">
+                            <p:keyFilter regEx="/[a-z/A-Z]/"/>
+                        </p:inputText>
+                        <p:outputLabel value="Apellido Materno:"/>
+                        <p:inputText value="#{empleadoC.empleado.AMAEMP}">
+                            <p:keyFilter regEx="/[a-z/A-Z]/"/>
+                        </p:inputText>
+                        <p:outputLabel value="Nombres:"/>
+                        <p:inputText value="#{empleadoC.empleado.NOMEMP}">
+                            <p:keyFilter regEx="/[a-z/A-Z]/"/>
+                        </p:inputText>
+                        <p:outputLabel value="N° DNI:"/>
+                        <p:inputText value="#{empleadoC.empleado.DNIEMP}" maxlength="8">
+                            <p:keyFilter regEx="/[0-9]/"/>
+                        </p:inputText>
+                        <p:outputLabel value="N° RUC:"/>
+                        <p:inputText value="#{empleadoC.empleado.RUCEMP}" maxlength="11">
+                            <p:keyFilter regEx="/[0-9]/"/>
+                        </p:inputText>
+                        <p:outputLabel value="Teléfono:"/>
+                        <p:inputText value="#{empleadoC.empleado.TELEMP}" maxlength="7">
+                            <p:keyFilter regEx="/[0-9]/"/>
+                        </p:inputText>
+                        <p:outputLabel value="Celular:"/>
+                        <p:inputText value="#{empleadoC.empleado.CELEMP}" maxlength="9">
+                            <p:keyFilter regEx="/[0-9]/"/>
+                        </p:inputText>
+                        <p:outputLabel value="Email:"/>
+                        <p:inputText value="#{empleadoC.empleado.EMAEMP}"/>
+                        <p:outputLabel value="Régimen Pensionario:"/>
+                        <p:inputText value="#{empleadoC.empleado.REPEMP}"/>
+                        <p:outputLabel value="Nombre de AFP:"/>
+                        <p:inputText value="#{empleadoC.empleado.NOAEMP}"/>
+                        <p:outputLabel value="Fecha de Afiliación:"/>
+                        <p:calendar id="a_FEAEMP" value="#{empleadoC.empleado.FEAEMP}" 
+                                    showOn="button" pattern="dd/MM/yyyy" mask="true" navigator="true"
+                                    required="true" requiredMessage="AÑADIR FECHA DE AFILIACIÓN" size="24"/>
+                        <p:outputLabel value="Autogenerado EsSalud:"/>
+                        <p:inputText value="#{empleadoC.empleado.AESEMP}">
+                            <p:keyFilter regEx="/[0-9]/"/>
+                        </p:inputText>
+                        <p:outputLabel value="Sexo:"/>
+                        <p:selectOneRadio  value="#{empleadoC.empleado.SEXEMP}" required="true" requiredMessage="AÑADIR SEXO">
+                            <f:selectItem itemLabel="MASCULINO" itemValue="M" />
+                            <f:selectItem itemLabel="FEMENINO" itemValue="F"/>
+                        </p:selectOneRadio>
+                        <p:outputLabel value="Estado Civil:"/>
+                        <p:selectOneMenu value="#{empleadoC.empleado.ESCEMP}" required="true" 
+                                         requiredMessage="Añadir estado civil de familiar">
+                            <f:selectItem itemLabel="SELECCIONE" itemValue="#{null}" />
+                            <f:selectItem itemLabel="Soltero(a)" itemValue="Soltero(a)" />
+                            <f:selectItem itemLabel="Casado(a)" itemValue="Casado(a)" />
+                            <f:selectItem itemLabel="Divorciado(a)" itemValue="Divorciado(a)" />
+                            <f:selectItem itemLabel="Viudo(a)" itemValue="Viudo(a)"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="N° Hijos:"/>
+                        <p:inputText value="#{empleadoC.empleado.NUHEMP}">
+                            <p:keyFilter regEx="/[0-9]/"/>
+                        </p:inputText>
+                        <p:outputLabel value="Fecha de Nacimiento:"/>
+                        <p:calendar id="a_FECEMP" value="#{empleadoC.empleado.FECEMP}" 
+                                    showOn="button" pattern="dd/MM/yyyy" mask="true" navigator="true"
+                                    required="true" requiredMessage="AÑADIR FECHA DE NACIMIENTO" size="24"/>
+                        <p:outputLabel value="Pais de nacimiento:"/>
+                        <p:inputText value="#{empleadoC.empleado.PANEMP}">
+                            <p:keyFilter regEx="/[a-z/A-Z]/"/>
+                        </p:inputText>
+                        <p:outputLabel value="Departamento-Provincia-Distrito:"/>
+                        <p:autoComplete value="#{empleadoC.empleado.CODUBI}"
+                                        completeMethod="#{autoCompletar.completeUbigeo}"
+                                        maxResults="6"
+                                        emptyMessage="Sin resultados"/>
+                        <p:outputLabel value="Domicilio:"/>
+                        <p:inputText value="#{empleadoC.empleado.DIREMP}"/>
+                        <p:outputLabel value="Referencia:"/>
+                        <p:inputText value="#{empleadoC.empleado.REFEMP}"/>
+                        
+                        <p:outputLabel value="|°:"/>
+                        <p:inputText value="#{empleadoC.empleado.REFEMP}"/>
+                        <p:outputLabel value=""/>
+                        <p:inputText value="#{empleadoC.empleado.REFEMP}"/>
+                        
+                        <p:outputLabel value="Grupo Sanguíneo:"/>
+                        <p:inputText value="#{empleadoC.empleado.GRSEMP}"/>
+                        <p:outputLabel value="N° Libreta Militar:"/>
+                        <p:inputText value="#{empleadoC.empleado.LIMEMP}"/>
+                        <p:outputLabel value="N° Pasaporte:"/>
+                        <p:inputText value="#{empleadoC.empleado.PASEMP}"/>
+                        <p:outputLabel value="N° CUSSP:"/>
+                        <p:inputText value="#{empleadoC.empleado.CUSEMP}"/>
+                        <p:outputLabel value="N° Brevete:"/>
+                        <p:inputText value="#{empleadoC.empleado.BREEMP}"/>
+                        <p:outputLabel  value="Condición Laboral:" />
+                        <p:selectOneRadio  value="#{empleadoC.empleado.COLEMP}" required="true" requiredMessage="AÑADIR CONDICIÓN LABORAL">
+                            <f:selectItem itemLabel="CAS" itemValue="CAS" />
+                            <f:selectItem itemLabel="CESANTE" itemValue="CES"/>
+                            <f:selectItem itemLabel="NOMBRADO" itemValue="NOM"/>
+                            <p:ajax event="change" update="outCas inCas"/>
+                        </p:selectOneRadio>
+                        <h:panelGroup id="outCas">
+                            <h:panelGrid rendered="#{empleadoC.empleado.COLEMP == 'CAS' ? false:true}">
+                                <p:outputLabel value="Nombramiento:"/>
+                            </h:panelGrid>
+                        </h:panelGroup>
+                        <h:panelGroup id="inCas">
+                            <h:panelGrid rendered="#{empleadoC.empleado.COLEMP == 'CAS' ? false:true}">
+                                <p:calendar id="a_FENEMP" value="#{empleadoC.empleado.FENEMP}" 
+                                            showOn="button" pattern="dd/MM/yyyy" mask="true" navigator="true"
+                                            required="true" requiredMessage="AÑADIR FECHA DE NOMBRAMIENTO" size="24"/>
+                            </h:panelGrid>
+                        </h:panelGroup>
+                        
+                        <p:outputLabel value="Carnet asegurado:"/>
+                        <p:inputText value="#{empleadoC.empleado.CAREMP}"/>
+                        
+                        <p:outputLabel value="Número de ley:"/>
+                        <p:inputText value="#{empleadoC.empleado.LEYEMP}"/>
+                        <p:outputLabel value="Fecha de ingreso:"/>
+                        <p:calendar id="a_FEIEMP" value="#{empleadoC.empleado.FEIEMP}" 
+                                    showOn="button" pattern="dd/MM/yyyy" mask="true" navigator="true"
+                                    required="true" requiredMessage="AÑADIR FECHA DE INGRESO" size="24"/>
+                        
+                        
+                        <p:outputLabel value="Régimen Laboral:"/>
+                        <p:inputText value="#{empleadoC.empleado.RLABEMP}"/>
+                        <p:outputLabel value="Categoría Remunerativa:"/>
+                        <p:inputText value="#{empleadoC.empleado.CATREMEMP}"/>
+                        <p:outputLabel value="Unidad Orgánica:"/>
+                        <p:inputText value="#{empleadoC.empleado.UNIORGEMP}"/>
+                        <p:outputLabel value="RENAES:"/>
+                        <p:autoComplete value="#{empleadoC.empleado.CODREN}"
+                                        completeMethod="#{autoCompletar.completeRenaes}"
+                                        maxResults="6"
+                                        emptyMessage="Sin resultados"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Agregar" actionListener="#{empleadoC.agregarEmpleado()}" update="FrmAgregar FrmListar"/>
+                </h:form>
+                <h:form id="FrmListar">
+                    <p:dataTable id="ListarEmpleado"
+                                 value="#{empleadoC.lstEmpleado}"
+                                 var="empleado"
+                                 selection="#{empleadoC.empleado}"
+                                 selectionMode="single"
+                                 rowKey="#{empleado.CODEMP}"
+                                 rows="10"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+                        <p:column headerText="Dni">
+                            <p:outputLabel value="#{empleado.DNIEMP}"/>
+                        </p:column>
+                        <p:column headerText="Nombres">
+                            <p:outputLabel value="#{empleado.NOMEMP}"/>
+                        </p:column>
+                        <p:column headerText="Apellidos">
+                            <p:outputLabel value="#{empleado.APAEMP} #{empleado.AMAEMP}"/>
+                        </p:column>
+                        <p:column headerText="Ruc">
+                            <p:outputLabel value="#{empleado.RUCEMP}"/>
+                        </p:column>
+                        <p:column headerText="Email">
+                            <p:outputLabel value="#{empleado.EMAEMP}"/>
+                        </p:column>
+                        <p:column headerText="Fecha de nacimiento">
+                            <p:outputLabel value="#{empleado.FECEMPFORMAT}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <p:contextMenu for="ListarEmpleado">
+                        <p:menuitem value="Editar" oncomplete="PF('dlgModEmpleado').show()" update="FormModificar"/>
+                        <p:menuitem value="Eliminar" actionListener="#{empleadoC.eliminarEmpleado()}" update="ListarEmpleado">
+                            <p:confirm header="Confirmación" message="¿Estás seguro de Eliminar?" icon="ui-icon-alert"/>
+                        </p:menuitem>
+                    </p:contextMenu>
+                </h:form>
+                <p:dialog header="Modificar Datos" widgetVar="dlgModEmpleado">
+                    <h:form id="FormModificar">
+                        <p:panelGrid columns="6">
+                            <p:outputLabel  value="Condición laboral:" />
+                            <p:selectOneRadio  value="#{empleadoC.empleado.COLEMP}" required="true" requiredMessage="AÑADIR CONDICIÓN LABORAL">
+                                <f:selectItem itemLabel="CAS" itemValue="CAS" />
+                                <f:selectItem itemLabel="CESANTE" itemValue="CES"/>
+                                <f:selectItem itemLabel="NOMBRADO" itemValue="NOM"/>
+                                <p:ajax event="change" update="outCas inCas"/>
+                            </p:selectOneRadio>
+                            <h:panelGroup id="outCas">
+                                <h:panelGrid rendered="#{empleadoC.empleado.COLEMP == 'CAS' ? false:true}">
+                                    <p:outputLabel value="Nombramiento:"/>
+                                </h:panelGrid>
+                            </h:panelGroup>
+                            <h:panelGroup id="inCas">
+                                <h:panelGrid rendered="#{empleadoC.empleado.COLEMP == 'CAS' ? false:true}">
+                                    <p:calendar id="a_FENEMP" value="#{empleadoC.empleado.FENEMP}" 
+                                                showOn="button" pattern="dd/MM/yyyy" mask="true" navigator="true"
+                                                required="true" requiredMessage="AÑADIR FECHA DE NOMBRAMIENTO" size="24"/>
+                                </h:panelGrid>
+                            </h:panelGroup>
+                            <p:outputLabel value="Dni:"/>
+                            <p:inputText value="#{empleadoC.empleado.DNIEMP}" maxlength="8">
+                                <p:keyFilter regEx="/[0-9]/"/>
+                            </p:inputText>
+                            <p:outputLabel value="Nombres:"/>
+                            <p:inputText value="#{empleadoC.empleado.NOMEMP}"/>
+                            <p:outputLabel value="Apellido paterno:"/>
+                            <p:inputText value="#{empleadoC.empleado.APAEMP}"/>
+                            <p:outputLabel value="Apellido materno:"/>
+                            <p:inputText value="#{empleadoC.empleado.AMAEMP}"/>
+                            <p:outputLabel value="Ruc:"/>
+                            <p:inputText value="#{empleadoC.empleado.RUCEMP}" maxlength="11">
+                                <p:keyFilter regEx="/[0-9]/"/>
+                            </p:inputText>
+                            <p:outputLabel value="Email:"/>
+                            <p:inputText value="#{empleadoC.empleado.EMAEMP}"/>
+                            <p:outputLabel value="Teléfono:"/>
+                            <p:inputText value="#{empleadoC.empleado.TELEMP}" maxlength="7">
+                                <p:keyFilter regEx="/[0-9]/"/>
+                            </p:inputText>
+                            <p:outputLabel value="Celular:"/>
+                            <p:inputText value="#{empleadoC.empleado.CELEMP}" maxlength="9">
+                                <p:keyFilter regEx="/[0-9]/"/>
+                            </p:inputText>
+                            <p:outputLabel value="Fecha de nacimiento:"/>
+                            <p:calendar id="a_FECEMP" value="#{empleadoC.empleado.FECEMP}" 
+                                        showOn="button" pattern="dd/MM/yyyy" mask="true" navigator="true"
+                                        required="true" requiredMessage="AÑADIR FECHA DE NACIMIENTO" size="24"/>
+                            <p:outputLabel value="Grupo sanguíneo:"/>
+                            <p:inputText value="#{empleadoC.empleado.GRSEMP}"/>
+                            <p:outputLabel value="Carnet asegurado:"/>
+                            <p:inputText value="#{empleadoC.empleado.CAREMP}"/>
+                            <p:outputLabel value="Referencia:"/>
+                            <p:inputText value="#{empleadoC.empleado.REFEMP}"/>
+                            <p:outputLabel value="Número de ley:"/>
+                            <p:inputText value="#{empleadoC.empleado.LEYEMP}"/>
+                            <p:outputLabel value="Fecha de ingreso:"/>
+                            <p:calendar id="a_FEIEMP" value="#{empleadoC.empleado.FEIEMP}" 
+                                        showOn="button" pattern="dd/MM/yyyy" mask="true" navigator="true"
+                                        required="true" requiredMessage="AÑADIR FECHA DE INGRESO" size="24"/>
+                            <p:outputLabel value="Estado civil:"/>
+                            <p:selectOneMenu value="#{empleadoC.empleado.ESCEMP}" required="true" 
+                                             requiredMessage="Añadir estado civil de familiar">
+                                <f:selectItem itemLabel="SELECCIONE" itemValue="#{null}"  />
+                                <f:selectItem itemLabel="Soltero(a)" itemValue="Soltero(a)" />
+                                <f:selectItem itemLabel="Casado(a)" itemValue="Casado(a)" />
+                                <f:selectItem itemLabel="Divorciado(a)" itemValue="Divorciado(a)" />
+                                <f:selectItem itemLabel="Viudo(a)" itemValue="Viudo(a)"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Distrito:"/>
+                            <p:autoComplete value="#{empleadoC.empleado.CODUBI}"
+                                            completeMethod="#{autoCompletar.completeUbigeo}"
+                                            maxResults="6"
+                                            emptyMessage="Sin resultados"/>
+                            <p:outputLabel value="RENAES:"/>
+                            <p:autoComplete value="#{empleadoC.empleado.CODREN}"
+                                            completeMethod="#{autoCompletar.completeRenaes}"
+                                            maxResults="6"
+                                            emptyMessage="Sin resultados"/>
+                        </p:panelGrid>
+                        <p:commandButton value="Agregar" actionListener="#{empleadoC.modificarEmpleado()}" onclick="PF('dlgModEmpleado').hide()" update="FrmListar FormModificar"/>
+                        <p:commandButton value="Cancelar" onclick="PF('dlgModEmpleado').hide()"/>
+                    </h:form>
+                </p:dialog>
+                <h:form>
+                    <p:confirmDialog global="true">
+                        <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                        <p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                    </p:confirmDialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

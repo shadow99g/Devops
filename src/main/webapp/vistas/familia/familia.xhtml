@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Familia</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../Template/Template.xhtml">
+            <ui:define name="content">
+                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                    <div class="card">
+                        <h1 style="margin-left:500px">Registro de Familiar</h1>
+                        <h:form id="FrmAgregarFamilia">
+                            <p:growl id="msg" life="1500" >
+                                <p:autoUpdate/>
+                            </p:growl>
+                            <p:panelGrid styleClass="ui-panelgrid-blank" columns="4">                                            
+                                <p:outputLabel value="Nombre de empleado:" />
+                                <p:autoComplete value="#{familiaC.familia.CODEMP}" completeMethod="#{autoCompletar.completeEmpleado}" 
+                                                required="true" requiredMessage="AÑADIR NOMBRE DEL EMPLEADO" 
+                                                emptyMessage="Sin resultado" maxResults="6"/>                
+                                <p:outputLabel value="Nombres de familiar:" />
+                                <p:inputText value="#{familiaC.familia.NOMFAM}" required="true" requiredMessage="AÑADIR NOMBRE DE FAMILIAR" >
+                                    <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                </p:inputText>
+                                <p:outputLabel value="Apellidos de familiar:" />
+                                <p:inputText value="#{familiaC.familia.APEFAM}" required="true" requiredMessage="AÑADIR APELLIDO DE FAMILIAR" >
+                                    <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                </p:inputText>
+                                <p:outputLabel value="Parentesco del empleado:" />
+                                <p:inputText value="#{familiaC.familia.PARFAM}" required="true" requiredMessage="AÑADIR EL PARENTESCO CON EL EMPLEADO" >
+                                    <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                </p:inputText>                        
+                                <p:outputLabel value="Ocupacion de familar:" />
+                                <p:inputText value="#{familiaC.familia.OCUFAM}" required="true" requiredMessage="AÑADIR OCUPACION DEL FAMILIAR" >
+                                    <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                </p:inputText>                        
+                                <p:outputLabel value="Fecha nacimiento del familiar:" />
+                                <p:calendar value="#{familiaC.familia.FENFAM}" required="true" requiredMessage="AÑADIR FECHA DE NACIMIENTO DEL FAMILIAR" pattern="dd/MM/yyyy" mask="true" navigator="true"/>                        
+                                <p:outputLabel value="Telefono del familiar:" />
+                                <p:inputText value="#{familiaC.familia.TELFAM}" maxlength="7" required="true" requiredMessage="AÑADIR CELULAR DEL FAMILIAR">
+                                    <p:keyFilter regEx="/[1-9]/i"/>
+                                </p:inputText>                        
+                                <p:outputLabel value="Celular del familiar:" />
+                                <p:inputText value="#{familiaC.familia.CELFAM}" maxlength="9" required="true" requiredMessage="AÑADIR CELULAR DEL FAMILIAR" >
+                                    <p:keyFilter regEx="/[1-9]/i"/>
+                                </p:inputText>                                                
+                                <p:outputLabel value="Estado civil del familiar:" />
+                                <p:selectOneMenu value="#{familiaC.familia.ETCFAM}" required="true" requiredMessage="AÑADIR ESTADO CIVIL DEL FAMILIAR" >
+                                    <f:selectItem itemLabel="Soltero(a)" itemValue="Soltero(a)" />
+                                    <f:selectItem itemLabel="Casado(a)" itemValue="Casado(a)" />
+                                    <f:selectItem itemLabel="Divorciado(a)" itemValue="Divorciado(a)" />
+                                    <f:selectItem itemLabel="Viudo(a)" itemValue="Viudo(a)" />                    
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Vive familiar:" />
+                                <p:selectOneRadio value="#{familiaC.familia.VIVFAM}" required="true" requiredMessage="AÑADIR SI VIVE O NO VIVE EL FAMILIAR">
+                                    <f:selectItem itemLabel="Vive" itemValue="Vive"/>
+                                    <f:selectItem itemLabel="No Vive" itemValue="No Vive"/>
+                                </p:selectOneRadio>                                          
+                                <p:outputLabel value="Tipo del familiar:" />                        
+                                <p:selectOneRadio value="#{familiaC.familia.TIPFAM}" required="true" requiredMessage="AÑADIR TIPO DEL FAMILIAR">
+                                    <f:selectItem itemLabel="Familia" itemValue="F"/>
+                                    <f:selectItem itemLabel="Emergencia" itemValue="E"/>
+                                </p:selectOneRadio>   
+                                <p:outputLabel value="Sexo:"/>
+                                <p:selectOneRadio value="#{familiaC.familia.SEXFAM}" required="true" requiredMessage="SELECCIONAR EL TIPO DE SEXO DEL FAMILIAR">
+                                    <f:selectItem itemLabel="Masculino" itemValue="M"/>
+                                    <f:selectItem itemLabel="Femenino" itemValue="F"/>
+                                </p:selectOneRadio>
+                                <p:outputLabel value="Bonificación:"/>
+                                <p:inputText value="#{familiaC.familia.BONFAM}" maxlength="4" required="true" requiredMessage="AÑADIR BONIFICACIÓN DEL FAMILIAR">
+                                    <p:keyFilter regEx="/[1-9]/i"/>
+                                </p:inputText>  
+                                <p:outputLabel value="Incapacidad:"/>
+                                <p:selectOneRadio value="#{familiaC.familia.INCFAM}" required="true" requiredMessage="SELECCIONAR LA INCAPACIDAD DEL FAMILIAR">
+                                    <f:selectItem itemLabel="Si" itemValue="Si"/>
+                                    <f:selectItem itemLabel="No" itemValue="No"/>
+                                </p:selectOneRadio>
+                            </p:panelGrid>
+                            <p:commandButton style="margin-bottom: 15px" value="Agregar" actionListener="#{familiaC.agregarFamilia()}" update="FrmAgregarFamilia FrmListarFamilia"/>                                                                                               
+                        </h:form>                  
+                        <h:form id="FrmListarFamilia">
+                            <p:dataTable id="tblFamilia" 
+                                         value="#{familiaC.lstFamilia}"
+                                         var="familia"
+                                         selection="#{familiaC.familia}"
+                                         selectionMode="single"
+                                         rowKey="#{familia.CODFAM}"
+                                         rows="10"
+                                         paginator="true"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                                <p:column style="width: 50px">
+                                    <p:rowToggler/>
+                                </p:column>
+                                <p:column filterBy="#{familia.CODEMP}" headerText="Nombre de empleado">
+                                    <p:outputLabel value="#{familia.CODEMP}"/>
+                                </p:column>
+                                <p:column filterBy="#{familia.NOMFAM}" headerText="Nombre de familia">
+                                    <p:outputLabel value="#{familia.NOMFAM} #{familia.APEFAM}"/>
+                                </p:column>
+                                <p:column filterBy="#{familia.PARFAM}" headerText="Parentesco">
+                                    <p:outputLabel value="#{familia.PARFAM}"/>
+                                </p:column>
+                                <p:column headerText="Telefono">
+                                    <p:outputLabel value="#{familia.TELFAM}"/>
+                                </p:column>
+                                <p:column headerText="Celular">
+                                    <p:outputLabel value="#{familia.CELFAM}" >                        
+                                    </p:outputLabel>
+                                </p:column>
+                                <p:rowExpansion>
+                                    <p:panelGrid columns="4">
+                                        <p:outputLabel value="Ocupacion"/>
+                                        <p:outputLabel value="#{familia.OCUFAM}"/>                        
+                                        <p:outputLabel value="Fecha de nacimiento"/>
+                                        <p:outputLabel value="#{familia.FENFAM}">
+                                            <f:convertDateTime pattern="dd/MMM/yyyy"/>
+                                        </p:outputLabel>                                                  
+                                        <p:outputLabel value="Estado civil"/>
+                                        <p:outputLabel value="#{familia.ETCFAM}"/>                        
+                                        <p:outputLabel value="Vive"/>
+                                        <p:outputLabel value="#{familia.VIVFAM}"/>                          
+                                        <p:outputLabel value="Tipo de familia"/>
+                                        <p:outputLabel value="#{familia.TIPFAM}"/>  
+                                        <p:outputLabel value="Sexo"/>
+                                        <p:outputLabel value="#{familia.SEXFAM}"/>
+                                        <p:outputLabel value="Bonificacion"/>
+                                        <p:outputLabel value="#{familia.BONFAM}"/>
+                                        <p:outputLabel value="Incapacidad"/>
+                                        <p:outputLabel value="#{familia.INCFAM}"/>
+                                    </p:panelGrid>
+                                </p:rowExpansion>
+                            </p:dataTable>
+                            <p:contextMenu for="tblFamilia">
+                                <p:menuitem value="Modificar" onclick="PF('dlgModFamilia').show()" update="FormModificarFamilia"/>
+                                <p:menuitem value="Eliminar" actionListener="#{familiaC.eliminarFamilia()}" update="FrmListarFamilia">
+                                    <p:confirm header="Confirmación" message="¿Estás seguro de Eliminar?" icon="ui-icon-alert"/>
+                                </p:menuitem>
+                            </p:contextMenu>
+                        </h:form>
+                        <p:dialog header="Modificar Datos" widgetVar="dlgModFamilia">
+                            <h:form id="FormModificarFamilia">
+                                <p:panelGrid columns="4">                                     
+                                <p:outputLabel value="Nombres de familiar:" />
+                                <p:inputText value="#{familiaC.familia.NOMFAM}" required="true" requiredMessage="AÑADIR NOMBRE DE FAMILIAR" >
+                                    <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                </p:inputText>
+                                <p:outputLabel value="Apellidos de familiar:" />
+                                <p:inputText value="#{familiaC.familia.APEFAM}" required="true" requiredMessage="AÑADIR APELLIDO DE FAMILIAR" >
+                                    <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                </p:inputText>
+                                <p:outputLabel value="Parentesco del empleado:" />
+                                <p:inputText value="#{familiaC.familia.PARFAM}" required="true" requiredMessage="AÑADIR EL PARENTESCO CON EL EMPLEADO" >
+                                    <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                </p:inputText>                        
+                                <p:outputLabel value="Ocupacion de familar:" />
+                                <p:inputText value="#{familiaC.familia.OCUFAM}" required="true" requiredMessage="AÑADIR OCUPACION DEL FAMILIAR" >
+                                    <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                </p:inputText>   
+                                <p:outputLabel value="Fecha nacimiento del familiar:" />
+                                <p:calendar value="#{familiaC.familia.FENFAM}" required="true" requiredMessage="AÑADIR FECHA DE NACIMIENTO DEL FAMILIAR" pattern="dd/MM/yyyy" mask="true" navigator="true"/>                                         
+                                <p:outputLabel value="Telefono del familiar:" />
+                                <p:inputText value="#{familiaC.familia.TELFAM}" maxlength="7" required="true" requiredMessage="AÑADIR CELULAR DEL FAMILIAR">
+                                    <p:keyFilter regEx="/[1-9]/i"/>
+                                </p:inputText>                        
+                                <p:outputLabel value="Celular del familiar:" />
+                                <p:inputText value="#{familiaC.familia.CELFAM}" maxlength="9" required="true" requiredMessage="AÑADIR CELULAR DEL FAMILIAR" >
+                                    <p:keyFilter regEx="/[1-9]/i"/>
+                                </p:inputText>                                                
+                                <p:outputLabel value="Estado civil del familiar:" />
+                                <p:selectOneMenu value="#{familiaC.familia.ETCFAM}" required="true" requiredMessage="AÑADIR ESTADO CIVIL DEL FAMILIAR" >
+                                    <f:selectItem itemLabel="Soltero(a)" itemValue="Soltero(a)" />
+                                    <f:selectItem itemLabel="Casado(a)" itemValue="Casado(a)" />
+                                    <f:selectItem itemLabel="Divorciado(a)" itemValue="Divorciado(a)" />
+                                    <f:selectItem itemLabel="Viudo(a)" itemValue="Viudo(a)" />                    
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Vive familiar:" />
+                                <p:selectOneRadio value="#{familiaC.familia.VIVFAM}" required="true" requiredMessage="AÑADIR SI VIVE O NO VIVE EL FAMILIAR">
+                                    <f:selectItem itemLabel="Vive" itemValue="Vive"/>
+                                    <f:selectItem itemLabel="No Vive" itemValue="No Vive"/>
+                                </p:selectOneRadio>                                          
+                                <p:outputLabel value="Tipo del familiar:" />                        
+                                <p:selectOneRadio value="#{familiaC.familia.TIPFAM}" required="true" requiredMessage="AÑADIR TIPO DEL FAMILIAR">
+                                    <f:selectItem itemLabel="Familia" itemValue="F"/>
+                                    <f:selectItem itemLabel="Emergencia" itemValue="E"/>
+                                </p:selectOneRadio>   
+                                <p:outputLabel value="Estado:"/>
+                                <p:selectOneRadio value="#{familiaC.familia.SEXFAM}" required="true" requiredMessage="SELECCIONAR EL ESTADO DEL FAMILIAR">
+                                    <f:selectItem itemLabel="Activo" itemValue="A"/>
+                                    <f:selectItem itemLabel="Inactivo" itemValue="I"/>
+                                </p:selectOneRadio>
+                                <p:outputLabel value="Sexo:"/>
+                                <p:selectOneRadio value="#{familiaC.familia.SEXFAM}" required="true" requiredMessage="SELECCIONAR EL TIPO DE SEXO DEL FAMILIAR">
+                                    <f:selectItem itemLabel="Masculino" itemValue="M"/>
+                                    <f:selectItem itemLabel="Femenino" itemValue="F"/>
+                                </p:selectOneRadio>
+                                <p:outputLabel value="Bonificación:"/>
+                                <p:inputText value="#{familiaC.familia.BONFAM}" maxlength="4" required="true" requiredMessage="AÑADIR BONIFICACIÓN DEL FAMILIAR">
+                                    <p:keyFilter regEx="/[1-9]/i"/>
+                                </p:inputText>  
+                                <p:outputLabel value="Incapacidad:"/>
+                                <p:selectOneRadio value="#{familiaC.familia.INCFAM}" required="true" requiredMessage="SELECCIONAR LA INCAPACIDAD DEL FAMILIAR">
+                                    <f:selectItem itemLabel="Si" itemValue="Si"/>
+                                    <f:selectItem itemLabel="No" itemValue="No"/>
+                                </p:selectOneRadio>
+                                </p:panelGrid>
+                                <p:commandButton style="margin-bottom: 15px" value="Modificar" actionListener="#{familiaC.modificarFamilia()}" update="FrmAgregarFamilia FrmListarFamilia:tblFamilia" onclick="PF('dlgModFamilia').hide()"/>
+                                <p:commandButton value="Cancelar" onclick="PF('dlgModFamilia').hide()"/>
+                            </h:form>
+                        </p:dialog>
+                        <h:form>
+                            <p:confirmDialog global="true">
+                                <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                <p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                            </p:confirmDialog>
+                        </h:form>
+                    </div>
+                </div>
+            </ui:define>     
+        </ui:composition>    
+    </h:body>
+</html>

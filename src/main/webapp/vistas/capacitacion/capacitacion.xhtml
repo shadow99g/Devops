@@ -1,0 +1,472 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Capacitación</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../Template/Template.xhtml">
+            <ui:define name="content">
+                <h:form id="FrmAgregarCapacitacion">
+                    <p:growl id="msg" life="1500" >
+                        <p:autoUpdate/>
+                    </p:growl>
+
+                    <div class="card" style="width: 100%">
+                        <div class="container" style="height: 38px">
+                            <h1><b>Capacitación</b></h1>
+                        </div>
+                        <div class="card" >
+                            <center>
+                                <p:panelGrid styleClass="ui-panelgrid-blank">
+                                    <p:outputLabel value="Tipo de Capacitación:"/>
+                                    <p:selectOneRadio value="#{capacitacionC.capacitacion.TIPCAP}" >
+                                        <f:selectItem itemLabel="Externo" itemValue="X"/>
+                                        <f:selectItem itemLabel="Interno" itemValue="I"/>
+                                        <p:ajax event="change" update="tipoCapacitacionX"/>
+                                        <!--<p:ajax event="change" update="tipoCapacitacionI"/>-->
+                                    </p:selectOneRadio>
+                                </p:panelGrid>
+                                <br/>
+                            </center>
+                            <center>
+                                <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">
+                                    <p:outputLabel for="a_CODEMP" value="Empleado:"/>
+                                    <p:autoComplete id="a_CODEMP" value="#{capacitacionC.capacitacion.CODEMP}" dropdown="true" 
+                                                    queryDelay="1000" effect="blind" 
+                                                    completeMethod="#{autoCompletar.completeEmpleado}" 
+                                                    required="true" requiredMessage="AÑADIR NOMBRE DEL EMPLEADO" 
+                                                    emptyMessage="Sin resultado" maxResults="6" size="30">
+                                        <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                    </p:autoComplete> 
+                                </p:panelGrid>
+                            </center>
+                        </div>
+                        <h:panelGroup>
+                            <h:panelGroup >
+                                <div class="card">
+                                    <p:panelGrid columns="4" styleClass="ui-panelgrid-blank">
+                                        <p:outputLabel for="a_INSCAP" value="Centro de Estudio/Institución:" />
+                                        <p:autoComplete id="a_INSCAP" value="#{capacitacionC.capacitacion.CODCEN}" dropdown="true" 
+                                                        queryDelay="1000" effect="blind" 
+                                                        completeMethod="#{autoCompletar.completeCentro}" 
+                                                        required="true" requiredMessage="AÑADIR NOMBRE DE LA INSTITUCIÓN" 
+                                                        emptyMessage="Sin resultado" maxResults="6" >
+                                            <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                        </p:autoComplete> 
+
+                                        <p:outputLabel value="Curso:" />
+                                        <p:inputText value="#{capacitacionC.capacitacion.CURCAP}" size="24"/>
+
+                                        <p:outputLabel for="a_FECINICAP" value="Fecha de Inicio:" />
+                                        <p:calendar id="a_FECINICAP" value="#{capacitacionC.capacitacion.FECINICAP}" 
+                                                    pattern="dd/MM/yyyy" mask="true" navigator="true"
+                                                    required="true" requiredMessage="AÑADIR FECHA DE INICIO" size="24"/>
+
+                                        <p:outputLabel for="a_FECFINCAP" value="Fecha de Culminación:" />
+                                        <p:calendar id="a_FECFINCAP" value="#{capacitacionC.capacitacion.FECFINCAP}" 
+                                                    pattern="dd/MM/yyyy" mask="true" navigator="true"
+                                                    required="true" requiredMessage="AÑADIR FECHA DE CULMINACIÓN" size="24"/>
+
+                                        <p:outputLabel value="Financiamiento:" />
+                                        <p:inputText value="#{capacitacionC.capacitacion.FINCAP}" size="24"/>
+                                    </p:panelGrid>
+                                </div>
+                            </h:panelGroup>
+
+                        </h:panelGroup>
+                        <h:panelGroup id="tipoCapacitacionX" >
+                            <h:panelGroup rendered="#{capacitacionC.capacitacion.TIPCAP == 'X' ? false:true}">
+
+                                <div class="card" >
+                                    <p:panelGrid columns="4" styleClass="ui-panelgrid-blank">
+
+
+                                        <p:outputLabel for="a_FECEJECAP" value="Fecha de Ejecución:" />
+                                        <p:inputText id="a_FECEJECAP" value="#{capacitacionC.capacitacion.FECEJECAP}"/>
+
+                                        <p:outputLabel for="a_FECCAP" value="Fecha de Emision de Constancia:" />
+                                        <p:inputMask id="a_FECCAP" value="#{capacitacionC.capacitacion.FECCAP}" 
+                                                     mask="99/99/9999" />
+
+                                        <p:outputLabel value="Cantidad de Horas:" />
+                                        <p:inputText value="#{capacitacionC.capacitacion.HORCAP}">
+                                            <p:keyFilter regEx="/[0-9]/"/>
+                                        </p:inputText>
+
+                                        <p:outputLabel value="N° de Libros:" />
+                                        <p:inputText value="#{capacitacionC.capacitacion.NLIBCAP}">
+                                            <p:keyFilter regEx="/[0-9]/"/>
+                                        </p:inputText>
+
+                                        <p:outputLabel value="Tipo de participante:"/>
+                                        <p:selectOneMenu value="#{capacitacionC.capacitacion.TIPPARCAP}">
+                                            <f:selectItem itemLabel="Seleccione"/>
+                                            <f:selectItem itemLabel="Asistente" 
+                                                          itemValue="A"/>
+                                            <f:selectItem itemLabel="Doctor" 
+                                                          itemValue="D"/>
+                                            <f:selectItem itemLabel="Enfermera" 
+                                                          itemValue="E"/>
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel value="N° de Folio:" />
+                                        <p:inputText value="#{capacitacionC.capacitacion.FOLCAP}">
+                                            <p:keyFilter regEx="/[0-9]/"/>
+                                        </p:inputText>
+
+                                        <p:outputLabel value="N° de Registro:" />
+                                        <p:inputText value="#{capacitacionC.capacitacion.NREGCAP}">
+                                            <p:keyFilter regEx="/[0-9]/"/>              
+                                        </p:inputText>
+                                    </p:panelGrid>
+                                </div>
+
+                                <div class="card" >
+                                    <p:panelGrid columns="4" styleClass="ui-panelgrid-blank">
+                                        <p:outputLabel value="Nombre del Director(a) ejecutivo:"/>
+                                        <p:inputText value="#{capacitacionC.capacitacion.NNDICAP}" size="30">
+                                            <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                        </p:inputText>
+
+                                        <p:outputLabel value="Cargo del Director(a) ejecutivo:"/>
+                                        <p:inputText value="#{capacitacionC.capacitacion.CNDICAP}" size="30">
+                                            <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                        </p:inputText>
+
+                                        <p:outputLabel value="Nombre del Director(a) de oficina:" />
+                                        <p:inputText value="#{capacitacionC.capacitacion.NNOFCAP}" size="30">
+                                            <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                        </p:inputText>
+
+                                        <p:outputLabel value="Cargo del Director(a) de oficina:" />
+                                        <p:inputText value="#{capacitacionC.capacitacion.CNOFCAP}" size="30">
+                                            <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                        </p:inputText>
+
+                                        <p:outputLabel value="Nombre del coordinador(a):" />
+                                        <p:inputText value="#{capacitacionC.capacitacion.NNCOCAP}" size="30">
+                                            <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                        </p:inputText>
+
+                                        <p:outputLabel value="Cargo del coordinador(a):" />
+                                        <p:inputText value="#{capacitacionC.capacitacion.CNCOCAP}" size="30">
+                                            <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                        </p:inputText>
+                                    </p:panelGrid>
+                                </div>
+                            </h:panelGroup>
+                        </h:panelGroup>
+
+                        <br/>
+
+                        <p:commandButton value="Agregar" actionListener="#{capacitacionC.agregarCapacitacion()}" 
+                                         update="FrmAgregarCapacitacion FrmListarCapacitacion"/>
+                    </div>
+
+
+                </h:form>
+                <div class="card" style="width: 900px">
+                    <h3><b>
+                            Importar Registros de Excel
+                        </b>
+                    </h3>
+                    <h:form>
+                        <p:commandButton id="btA" value="Actualizar" actionListener="#{capacitacionC.listarCapacitacion()}" 
+                                         update="FrmListarCapacitacion"/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <p:commandButton id="btP" value="Programa" ajax="false" style="background-color:#FFD700;color: #000;font-weight:bold;" icon="fa fa-fw fa-download">
+                            <p:fileDownload value="#{importarExcel.file}" />
+                        </p:commandButton>
+                        &nbsp;&nbsp;
+
+                        <p:commandButton id="btF" value="Formato Excel" ajax="false" style="background-color:#FFD700;color: #000;font-weight:bold;" icon="fa fa-fw fa-download">
+                            <p:fileDownload value="#{importarExcelFormato.file}" />
+                        </p:commandButton>
+
+                        &nbsp;&nbsp;
+                        <p:tooltip id="toolTipFade1" for="btA" value="Actualizar Datos Importados" position="bottom"/> 
+                        <p:tooltip id="toolTipFade2" for="btP" value="Descargar Programa" position="bottom"/> 
+                        <p:tooltip id="toolTipFade3" for="btF" value="Descargar Excel" position="bottom"/> 
+
+                    </h:form>
+                </div>         
+                <h:form id="FrmListarCapacitacion">
+                    <p:commandButton value="Exportar Capacitaciones" actionListener="#{capacitacionC.reportCapacitacion()}" ajax="false"/>
+                    <p:commandButton value="Exportar Constancia" actionListener="#{capacitacionC.reportConstancia()}" ajax="false"/>
+                    <p:commandButton value="Exportar Constancia Reverso" actionListener="#{capacitacionC.reportConstanciaAnve()}" ajax="false"/>                    
+                    <p:dataTable id="tblCapacitacion"
+                                 value="#{capacitacionC.lstCapacitacion}"
+                                 var="capacitacion"
+                                 selection="#{capacitacionC.capacitacion}"
+                                 rowKey="#{capacitacion.CODCAP}" 
+                                 filterEvent="#{capacitacionC.filter}"
+                                 paginator="true"
+                                 rows="10"
+                                 selectionMode="single"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} 
+                                 {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                        <p:autoUpdate />
+                        <p:column style="width: 50px" >
+                            <p:rowToggler/>
+                        </p:column>
+                        <p:column filterBy="#{capacitacion.EMPLEADO}" headerText="Empleado" filterMatchMode="contains">
+                            <b><p:outputLabel value="#{capacitacion.EMPLEADO}"/></b>
+                        </p:column>
+                        <p:column filterBy="#{capacitacion.CURCAP}" headerText="Curso:">
+                            <p:outputLabel id="c_grow" value="#{capacitacion.CURCAP}"/>
+                            <p:tooltip id="toolTipGrow" for="c_grow" 
+                                       value="Centro de Estudios: #{capacitacion.CENTRO}"
+                                       showEffect="clip" hideEffect="explode" position="left"/>
+                        </p:column>
+
+                        <p:column headerText="Fecha de Inicio:">
+                            <p:outputLabel style="text-transform: capitalize" value="#{capacitacion.FECINICAP}">
+                                <f:convertDateTime locale="es" pattern="dd-MMM-yyyy"/>
+                            </p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Fecha de Culminación:">
+                            <p:outputLabel style="text-transform: capitalize" value="#{capacitacion.FECFINCAP}">
+                                <f:convertDateTime locale="es" pattern="dd-MMM-yyyy"/>
+                            </p:outputLabel>
+                        </p:column>
+
+                        <p:column headerText="Financiamiento:">
+                            <p:outputLabel value="#{capacitacion.FINCAP}"/>
+                        </p:column>
+
+                        <p:rowExpansion>
+                            <p:panelGrid columns="4">
+                                <p:outputLabel value="N° de Libro:" />
+                                <p:outputLabel value="#{capacitacion.NLIBCAP}"/>
+                                <p:outputLabel value="Fecha de Ejecución:"/>
+                                <p:outputLabel value="#{capacitacion.FECEJECAP}"/>
+                                <p:outputLabel value="Institución:" />
+                                <p:outputLabel value="#{capacitacion.CENTRO}" />
+                                <p:outputLabel value="N° de Folio:" />
+                                <p:outputLabel value="#{capacitacion.FOLCAP}"/>
+                                <p:outputLabel value="N° de Registro:" />
+                                <p:outputLabel value="#{capacitacion.NREGCAP}"/>
+                                <p:outputLabel value="Tipo de participante:" />
+                                <p:outputLabel value="#{capacitacion.TIPPARCAP}">
+                                    <f:converter converterId="converterValue"/>
+                                </p:outputLabel>
+                                <p:outputLabel value="Cantidad de Horas:" />
+                                <p:outputLabel value="#{capacitacion.HORCAP}" />
+                                <p:outputLabel value="Tipo de Capacitación:" />
+                                <p:outputLabel value="#{capacitacion.TIPCAP}" >
+                                    <f:converter converterId="converterValue"/>
+                                </p:outputLabel>
+                                <p:outputLabel value="Nombre del Director(a) ejecutivo:" />
+                                <p:outputLabel value="#{capacitacion.NNDICAP}" />
+                                <p:outputLabel value="Cargo del Director(a) ejecutivo:" />
+                                <p:outputLabel value="#{capacitacion.CNDICAP}" />
+                                <p:outputLabel value="Nombre del Director(a) de oficina:" />
+                                <p:outputLabel value="#{capacitacion.NNOFCAP}" />
+                                <p:outputLabel value="Cargo del Director(a) de oficina:" />
+                                <p:outputLabel value="#{capacitacion.CNOFCAP}" />
+                                <h:outputText value="Nombre del coordinador(a):" />
+                                <p:outputLabel value="#{capacitacion.NNCOCAP}"/>
+                                <p:outputLabel value="Cargo del coordinador(a):" />
+                                <p:outputLabel value="#{capacitacion.CNCOCAP}"/>
+                                <p:outputLabel value="Fecha de capacitación:" />
+                                <p:outputLabel style="text-transform: capitalize" value="#{capacitacion.FECCAP}">
+                                    <f:convertDateTime locale="es" pattern="dd-MMM-yyyy"/>
+                                </p:outputLabel>
+                            </p:panelGrid>
+                        </p:rowExpansion>
+                    </p:dataTable>
+
+                    <p:contextMenu for="tblCapacitacion">
+                        <p:menuitem value="Modificar" onclick="PF('dlgModCapacitacion').show()" update="FormModificarCapacitacion"/>
+                        <p:menuitem value="Eliminar" actionListener="#{capacitacionC.eliminarCapacitacion()}" update="FrmListarCapacitacion">
+                            <p:confirm header="Confirmación" message="¿Estás seguro de Eliminar?" icon="ui-icon-alert"/>
+                        </p:menuitem>
+                        <p:autoUpdate/>
+                        <p:menuitem value="Ver Detalle"  update="FormModificarCapacitacion"/>
+                    </p:contextMenu>
+                </h:form>
+
+                <p:dialog header="Modificar Registro" 
+                          appendTo="@(body)" 
+                          showEffect="fade" 
+                          hideEffect="fade" 
+                          closeOnEscape="true"
+                          responsive="true"
+                          resizable="false"
+                          modal="true"
+                          widgetVar="dlgModCapacitacion" height="400" 
+                          onHide="limpiarCapacitacion()">
+                    <h:form id="FormModificarCapacitacion">
+                        <div class="card" >
+                            <div class="card" >
+                                <center>
+                                    <p:panelGrid styleClass="ui-panelgrid-blank">
+                                        <p:outputLabel value="Tipo de Capacitación:"/>
+                                        <p:selectOneRadio value="#{capacitacionC.capacitacion.TIPCAP}" >
+                                            <f:selectItem itemLabel="Externo" itemValue="X" itemDisabled="true"/>
+                                            <f:selectItem itemLabel="Interno" itemValue="I" itemDisabled="true"/>
+                                            <p:ajax event="change" update="tipoCapacitacionI"/>
+                                        </p:selectOneRadio>
+                                    </p:panelGrid>
+                                    <br/>
+                                </center>
+                                <center>
+                                    <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">
+                                        <p:outputLabel for="m_CODEMP" value="Empleado:" />
+                                        <p:outputLabel style="font-weight: bold;" id="m_CODEMP" 
+                                                       value="#{capacitacionC.capacitacion.EMPLEADO}"/>
+
+                                    </p:panelGrid>
+                                </center>
+                            </div>
+                            <h:panelGroup id="tipoCapacitacionX" >
+                                <h:panelGroup >
+                                    <div class="card">
+                                        <p:panelGrid columns="4" styleClass="ui-panelgrid-blank">
+                                            <p:outputLabel for="a_INSCAP" value="Centro de Estudio/Institución:" />
+                                            <p:autoComplete id="a_INSCAP" value="#{capacitacionC.capacitacion.CENTRO}" dropdown="true" 
+                                                            queryDelay="1000" effect="blind" 
+                                                            completeMethod="#{autoCompletar.completeCentro}" 
+                                                            required="true" requiredMessage="AÑADIR NOMBRE DE LA INSTITUCIÓN" 
+                                                            emptyMessage="Sin resultado" maxResults="6" >
+                                                <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                            </p:autoComplete> 
+
+                                            <p:outputLabel value="Curso:" />
+                                            <p:inputText value="#{capacitacionC.capacitacion.CURCAP}" size="24"/>
+
+                                            <p:outputLabel for="m_FECINICAP" value="Fecha de Inicio:" />
+                                            <p:calendar id="m_FECINICAP" value="#{capacitacionC.capacitacion.FECINICAP}" 
+                                                        showOn="button" pattern="dd/MM/yyyy" mask="true" navigator="true"
+                                                        required="true" requiredMessage="AÑADIR FECHA DE INICIO" size="24"/>
+
+                                            <p:outputLabel for="m_FECFINCAP" value="Fecha de Culminación:" />
+                                            <p:calendar id="m_FECFINCAP" value="#{capacitacionC.capacitacion.FECFINCAP}" 
+                                                        showOn="button" pattern="dd/MM/yyyy" mask="true" navigator="true"
+                                                        required="true" requiredMessage="AÑADIR FECHA DE CULMINACIÓN" size="24"/>
+
+                                            <p:outputLabel value="Financiamiento:" />
+                                            <p:inputText value="#{capacitacionC.capacitacion.FINCAP}" size="24"/>
+                                        </p:panelGrid>
+                                    </div>
+                                </h:panelGroup>
+
+                            </h:panelGroup>
+
+                            <h:panelGroup id="tipoCapacitacionI" >
+                                <h:panelGroup rendered="#{capacitacionC.capacitacion.TIPCAP == 'X' ? false:true}">
+
+                                    <div class="card" >
+                                        <p:panelGrid columns="4" styleClass="ui-panelgrid-blank">
+
+
+                                            <p:outputLabel for="a_FECEJECAP" value="Fecha de Ejecución:" />
+                                            <p:inputText id="a_FECEJECAP" value="#{capacitacionC.capacitacion.FECEJECAP}"/>
+
+                                            <p:outputLabel for="m_FECCAP" value="Fecha de Emision de Constancia:" />
+                                            <p:inputMask id="m_FECCAP" value="#{capacitacionC.capacitacion.FECCAP}" 
+                                                         mask="99/99/9999" />
+
+                                            <p:outputLabel value="Cantidad de Horas:" />
+                                            <p:inputText value="#{capacitacionC.capacitacion.HORCAP}">
+                                                <p:keyFilter regEx="/[0-9]/"/>
+                                            </p:inputText>
+
+                                            <p:outputLabel value="N° de Libros:" />
+                                            <p:inputText value="#{capacitacionC.capacitacion.NLIBCAP}">
+                                                <p:keyFilter regEx="/[0-9]/"/>
+                                            </p:inputText>
+
+                                            <p:outputLabel value="Tipo de participante:"/>
+                                            <p:selectOneMenu value="#{capacitacionC.capacitacion.TIPPARCAP}">
+                                                <f:selectItem itemLabel="Seleccione"/>
+                                                <f:selectItem itemLabel="Asistente" 
+                                                              itemValue="A"/>
+                                                <f:selectItem itemLabel="Doctor" 
+                                                              itemValue="D"/>
+                                                <f:selectItem itemLabel="Enfermera" 
+                                                              itemValue="E"/>
+                                            </p:selectOneMenu>
+
+                                            <p:outputLabel value="N° de Folio:" />
+                                            <p:inputText value="#{capacitacionC.capacitacion.FOLCAP}">
+                                                <p:keyFilter regEx="/[0-9]/"/>
+                                            </p:inputText>
+
+                                            <p:outputLabel value="N° de Registro:" />
+                                            <p:inputText value="#{capacitacionC.capacitacion.NREGCAP}">
+                                                <p:keyFilter regEx="/[0-9]/"/>              
+                                            </p:inputText>
+
+                                        </p:panelGrid>
+                                    </div>
+
+                                    <div class="card" >
+                                        <p:panelGrid columns="4" styleClass="ui-panelgrid-blank">
+                                            <p:outputLabel value="Nombre del Director(a) ejecutivo:"/>
+                                            <p:inputText value="#{capacitacionC.capacitacion.NNDICAP}" size="30">
+                                                <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                            </p:inputText>
+
+                                            <p:outputLabel value="Cargo del Director(a) ejecutivo:"/>
+                                            <p:inputText value="#{capacitacionC.capacitacion.CNDICAP}" size="30">
+                                                <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                            </p:inputText>
+
+                                            <p:outputLabel value="Nombre del Director(a) de oficina:" />
+                                            <p:inputText value="#{capacitacionC.capacitacion.NNOFCAP}" size="30">
+                                                <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                            </p:inputText>
+
+                                            <p:outputLabel value="Cargo del Director(a) de oficina:" />
+                                            <p:inputText value="#{capacitacionC.capacitacion.CNOFCAP}" size="30">
+                                                <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                            </p:inputText>
+
+                                            <p:outputLabel value="Nombre del coordinador(a):" />
+                                            <p:inputText value="#{capacitacionC.capacitacion.NNCOCAP}" size="30">
+                                                <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                            </p:inputText>
+
+                                            <p:outputLabel value="Cargo del coordinador(a):" />
+                                            <p:inputText value="#{capacitacionC.capacitacion.CNCOCAP}" size="30">
+                                                <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                            </p:inputText>
+                                        </p:panelGrid>
+                                    </div>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                            <br/>
+                            <div class="card" >
+                                <center>
+                                    <p:remoteCommand name="limpiarCapacitacion" actionListener="#{capacitacionC.limpiarCapacitacion()}" immediate="true"/>
+                                    <p:commandButton value="Modificar" actionListener="#{capacitacionC.modificarCapacitacion()}"
+                                                     onclick="PF('dlgModCapacitacion').hide()"
+                                                     update="FrmListarCapacitacion FormModificarCapacitacion"/>
+                                    <p:commandButton value="Cancelar" onclick="PF('dlgModCapacitacion').hide()"/>
+                                    <h:panelGroup  rendered="#{capacitacion.TIPCAP == 'I' ? false:true}">
+                                        <p:commandButton value="Ver detalle"/>
+                                    </h:panelGroup>
+                                </center>
+                                <br/>
+                            </div>
+                        </div>
+                    </h:form>
+                </p:dialog>
+                <h:form>
+                    <p:confirmDialog global="true">
+                        <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                        <p:commandButton value="No" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                    </p:confirmDialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+

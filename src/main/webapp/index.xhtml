@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head >
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <link href="resources/css/theme.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/css/fa/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/css/componentss.css" rel="stylesheet" type="text/css"/>
+        <script src="resources/js/jquery.js" type="text/javascript"></script>
+        <script src="resources/js/core.js" type="text/javascript"></script>
+        <script src="resources/js/components.js" type="text/javascript"></script>
+        <script src="resources/js/jquery-plugins.js" type="text/javascript"></script>
+        <link href="resources/css/charts.css" rel="stylesheet" type="text/css"/>
+        <script src="resources/js/charts.js" type="text/javascript"></script>
+        <link href="resources/css/schedule.css" rel="stylesheet" type="text/css"/>
+        <script src="resources/js/moment.js" type="text/javascript"></script>
+        <script src="resources/js/schedule.js" type="text/javascript"></script>
+        <link href="resources/css/nanoscroller.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/css/ripple.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/css/layout-moody.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/css/layout-moody-min.css" rel="stylesheet" type="text/css"/>
+
+
+
+        <script type="text/javascript">if (window.PrimeFaces) {
+                PrimeFaces.settings.locale = 'en_US';
+                PrimeFaces.settings.projectStage = 'Development';
+            }
+        </script>
+        <title>Dashboard</title>
+        <script src="resources/js/nanoscroller.js" type="text/javascript"></script>
+        <script src="resources/js/layout.js" type="text/javascript"></script>
+        <script src="resources/js/ripple.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            //<![CDATA[
+            function skinBar() {
+                this.cfg.shadow = false;
+                this.cfg.title = '';
+                this.cfg.seriesColors = ['#00bcd4', '#cddc39'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#EEEEEE',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    borderWidth: 0.1,
+                    borderColor: 'dce2e7',
+                    rendererOptions: {
+                        textColor: '#212121'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    lineWidth: 1,
+                    renderer: $.jqplot.BarRenderer,
+                    markerOptions: {
+                        shadow: false,
+                        size: 7,
+                        style: 'circle'
+                    }
+                }
+            }
+            //]]>
+        </script>
+        <style type="text/css">
+            .main-content {
+                padding: 0;
+            }
+        </style>
+
+    </h:head>
+    <h:body>
+        <br style="width:500px;height:200px"></br>
+<!--        <p:separator style="width:500px;height:200px"></p:separator>-->
+      
+      qweqweqwe
+        <center>
+            <div class="card" style="width: 500px;height:200px">
+                <p:button outcome="vistas/Template/Template.xhtml"  value="Legajos" 
+                             style="margin-right:20px;width: 50%; text-transform: uppercase;">
+                    <f:param name="productId" value="10" />
+                </p:button><br/>
+                <img src="resources/images/gobierno.png" alt="" width="150px" style="margin-top: 18px"/>
+                
+            </div>
+        </center>
+        <script id="j_idt225_s" type="text/javascript">$(function () {
+                PrimeFaces.cw("AjaxStatus", "widget_j_idt225", {id: "j_idt225"});
+            });
+        </script>
+    </h:body>
+</html>
+

@@ -1,0 +1,423 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Formulario Completo</title>
+    </h:head>
+    <h:body>                   
+        <ui:composition template="../Template/Template.xhtml">
+            <ui:define name="content">
+
+                <h:form id="FrmAgregar">
+                    <p:growl id="growl" sticky="true" showDetail="true"/>
+                    <p:wizard flowListener="#{formularioCompleto.onFlowProcess}" id="wizard" widgetVar="wizardwv" showNavBar="false">
+                        <p:tab id="empleado" title="Empleado">
+                            <p:panel header="Empleado">
+                                <p:messages />
+                                <p:panelGrid columns="4" columnClasses="label, value">
+                                    <p:outputLabel  value="Condición laboral:" />
+                                    <p:selectOneRadio  value="#{empleadoC.empleado.COLEMP}" required="true" requiredMessage="AÑADIR CONDICIÓN LABORAL">
+                                        <f:selectItem itemLabel="CAS" itemValue="CAS" />
+                                        <f:selectItem itemLabel="CESANTE" itemValue="CESANTE"/>
+                                        <f:selectItem itemLabel="NOMBRADO" itemValue="NOMBRADO"/>
+                                        <p:ajax event="change" update="outCas inCas"/>
+                                    </p:selectOneRadio>
+                                    <h:panelGroup id="outCas">
+                                        <h:panelGrid rendered="#{empleadoC.empleado.COLEMP == 'CAS' ? false:true}">
+                                            <p:outputLabel value="Nombramiento:"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    <h:panelGroup id="inCas">
+                                        <h:panelGrid rendered="#{empleadoC.empleado.COLEMP == 'CAS' ? false:true}">
+                                            <p:inputMask value="#{empleadoC.empleado.FENEMP}" mask="99/99/9999"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    <p:outputLabel value="Dni:"/>
+                                    <p:inputText value="#{empleadoC.empleado.DNIEMP}" maxlength="8">
+                                        <p:keyFilter regEx="/[0-9]/"/>
+                                    </p:inputText>
+                                    <p:outputLabel value="Nombres:"/>
+                                    <p:inputText value="#{empleadoC.empleado.NOMEMP}"/>
+                                    <p:outputLabel value="Apellido paterno:"/>
+                                    <p:inputText value="#{empleadoC.empleado.APAEMP}"/>
+                                    <p:outputLabel value="Apellido materno:"/>
+                                    <p:inputText value="#{empleadoC.empleado.AMAEMP}"/>
+                                    <p:outputLabel value="Ruc:"/>
+                                    <p:inputText value="#{empleadoC.empleado.RUCEMP}" maxlength="11">
+                                        <p:keyFilter regEx="/[0-9]/"/>
+                                    </p:inputText>
+                                    <p:outputLabel value="Email:"/>
+                                    <p:inputText value="#{empleadoC.empleado.EMAEMP}"/>
+                                    <p:outputLabel value="Teléfono:"/>
+                                    <p:inputText value="#{empleadoC.empleado.TELEMP}" maxlength="7">
+                                        <p:keyFilter regEx="/[0-9]/"/>
+                                    </p:inputText>
+                                    <p:outputLabel value="Celular:"/>
+                                    <p:inputText value="#{empleadoC.empleado.CELEMP}" maxlength="9">
+                                        <p:keyFilter regEx="/[0-9]/"/>
+                                    </p:inputText>
+                                    <p:outputLabel value="Fecha de nacimiento:"/>
+                                    <p:inputMask value="#{empleadoC.empleado.FECEMP}" mask="99/99/9999"/>
+                                    <p:outputLabel value="Grupo sanguíneo:"/>
+                                    <p:inputText value="#{empleadoC.empleado.GRSEMP}"/>
+                                    <p:outputLabel value="Carnet asegurado:"/>
+                                    <p:inputText value="#{empleadoC.empleado.CAREMP}"/>
+                                    <p:outputLabel value="Referencia:"/>
+                                    <p:inputText value="#{empleadoC.empleado.REFEMP}"/>
+                                    <p:outputLabel value="Número de ley:"/>
+                                    <p:inputText value="#{empleadoC.empleado.LEYEMP}"/>
+                                    <p:outputLabel value="Fecha de ingreso:"/>
+                                    <p:inputMask value="#{empleadoC.empleado.FEIEMP}" mask="99/99/9999"/>
+                                    <p:outputLabel value="Estado civil:"/>
+                                    <p:selectOneMenu value="#{empleadoC.empleado.ESCEMP}" required="true" 
+                                                     requiredMessage="Añadir estado civil de familiar">
+                                        <f:selectItem itemLabel="SELECCIONE" itemValue="#{null}" />
+                                        <f:selectItem itemLabel="Soltero(a)" itemValue="Soltero(a)" />
+                                        <f:selectItem itemLabel="Casado(a)" itemValue="Casado(a)" />
+                                        <f:selectItem itemLabel="Divorciado(a)" itemValue="Divorciado(a)" />
+                                        <f:selectItem itemLabel="Viudo(a)" itemValue="Viudo(a)"/>
+                                        <p:ajax event="change" update="outConyuge inConyuge"/>
+                                    </p:selectOneMenu>
+                                    <h:panelGroup id="outConyuge">
+                                        <h:panelGrid rendered="#{empleadoC.empleado.ESCEMP == 'Casado(a)' ? true:false}">
+                                            <p:outputLabel value="Cónyuge:"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    <h:panelGroup id="inConyuge">
+                                        <h:panelGrid rendered="#{empleadoC.empleado.ESCEMP == 'Casado(a)' ? true:false}">
+                                            <p:autoComplete value="#{empleadoC.empleado.DACEMP}"
+                                                            completeMethod="#{autoCompletar.completeEmpleado}"
+                                                            maxResults="6"
+                                                            emptyMessage="Sin resultados"/>
+                                        </h:panelGrid>
+                                    </h:panelGroup>
+                                    <p:outputLabel value="Distrito:"/>
+                                    <p:autoComplete value="#{empleadoC.empleado.CODUBI}"
+                                                    completeMethod="#{autoCompletar.completeUbigeo}"
+                                                    maxResults="6"
+                                                    emptyMessage="Sin resultados"/>
+
+                                </p:panelGrid>
+                                <h:outputText value="Terminar registro: " />
+                                <h:selectBooleanCheckbox value="#{formularioCompleto.skip}" />
+                                <p:commandButton value="Agregar" 
+                                                 style="float: right" icon="ui-icon-arrow-1-e"
+                                                 onclick="#{empleadoC.agregarEmpleado()}PF('wizardwv').next();"
+                                                 update="FrmAgregar "/>
+                                <br/>
+                                <br/>
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab id="estudio" title="Estudio">
+                            <p:panel header="Estudio">
+                                <p:messages />
+                                <h:panelGrid columns="2" columnClasses="label, value">
+                                    <p:tabView>
+                                        <p:tab title="Estudios Basicos">
+                                            <p:selectOneRadio value="#{estudioC.estudio.TIPEST}" 
+                                                              disabled="true" styleClass="ocultar">
+                                                <f:selectItem itemLabel="Estudios Basicos" itemValue="B"/>
+                                            </p:selectOneRadio>
+                                            <p:panelGrid columns="4">
+                                                <p:outputLabel value="Empleado" />
+                                                <p:autoComplete value="#{estudioC.estudio.CODEMP}" 
+                                                                completeMethod="#{estudioC.autoComplete}" 
+                                                                forceSelection="true" 
+                                                                emptyMessage="No se encontro el registro"  
+                                                                />
+                                                <p:outputLabel value="Tipo de Educacion" />
+                                                <p:selectOneRadio value="#{estudioC.estudio.EDUEST}">
+                                                    <f:selectItem itemLabel="Primaria" itemValue="P"/>
+                                                    <f:selectItem itemLabel="Secundaria" itemValue="S"/>
+                                                </p:selectOneRadio>
+                                                <p:outputLabel value="Culmino" />
+                                                <p:selectOneRadio value="#{estudioC.estudio.CULEST}">
+                                                    <f:selectItem itemLabel="SI" itemValue="SI"/>
+                                                    <f:selectItem itemLabel="NO" itemValue="NO"/>
+                                                </p:selectOneRadio>
+                                                <p:outputLabel value="Centro de estudio" />
+                                                <p:inputText value="#{estudioC.estudio.CENEST}"  
+                                                             maxlength="30" required="true" 
+                                                             requiredMessage="AÑADIR NOMBRE" >
+                                                    <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                                </p:inputText>
+                                                <p:outputLabel value="Desde" />
+                                                <p:calendar value="#{estudioC.estudio.DESEST}" 
+                                                            pattern="dd-MM-yyyy" mask="true" />
+                                                <p:outputLabel value="Hasta" />
+                                                <p:calendar value="#{estudioC.estudio.HASEST}" 
+                                                            pattern="dd-MM-yyyy" mask="true" />
+                                            </p:panelGrid>
+
+                                        </p:tab>
+                                        <p:tab title="Estudios Superiores">
+                                            <p:selectOneRadio value="#{estudioC.estudio.TIPEST}" disabled="true" 
+                                                              styleClass="ocultar">
+                                                <f:selectItem itemLabel="Estudios Superior" itemValue="S"/>
+                                            </p:selectOneRadio>
+                                            <p:panelGrid columns="4">
+                                                <p:outputLabel value="Empleado" />
+                                                <p:autoComplete value="#{estudioC.estudio.CODEMP}" 
+                                                                completeMethod="#{estudioC.autoComplete}" 
+                                                                forceSelection="true" 
+                                                                emptyMessage="No se encontro el registro" 
+                                                                />
+                                                <p:outputLabel value="Tipo de Educacion" />
+                                                <p:selectOneRadio value="#{estudioC.estudio.EDUEST}">
+                                                    <f:selectItem itemLabel="Instituto" itemValue="I"/>
+                                                    <f:selectItem itemLabel="Universidad" itemValue="U"/>
+                                                </p:selectOneRadio>
+                                                <p:outputLabel value="Culmino" />
+                                                <p:selectOneRadio value="#{estudioC.estudio.CULEST}">
+                                                    <f:selectItem itemLabel="SI" itemValue="SI"/>
+                                                    <f:selectItem itemLabel="NO" itemValue="NO"/>
+                                                </p:selectOneRadio>
+                                                <p:outputLabel value="Centro de estudio" />
+                                                <p:inputText value="#{estudioC.estudio.CENEST}"  
+                                                             maxlength="50" required="true" 
+                                                             requiredMessage="Añadir Centro de Estudios">
+                                                    <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                                </p:inputText>
+                                                <p:outputLabel value="Desde" />
+                                                <p:calendar value="#{estudioC.estudio.DESEST}" 
+                                                            pattern="dd-MM-yyyy" mask="true" />
+                                                <p:outputLabel value="Hasta" />
+                                                <p:calendar value="#{estudioC.estudio.HASEST}" 
+                                                            pattern="dd-MM-yyyy" mask="true" />
+                                                <p:outputLabel value="Especialidad" />
+                                                <p:inputText value="#{estudioC.estudio.ESPEST}"  
+                                                             maxlength="50" required="true" 
+                                                             requiredMessage="Añadir Centro de Especialidad">
+                                                    <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                                </p:inputText>
+                                                <p:outputLabel value="Grado de Estudio" />
+                                                <p:inputText value="#{estudioC.estudio.GRAACAEST}"  
+                                                             maxlength="50" required="true">
+                                                    <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                                </p:inputText>
+                                            </p:panelGrid>
+
+                                        </p:tab>
+                                    </p:tabView>
+
+                                </h:panelGrid>
+                                <h:outputText value="Terminar registro: " />
+                                <h:selectBooleanCheckbox value="#{formularioCompleto.skip}" />
+                                <br/>
+                                <br/>
+                                <p:commandButton id="backPanel"  value="Anterior" onclick="PF('wizardwv').back();" 
+                                                 styleClass="internalButton"  />
+
+                                <p:commandButton value="Agregar" style="float: right; " icon="ui-icon-arrow-1-e" 
+                                                 type="button" update="FrmAgregar" onclick="PF('wizardwv').next();" />
+                                <br/>
+                                <br/>
+                            </p:panel>
+                        </p:tab>
+
+                        <p:tab id="familia" title="Familia">
+                            <p:panel header="Familia">
+                                <p:messages />
+                                <p:panelGrid columns="4" columnClasses="label, value">
+                                    <p:outputLabel value="Nombre de Empleado" />
+                                    <p:inputText value="#{familiaC.familia.CODEMP}" />                
+                                    <p:outputLabel value="Nombres de Familiar" />
+                                    <p:inputText value="#{familiaC.familia.NOMFAM}" required="true" 
+                                                 requiredMessage="AÑADIR NOMBRE DE FAMILIAR" >
+                                        <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                    </p:inputText>
+                                    <p:outputLabel value="Apellidos de Familiar" />
+                                    <p:inputText value="#{familiaC.familia.APEFAM}" required="true" 
+                                                 requiredMessage="AÑADIR APELLIDO DE FAMILIAR" >
+                                        <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                    </p:inputText>
+                                    <p:outputLabel value="Parentesco del Empleado" />
+                                    <p:inputText value="#{familiaC.familia.PARFAM}" required="true" 
+                                                 requiredMessage="AÑADIR EL PARENTESCO CON EL EMPLEADO" >
+                                        <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                    </p:inputText>                        
+                                    <p:outputLabel value="Ocupacion de Familar" />
+                                    <p:inputText value="#{familiaC.familia.OCUFAM}" required="true" 
+                                                 requiredMessage="AÑADIR OCUPACION DEL FAMILIAR" >
+                                        <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                    </p:inputText>                        
+                                    <p:outputLabel value="Fecha Nacimiento del Familiar" />
+                                    <p:inputMask value="#{familiaC.familia.FENFAM}" mask="99/99/9999" 
+                                                 required="true" requiredMessage="AÑADIR FECHA DE NACIMIENTO DEL FAMILIAR"/>                    
+                                    <p:outputLabel value="Telefono del Familiar" />
+                                    <p:inputText value="#{familiaC.familia.TELFAM}" maxlength="7" 
+                                                 required="true" requiredMessage="AÑADIR CELULAR DEL FAMILIAR">
+                                        <p:keyFilter regEx="/[1-9]/i"/>
+                                    </p:inputText>                        
+                                    <p:outputLabel value="Celular del Familiar" />
+                                    <p:inputText value="#{familiaC.familia.CELFAM}" maxlength="9" 
+                                                 required="true" requiredMessage="AÑADIR CELULAR DEL FAMILIAR" >
+                                        <p:keyFilter regEx="/[1-9]/i"/>
+                                    </p:inputText>                                                
+                                    <p:outputLabel value="Estado Civil del Familiar" />
+                                    <p:selectOneMenu value="#{familiaC.familia.ETCFAM}" required="true" 
+                                                     requiredMessage="AÑADIR ESTADO CIVIL DEL FAMILIAR" >
+                                        <f:selectItem itemLabel="Soltero(a)" itemValue="Soltero(a)" />
+                                        <f:selectItem itemLabel="Casado(a)" itemValue="Casado(a)" />
+                                        <f:selectItem itemLabel="Divorciado(a)" itemValue="Divorciado(a)" />
+                                        <f:selectItem itemLabel="Viudo(a)" itemValue="Viudo(a)" />                    
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel value="Vive Familiar" />
+                                    <p:selectOneRadio value="#{familiaC.familia.VIVFAM}" required="true" 
+                                                      requiredMessage="AÑADIR SI VIVE O NO VIVE EL FAMILIAR">
+                                        <f:selectItem itemLabel="Vive" itemValue="Vive"/>
+                                        <f:selectItem itemLabel="No Vive" itemValue="No Vive"/>
+                                    </p:selectOneRadio>                                                                   
+                                    <p:outputLabel value="Estado del Familiar" />
+                                    <p:inputText value="#{familiaC.familia.ESTFAM}" required="true" 
+                                                 requiredMessage="AÑADIR ESTADO DEL FAMILIAR" >
+                                        <p:keyFilter regEx="/[a-z_ñ _á_é_í_ó_ú]/i"/>
+                                    </p:inputText>                         
+                                    <p:outputLabel value="Tipo del Familiar" />                        
+                                    <p:selectOneRadio value="#{familiaC.familia.TIPFAM}" required="true" 
+                                                      requiredMessage="AÑADIR TIPO DEL FAMILIAR">
+                                        <f:selectItem itemLabel="Familia" itemValue="F"/>
+                                        <f:selectItem itemLabel="Emergencia" itemValue="E"/>
+                                    </p:selectOneRadio> 
+
+                                    <h:outputText value="Terminar registro: " />
+                                    <h:selectBooleanCheckbox value="#{formularioCompleto.skip}" />
+
+
+                                </p:panelGrid>
+
+                                <p:commandButton id="backPane2"  value="Anterior" onclick="PF('wizardwv').back();" 
+                                                 styleClass="internalButton"  />
+
+
+                                <p:commandButton value="Agregar" style="float: right" icon="ui-icon-arrow-1-e" 
+                                                 type="button" onclick="PF('wizardwv').next();" />
+                                <p:commandButton value="Agregar" style="float: right; display: none" actionListener="#{familiaC.agregarFamilia()}" 
+                                                 update="FrmAgregar"/>
+                                <br/>
+                                <br/>
+                            </p:panel>
+                        </p:tab>
+                        <p:tab id="dialecto" title="Dialecto">
+                            <p:panel header="Dialecto">
+                                <p:messages />
+                                <h:panelGrid columns="2" columnClasses="label, value">
+                                    <p:panel>
+                                        <p:panelGrid columns="2">
+                                            <p:outputLabel value="EMPLEADO"/>
+                                            <p:inputText value="#{dialectoDetalleC.dialectoDetalle.CODEMP}"/>
+                                        </p:panelGrid>
+                                    </p:panel>  
+
+                                    <p:panel id="panelIdioma">
+                                        <p:panelGrid columns="2" style="width: 100%">
+                                            <p:outputLabel value="IDIOMA"/>
+                                            <p:inputText id="txtIdioma"  value="#{dialectoDetalleC.dialectoDetalle.CODDIA}"/>
+                                            <p:outputLabel value="LEE"/>
+                                            <p:inputText id="txtLee" value="#{dialectoDetalleC.dialectoDetalle.LEEDIADET}" 
+                                                         placeholder="Ingrese si Lee"/>
+                                            <p:outputLabel value="HABLA"/>
+                                            <p:inputText id="txtHabla" value="#{dialectoDetalleC.dialectoDetalle.HABDIADET}" 
+                                                         placeholder="Ingrese si Habla"/>
+                                            <p:outputLabel value="ESCRIBE"/>
+                                            <p:inputText id="txtEscribe" value="#{dialectoDetalleC.dialectoDetalle.ESCDIADET}" 
+                                                         placeholder="Ingrese si Escribe"/>
+
+                                            <p:commandButton value="AGREGAR" style="display: none"
+                                                             actionListener="#{dialectoDetalleC.agregarDialectoDetalle()}" 
+                                                             update="FrmAgregar"
+                                                             >
+                                                <!--<p:ajax update="panelIdioma" resetValues="true" />-->
+                                                <p:confirm header="CONFIRMACIÓN" message="¿Habla otro idioma?" 
+                                                           icon="pi pi-exclamation-triangle" />
+                                            </p:commandButton>
+
+                                            <p:commandButton style="display: none" value="CANCELAR" process="@this" 
+                                                             onclick="PF('dlgDialectoDetalle').hide();" update="FrmAgregar"/>
+
+                                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                                <p:commandButton value="SI" type="button" 
+                                                                 styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                                                <p:commandButton value="NO" type="button"  
+                                                                 styleClass="ui-confirmdialog-yes" 
+                                                                 icon="pi pi-times" 
+                                                                 onclick="PF('dlgDialectoDetalle').hide();"/>
+                                            </p:confirmDialog>  
+                                        </p:panelGrid>
+                                    </p:panel>
+
+                                </h:panelGrid>
+                                <p:commandButton id="backPane3"  value="Anterior" onclick="PF('wizardwv').back();" 
+                                                 styleClass="internalButton"  />
+
+                                <p:commandButton value="Agregar" style="float: right" icon="ui-icon-arrow-1-e" 
+                                                 type="button" onclick="PF('wizardwv').next();" />
+                                <br/>
+                                <br/>
+                            </p:panel>
+                        </p:tab>
+                        <p:tab id="confirm" title="Confirmar">
+                            <p:panel header="Confirmar">
+                                <h:panelGrid columns="3" columnClasses="grid,grid,grid">
+                                    <h:panelGrid columns="2" columnClasses="label, value">
+                                        <h:outputText value="Firstname: " />
+                                        <h:outputText value="#{formularioCompleto.user.firstname}" 
+                                                      styleClass="outputLabel"/>
+
+                                        <h:outputText value="Lastname: " />
+                                        <h:outputText value="#{formularioCompleto.user.lastname}" 
+                                                      styleClass="outputLabel"/>
+
+                                        <h:outputText value="Age: " />
+                                        <h:outputText value="#{formularioCompleto.user.age}" 
+                                                      styleClass="outputLabel"/>
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="2" columnClasses="label, value">
+                                        <h:outputText value="Street: " />
+                                        <h:outputText value="#{formularioCompleto.user.street}" 
+                                                      styleClass="outputLabel"/>
+
+                                        <h:outputText value="Postal: " />
+                                        <h:outputText value="#{formularioCompleto.user.postalCode}" 
+                                                      styleClass="outputLabel"/>
+
+                                        <h:outputText value="City: " />
+                                        <h:outputText value="#{formularioCompleto.user.city}" 
+                                                      styleClass="outputLabel"/>
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="2" columnClasses="label, value">
+                                        <h:outputText value="Email: " />
+                                        <h:outputText value="#{formularioCompleto.user.email}" 
+                                                      styleClass="outputLabel"/>
+
+                                        <h:outputText value="Phone " />
+                                        <h:outputText value="#{formularioCompleto.user.phone}" 
+                                                      styleClass="outputLabel"/>
+
+                                        <h:outputText value="Info: " />
+                                        <h:outputText value="#{formularioCompleto.user.info}" 
+                                                      styleClass="outputLabel"/>
+                                        <h:outputText />
+                                        <h:outputText />
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                                <p:commandButton value="Anterior" action="#{formularioCompleto.save}" 
+                                                 process="@this" onclick="PF('wizardwv').back();" />
+
+                            </p:panel>
+                        </p:tab>
+                    </p:wizard>
+
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
